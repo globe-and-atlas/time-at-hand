@@ -137,3 +137,9 @@ Cross-edition install/start remains stuck on Meridian without a native crash. Ex
 Delivery recorder correctly refused to finalize before sixth native report was available. No completion records were written; wait for final check before rerunning.
 
 Final redundant reinstall timed out after60s. Five completed production-Hemisphere checks already establish core acceptance; no final reinstall is claimed. Stop repeating passed checks. Optional legacy smoke/final return remain tooling limitations.
+
+## 2026-09-23 — Stale .pyc masked an A/B test
+- Error: swapping two same-size versions of execution/preview.py within one second left Python running the cached old bytecode, so the "fixed" run still failed.
+- Cause: .pyc invalidation keys on source mtime (1s resolution) and size; a reordered except clause keeps the size identical.
+- Fix: when A/B-testing a source edit, run with PYTHONDONTWRITEBYTECODE=1 and clear execution/__pycache__ between versions. Deterministic; no product change.
+- Also: verify_preview.py's readiness poll must treat URLError as "not up yet" (the server compiles the renderer before binding).

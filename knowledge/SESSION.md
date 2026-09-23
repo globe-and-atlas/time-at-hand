@@ -19,3 +19,8 @@ Native findings: static allocation limit required heap pixel buffer; linked atan
 Documentation: README.md, RELEASE_NOTES.md, PUBLISH.md, article/field-notes.md, domain/hemisphere.md updated. Store screenshots: assets/store/meridian/. No publishing, commits or pushes.
 Next: physical paired-phone settings/permission checks, non-UTC/DST watch behavior, wrist reading and battery trial.
 Closing audit: the chosen visual concept is now a working third prototype. Article notes capture measured failures and evidence boundaries; more feature expansion should wait for wear-test results.
+
+## Checkpoint Log
+
+- 2026-09-23 12:42 — commit: Initial commit: Time as Hand watchface, preview and verification kit
+- 2026-09-23 — review fixes: blank custom coordinates rejected (pkjs), structural Meridian detection (pkjs), preview 404 ordering; tests added/extended (verify_location.js, verify_preview.py) and shown to fail on old code; dist/ rebuilt, inspect_bundles + host suites pass. Emulator suites not re-run (C unchanged). Independent verifier: APPROVED (fresh subagent; noted weak edition-detection test, since strengthened with nested-config fixture).

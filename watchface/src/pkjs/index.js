@@ -1,6 +1,10 @@
 var Clay = require('@rebble/clay');
 var config = require('./config.json');
-var meridian = config[0].defaultValue === 'G&A Meridian: Hemisphere';
+// Only the Hemisphere edition's generated settings define location controls.
+function hasSetting(items, key) {
+  return items.some(function(item) { return item.messageKey === key || (item.items && hasSetting(item.items, key)); });
+}
+var meridian = hasSetting(config, 'LocationPreset');
 var clay = new Clay(config, null, {autoHandleEvents: !meridian});
 if (meridian) {
   var keys = require('message_keys');
@@ -15,11 +19,15 @@ if (meridian) {
     payload[keys.LocationValid] = view.valid;
     Pebble.sendAppMessage(payload, function() {}, function() { console.log('Settings delivery failed; reopen settings and Save to retry.'); });
   }
+  function coordinate(value) {
+    return value === null || value === undefined || String(value).trim() === '' ? NaN : Number(value);
+  }
   function manual(settings) {
     var cities = [[0,0],[51.5,-0.1],[41.9,-87.6],[35.7,139.7],[-33.9,151.2]];
     var preset = Number(settings.LocationPreset || 0);
     var point = cities[preset];
-    if (preset === 5) point = [Number(settings.ManualLatitude),Number(settings.ManualLongitude)];
+    // Number('') is 0, so blank custom fields must be rejected explicitly.
+    if (preset === 5) point = [coordinate(settings.ManualLatitude),coordinate(settings.ManualLongitude)];
     if (!point || !isFinite(point[0]) || !isFinite(point[1]) || Math.abs(point[0]) > 90 || Math.abs(point[1]) > 180) return null;
     return {lat:Math.round(point[0]*10)*10,lon:Math.round(point[1]*10)*10,valid:preset ? 1 : 0};
   }

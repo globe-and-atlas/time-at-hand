@@ -52,6 +52,7 @@ python3 execution/verify_calendar.py
 python3 execution/verify_styles.py
 python3 execution/verify_hemisphere.py
 node execution/verify_location.js
+python3 execution/verify_preview.py
 /Users/danielbally/.local/share/uv/tools/pebble-tool/bin/python3 execution/check_hemisphere_emulator.py
 /Users/danielbally/.local/share/uv/tools/pebble-tool/bin/python3 execution/check_calendar_emulator.py
 /Users/danielbally/.local/share/uv/tools/pebble-tool/bin/python3 execution/inspect_bundles.py

@@ -22,3 +22,8 @@ Use one C renderer for preview and native Emery target. Rejected separate browse
 
 ## 2026-09-23 — Hemisphere third edition
 User selected concept06 with night/day shading. Keep existing editions separate; add G&A Meridian with its own UUID. Use a bundled low-resolution land mask plus an analytic shadow instead of cached rotation images or network imagery. UTC drives sunlight; the watch OS drives local civil time. Optional phone coordinates affect the camera only. Retain native location when an empty phone sandbox reconnects. See domain/hemisphere.md for sources and limitations.
+
+## 2026-09-23 — Detect Hemisphere by its settings, not a heading
+- Decision: pkjs/index.js enables Meridian location logic when the generated Clay config contains a `LocationPreset` item (searched recursively), instead of comparing the first heading text.
+- Alternatives: extra `meridian` flag in config (unknown Clay props are unverified); read the manifest (not available to PebbleKit JS).
+- Reason: the presence of location settings is exactly what the logic depends on; renaming a heading can no longer disable it. Tested against real generated configs for all three editions.

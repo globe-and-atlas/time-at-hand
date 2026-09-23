@@ -65,8 +65,8 @@ def serve(port:int):
                     body=(ROOT/'dist'/name).read_bytes();mime='application/octet-stream'
                 else: self.send_error(404);return
                 self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
-            except (ValueError,IndexError,OverflowError,OSError): self.send_error(400,'Invalid time or location')
             except FileNotFoundError: self.send_error(404)
+            except (ValueError,IndexError,OverflowError,OSError): self.send_error(400,'Invalid time or location')
         def log_message(self,fmt,*args): pass
     print(f'Time as Hand: http://127.0.0.1:{port}',flush=True)
     HTTPServer(('127.0.0.1',port),Handler).serve_forever()
