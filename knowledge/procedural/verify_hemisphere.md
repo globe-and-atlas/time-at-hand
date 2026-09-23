@@ -13,3 +13,6 @@ Run `execution/inspect_bundles.py` with the Pebble Python runtime while the loca
 Browser observed: edition switching retains independent controls; London updates the globe; date fields appear below; reload retains location; a spring DST gap normalizes forward; live view shows America/Chicago local time and a separate UTC solar instant. Browser geolocation was not granted or called. Ambiguous autumn manual time selects the first occurrence; live mode uses the actual instant.
 
 Independent review: verify_hemisphere approved the prototype against the stated contract after inspecting source and native evidence. Final store screenshots in assets/store/meridian/ are emulator captures, not hardware photos. Paired-phone permissions, non-UTC hardware behavior, wrist readability, battery and publication remain open.
+
+## Emulator recovery (2026-09-23)
+If `check_hemisphere_emulator.py` times out in stop() or `pebble install --emulator emery` hangs: `pebble kill; pkill -f qemu-pebble; pebble wipe`, then run the check again. Do not wait on a silent install for more than ~2 minutes.

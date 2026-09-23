@@ -143,3 +143,8 @@ Final redundant reinstall timed out after60s. Five completed production-Hemisphe
 - Cause: .pyc invalidation keys on source mtime (1s resolution) and size; a reordered except clause keeps the size identical.
 - Fix: when A/B-testing a source edit, run with PYTHONDONTWRITEBYTECODE=1 and clear execution/__pycache__ between versions. Deterministic; no product change.
 - Also: verify_preview.py's readiness poll must treat URLError as "not up yet" (the server compiles the renderer before binding).
+
+## 2026-09-23 — Emulator hung after stale qemu processes
+- Error: check_hemisphere_emulator.py died at its first stop() (`pebble repl` 20s timeout); then even a bare `pebble install --emulator emery` hung 10 min with no output. Seven old qemu-pebble processes were also running.
+- Cause: corrupted/stale emulator state after many runs; `pebble kill` did not clear the processes. Not a renderer fault.
+- Fix: `pebble kill; pkill -f qemu-pebble; pebble wipe`, then install succeeded in 4s and all five native comparisons passed. Wrap emulator calls in a hard timeout when scripting. Graduated to knowledge/procedural/verify_hemisphere.md.

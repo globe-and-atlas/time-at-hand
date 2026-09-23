@@ -12,3 +12,6 @@ SDK 4.33.1 installed. Emulator screenshot checks use Pillow 12.3.0 already inclu
 - Installed via `pebble package install @rebble/clay`; pinned exact version, refreshed lock using `npm install --package-lock-only`.
 - Select uses `serializeValueAs: integer` to match the native AppMessage receiver. Source: installed Clay README; https://github.com/pebble-dev/clay.
 - Run `pebble clean` after changing messageKeys: this SDK reused the old generated header during an incremental build, causing missing MESSAGE_KEY_* compiler errors.
+
+## 2026-09-23 — numpy (host verification only)
+execution/verify_hemisphere.py imports numpy (2.4.2 here) for its over-clearing consensus check across 720 frames. Host-side only; not part of the watch build or phone bundle. Install with `python3 -m pip install numpy` if the import fails.

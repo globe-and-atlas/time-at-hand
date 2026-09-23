@@ -27,3 +27,8 @@ User selected concept06 with night/day shading. Keep existing editions separate;
 - Decision: pkjs/index.js enables Meridian location logic when the generated Clay config contains a `LocationPreset` item (searched recursively), instead of comparing the first heading text.
 - Alternatives: extra `meridian` flag in config (unknown Clay props are unverified); read the manifest (not available to PebbleKit JS).
 - Reason: the presence of location settings is exactly what the logic depends on; renaming a heading can no longer disable it. Tested against real generated configs for all three editions.
+
+## 2026-09-23 — Glyph-shaped halo instead of rectangular label block
+- Decision: clear the globe within r=numeral scale of each stroke; keep the existing rectangular clearance for hands.
+- Alternatives: radius 1 or 2 fixed (too thin / speckled counters); tighter hand gap (would change Two Hands output and let hands enter glyph gaps for ~1 px gain — the gap is already ~2 px, so left alone).
+- Reason: the solid white block cut a square hole in the globe; the halo keeps numbers legible while showing the globe up to the letterforms.

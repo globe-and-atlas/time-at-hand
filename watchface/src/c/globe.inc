@@ -58,6 +58,20 @@ static void earth_project(int lat,int lon) {
   earth_cache[i/4]|=(land|(grid<<1))<<((i%4)*2);
  }
 }
+/* Glyph-shaped clearance: no globe within (numeral scale) pixels of a stroke,
+ * so numbers stay legible without a rectangular hole in the globe. */
+static int halo_near(const FaceNumber *labels,int x,int y) {
+ for(int j=0;j<2;++j) {
+  const FaceNumber *n=&labels[j];
+  const int r=n->scale;
+  if(x<n->x-r || x>=n->x+n->width+r || y<n->y-r || y>=n->y+n->height+r) continue;
+  for(int dy=-r;dy<=r;++dy) for(int dx=-r;dx<=r;++dx) {
+   if(dx*dx+dy*dy>r*r+1) continue;
+   if(ink(n->text,x+dx-n->x,y+dy-n->y,n->scale)) return 1;
+  }
+ }
+ return 0;
+}
 void face_globe_overlay(int h,int m,int utc_year,int doy,int utc_minute,
                         int latitude,int longitude,int marker,uint8_t *pixels) {
  if(latitude< -9000 || latitude>9000 || longitude< -18000 || longitude>18000) return;
@@ -70,19 +84,15 @@ void face_globe_overlay(int h,int m,int utc_year,int doy,int utc_minute,
  FaceNumber labels[2];face_split_layout(h,m,labels);
  for(int y=37;y<=191;++y) for(int x=23;x<=177;++x) {
   int i=y*FACE_W+x;if(pixels[i]) continue;
-  int protected=0;
-  for(int j=0;j<2;++j) {
-   FaceNumber *n=&labels[j];
-   if(x>=n->x-2 && x<n->x+n->width+2 && y>=n->y-2 && y<n->y+n->height+2) protected=1;
-  }
-  if(protected) continue;
+  if(halo_near(labels,x,y)) continue;
   float e=(x-100)/76.0f,n=(114-y)/76.0f,rr=e*e+n*n;
   if(rr>1.025f) continue;
   if(rr>=0.985f) {pixels[i]=7;continue;}
   int value=(earth_cache[i/4]>>((i%4)*2))&3;
   float light=e*sun_e+n*sun_n+sqrtf(1-rr)*sun_z;
+  /* Land is gray; the dotted graticule is gray over sea and white over land. */
   uint8_t c=(value&1) ? 9 : 0;
-  if(value&2) c=9;
+  if(value&2) c=(value&1) ? 0 : 9;
   /* Night is visibly textured; land retains a darker silhouette. */
   if(light<0 && ((x+y)&1)==0) c=(value&1) ? 7 : 9;
   if(marker && (x-100)*(x-100)+(y-114)*(y-114)>=30 && (x-100)*(x-100)+(y-114)*(y-114)<=42) c=8;

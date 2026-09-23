@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 import hashlib
 import json
 import math
+import numpy as np
 from preview import ROOT,W,H,load_renderer,frame,png
 
 def main():
@@ -47,22 +48,49 @@ def main():
         signatures.add(hashlib.sha256(pix).hexdigest())
         assert set(pix)<=set(range(10))
     assert len(signatures)==7
-    # Globe cannot touch date bands; labels retain their exact protected rectangles.
+    # Globe cannot touch date bands; labels are cleared by a glyph-shaped halo.
     class Number(ctypes.Structure):
         _fields_=[('x',ctypes.c_int),('y',ctypes.c_int),('width',ctypes.c_int),('height',ctypes.c_int),('scale',ctypes.c_int),('text',ctypes.c_char*3)]
-    labels=(Number*2)()
+    labels=(Number*2)();outside_halo_globe=0;stack=[]
     for t in range(720):
         h,m=divmod(t,60)
         pix=frame(lib,h,m,2,15,1,date(2026,6,21),font=t%12,width=5,minute_width=5,utc=timestamp,lat=51.5,lon=-.1,marker=1)
         split=frame(lib,h,m,1,15,1,date(2026,6,21),font=t%12,width=5,minute_width=5)
         assert pix[:20*W]==split[:20*W] and pix[208*W:]==split[208*W:]
         lib.face_split_layout(h,m,labels)
+        # Hands and numerals are never overpainted by the globe.
+        assert all(a==b for a,b in zip(pix,split) if b),(h,m)
+        # Independently derive the halo: disc of radius = numeral scale around each stroke.
+        halo=set();boxes=[]
         for n in labels:
-            for y in range(n.y-2,n.y+n.height+2):
-                assert pix[y*W+n.x-2:y*W+n.x+n.width+2]==split[y*W+n.x-2:y*W+n.x+n.width+2]
+            r=n.scale;ink=[(x,y) for y in range(n.y,n.y+n.height) for x in range(n.x,n.x+n.width) if split[y*W+x]==1]
+            boxes.append((n,r))
+            for x,y in ink:
+                for dy in range(-r,r+1):
+                    for dx in range(-r,r+1):
+                        if dx*dx+dy*dy<=r*r+1:halo.add((x+dx,y+dy))
+        for x,y in halo:
+            if 23<=x<=177 and 37<=y<=191: assert pix[y*W+x]==split[y*W+x],('halo pixel drawn',h,m,x,y)
+        # Keep what the globe drew: outside ink/hands/halo the globe is time-independent here.
+        mask=np.zeros((H,W),bool)
+        for x,y in halo:
+            if 0<=x<W and 0<=y<H:mask[y,x]=True
+        stack.append((np.frombuffer(pix,np.uint8).reshape(H,W),np.frombuffer(split,np.uint8).reshape(H,W)==0,mask))
+        # The clearance is not a rectangle: some in-box pixels outside the halo show the globe.
+        for n,r in boxes:
+            for y in range(n.y,n.y+n.height):
+                for x in range(n.x,n.x+n.width):
+                    if (x,y) not in halo and pix[y*W+x]!=split[y*W+x]:outside_halo_globe+=1
+    assert outside_halo_globe>0,'Halo must be glyph-shaped, not a solid block'
+    # Over-clearing: the same pixel must show the same globe value in every frame where it is
+    # neither ink, hand nor derived halo (fixed UTC and location, so the globe cannot vary).
+    pixels=np.stack([a for a,_,_ in stack]);free=np.stack([b&~c for _,b,c in stack])
+    high=np.where(free,pixels,0).max(0);low=np.where(free,pixels,255).min(0)
+    seen=free.any(0);inconsistent=int((seen&(high!=low)).sum())
+    assert inconsistent==0,f'{inconsistent} pixels cleared beyond the derived halo (halo too large or not glyph-shaped)'
     for name,d,lat,lon in [('summer',summer,51.5,-.1),('winter',winter,51.5,-.1),('world',equinox,0,0)]:
         (ROOT/'.tmp'/f'hemisphere-{name}.png').write_bytes(png(frame(lib,3,30,2,15,1,d.date(),utc=d.timestamp(),lat=lat,lon=lon,marker=int(name!='world'))))
-    report={'status':'pass','time_states':720,'locations':7,'summer_declination':sun(summer)[0],'winter_declination':sun(winter)[0],'dst_repeated_hour':'different sunlight at same local time','label_clearance':'preserved','date_bands':'preserved'}
+    report={'status':'pass','time_states':720,'locations':7,'summer_declination':sun(summer)[0],'winter_declination':sun(winter)[0],'dst_repeated_hour':'different sunlight at same local time','label_clearance':'glyph-shaped halo (radius = numeral scale); hands and ink never overpainted','date_bands':'preserved'}
     (ROOT/'.tmp/hemisphere-verification.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
 
