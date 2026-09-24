@@ -1,7 +1,7 @@
 [
   {
     "type": "heading",
-    "defaultValue": "Time as Hand: Original"
+    "defaultValue": "Original"
   },
   {
     "type": "text",
@@ -72,49 +72,11 @@
         ]
       },
       {
-        "type": "select",
-        "messageKey": "HandColor",
+        "type": "color",
+        "messageKey": "HandColorRGB",
         "label": "Hand color",
-        "defaultValue": "-1",
-        "serializeValueAs": "integer",
-        "options": [
-          {
-            "value": "-1",
-            "label": "Edition default"
-          },
-          {
-            "value": "1",
-            "label": "Black"
-          },
-          {
-            "value": "2",
-            "label": "Amber"
-          },
-          {
-            "value": "3",
-            "label": "Brick red"
-          },
-          {
-            "value": "4",
-            "label": "Cobalt"
-          },
-          {
-            "value": "5",
-            "label": "Forest"
-          },
-          {
-            "value": "6",
-            "label": "Violet"
-          },
-          {
-            "value": "7",
-            "label": "Graphite"
-          },
-          {
-            "value": "8",
-            "label": "Teal"
-          }
-        ]
+        "defaultValue": "FFAA00",
+        "layout": "COLOR"
       },
       {
         "type": "select",

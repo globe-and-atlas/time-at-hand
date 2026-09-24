@@ -10,16 +10,32 @@ WatchStyles.fonts.forEach(font => {
   if (!group) { group = document.createElement('optgroup'); group.label = font.group; $('timeFont').appendChild(group); }
   const option = document.createElement('option'); option.value = font.id; option.textContent = font.name; group.appendChild(option);
 });
-fillOptions('handColor', WatchStyles.colors); fillOptions('minuteColor', WatchStyles.colors);
+const legacyColors=['#ffffff','#000000','#ffaa00','#aa0000','#0000aa','#005500','#5500aa','#555555','#005555','#aaaaaa'];
+function colorHex(value,id) {
+  if(value===-1) value=id==='handColor' ? (edition ? 1 : 2) : (edition===3 ? 1 : edition===4 ? 46 : 2);
+  if(value<10) return legacyColors[value];
+  const n=value-10;
+  return '#'+[n>>4,(n>>2)&3,n&3].map(v=>(v*85).toString(16).padStart(2,'0')).join('');
+}
+function pickColor(id) {
+  const n=parseInt($(id).value.slice(1),16);
+  const levels=[n>>16,(n>>8)&255,n&255].map(v=>Math.round(v/85));
+  const value=10+levels[0]*16+levels[1]*4+levels[2];
+  $(id).dataset.colorId=String(value);$(id).value=colorHex(value,id);
+}
+['handColor','minuteColor'].forEach(id=>$(id).addEventListener('change',()=>pickColor(id)));
 fillOptions('handWidth', WatchStyles.widths); fillOptions('minuteWidth', WatchStyles.widths);
-function styleSettings() { return styleIds.map(id => Number($(id).value)); }
+function styleSettings() { return styleIds.map(id => Number($(id).type==='color' ? $(id).dataset.colorId : $(id).value)); }
 function restoreStyle() {
   let s = [0,-1,-1,0,0];
   try {
     const saved = JSON.parse(localStorage.getItem(`time-as-hand.style.${edition}`));
-    if (Array.isArray(saved) && saved.length === 5 && saved.every((v,i) => Array.from($(styleIds[i]).options).some(o => String(v) === o.value))) s = saved;
+    if (Array.isArray(saved) && saved.length === 5 && saved.every((v,i) => (i===1 || i===2) ? Number.isInteger(v) && (v===-1 || (v>=1 && v<=73)) : Array.from($(styleIds[i]).options).some(o => String(v) === o.value))) s = saved;
   } catch (_) { /* Defaults work without browser storage. */ }
-  styleIds.forEach((id,i) => { $(id).value = String(s[i]); });
+  styleIds.forEach((id,i) => {
+    if($(id).type==='color') {$(id).dataset.colorId=String(s[i]);$(id).value=colorHex(s[i],id);}
+    else $(id).value=String(s[i]);
+  });
   $('minuteStyles').hidden = !edition;
   $('handColorLabel').textContent = edition ? 'Hour hand color' : 'Hand color';
   $('handWidthLabel').textContent = edition ? 'Hour hand width' : 'Hand width';
@@ -100,7 +116,14 @@ function setEdition() {
     $('editionNote').textContent = 'A north-up globe centered on your chosen location. Gray land, a dotted night hemisphere, and two upright numbers. Sunlight is calculated from UTC and the season, even offline.';
     $('buildDownload').href = '/meridian.pbw';
     $('buildDownload').download = 'meridian-hemisphere.pbw';
-    $('buildDownload').textContent = 'Download G&A Meridian for Pebble ↗';
+    $('buildDownload').textContent = 'Download Meridian for Pebble ↗';
+  }
+  if(edition===3 || edition===4) {
+    const name=edition===3 ? '4 Points' : 'Clear',file=edition===3 ? 'four-points' : 'clear';
+    $('editionIntro').textContent=edition===3 ? 'Four quiet points. Two fine hands. The time stays upright.' : 'A stronger hour hand. A warm minute hand. Time made clear.';
+    $('editionNote').textContent=edition===3 ? 'Four black cardinal marks orient the dial. Fine black hands keep the face spare.' : 'Four cardinal marks frame a heavy black hour hand and a lighter burnt-orange minute hand. Customize either hand below.';
+    $('buildDownload').href=`/${file}.pbw`;$('buildDownload').download=`${file}.pbw`;
+    $('buildDownload').textContent=`Download ${name} for Pebble ↗`;
   }
   document.querySelectorAll('[data-time]').forEach(button => {
     const t = Number(button.dataset.time), h = Math.floor(t / 60), img = button.querySelector('img');

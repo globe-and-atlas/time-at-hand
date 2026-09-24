@@ -56,3 +56,33 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] Verify native bundle.
 - [x] Inspect browser behavior.
 - [x] Receive fresh verifier approval.
+
+## Physical-watch trial
+- [x] Apply display names of at most 10 characters to the three bundles.
+- [x] Receive a successful Dev Connect installation acknowledgement for Meridian.
+
+- [x] Observe Meridian displaying successfully on the physical watch. (Wearer confirmed.)
+- [x] Observe Meridian updating after a physical-watch minute tick. (Device captures 3:39 and 3:41.)
+
+- [x] Deliver a higher-contrast Meridian globe.
+
+## Hand color pickers
+- [x] Phone settings offer64-color hand pickers.
+- [x] Preview offers matching color pickers.
+- [x] Legacy saved colors retain their appearance.
+- [x] RGB selections persist on the watch. (Native emulator restart verified.)
+- [x] Independent verifier approves the change.
+
+- [x] Install Original color-picker build on the physical watch.
+- [x] Install Two Hands color-picker build on the physical watch.
+- [x] Install Meridian color-picker build on the physical watch.
+
+## Clear and 4 Points
+- [x] Add Clear with heavy black hour and orange minute defaults.
+- [x] Add 4 Points with fine black hands.
+- [x] Keep four cardinal markers clear of time/date labels.
+- [x] Expose both editions in preview.
+- [x] Build separate watch UUIDs.
+- [x] Verify native rendering. (Physical captures for both new editions.)
+- [x] Obtain independent review.
+- [x] Install both editions on the physical watch.

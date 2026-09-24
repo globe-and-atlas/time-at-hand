@@ -10,7 +10,7 @@
     "@rebble/clay": "1.1.0"
   },
   "pebble": {
-    "displayName": "Time as Hand",
+    "displayName": "Original",
     "uuid": "8d9227ba-dc65-4c72-a54e-71e917d6194a",
     "sdkVersion": "3",
     "enableMultiJS": true,
@@ -40,7 +40,9 @@
       "UsePhoneLocation",
       "LocationPreset",
       "ManualLatitude",
-      "ManualLongitude"
+      "ManualLongitude",
+      "HandColorRGB",
+      "MinuteColorRGB"
     ],
     "resources": {
       "media": []

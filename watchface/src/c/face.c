@@ -6,8 +6,10 @@
 /* White, black, amber, red, blue, green, purple, gray, teal; native 2-bit channels. */
 const uint8_t face_palette[FACE_PALETTE_SIZE][3]={
  {255,255,255},{0,0,0},{255,170,0},{170,0,0},{0,0,170},
- {0,85,0},{85,0,170},{85,85,85},{0,85,85},{170,170,170}
+ {0,85,0},{85,0,170},{85,85,85},{0,85,85},{170,170,170},
+#include "colors.inc"
 };
+static int hour_radius=48;
 static int active_font=0,primary_color=2,secondary_color=2,primary_width=1,secondary_width=1;
 static int stroke_ink(float across,int width) {
  /* Negative values preserve the original optical weights. Explicit pixel
@@ -70,10 +72,10 @@ static void render_original(int h,int m,uint8_t *pixels) {
 
 int face_minute_angle(int minute) { return minute*12; }
 
-void face_split_layout(int h,int m,FaceNumber *labels) {
+static void split_layout_radius(int h,int m,FaceNumber *labels,int radius) {
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  /* Distinct tracks keep labels separate even when hands align at noon. */
- int radii[2]={40,82};
+ int radii[2]={radius,82};
  snprintf(labels[0].text,3,"%d",h%12 ? h%12 : 12);
  snprintf(labels[1].text,3,"%02d",m);
  for(int i=0;i<2;++i) {
@@ -88,8 +90,12 @@ void face_split_layout(int h,int m,FaceNumber *labels) {
  }
 }
 
+void face_split_layout(int h,int m,FaceNumber *labels) {
+ split_layout_radius(h,m,labels,48);
+}
+
 static void render_split(int h,int m,uint8_t *pixels) {
- FaceNumber labels[2];face_split_layout(h,m,labels);
+ FaceNumber labels[2];split_layout_radius(h,m,labels,hour_radius);
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  float dx[2],dy[2];
  for(int i=0;i<2;++i) {
@@ -100,7 +106,7 @@ static void render_split(int h,int m,uint8_t *pixels) {
   float xx=x-100,yy=y-114;uint8_t c=0;
   for(int i=1;i>=0;--i) {
    float along=xx*dx[i]+yy*dy[i],across=xx*(-dy[i])+yy*dx[i];
-   if(along>=0 && along<=(i==0 ? 40 : 82) && stroke_ink(across,i==0 ? primary_width : secondary_width)) c=i==0 ? primary_color : secondary_color;
+   if(along>=0 && along<=(i==0 ? hour_radius : 82) && stroke_ink(across,i==0 ? primary_width : secondary_width)) c=i==0 ? primary_color : secondary_color;
   }
   /* White clearance prevents either hand crossing either number. */
   for(int i=0;i<2;++i) {
@@ -115,11 +121,12 @@ static void render_split(int h,int m,uint8_t *pixels) {
 }
 
 static void set_style(int edition,int font,int color,int minute_color,int width,int minute_width) {
+ hour_radius=48;
  active_font=font>=0 && font<12 ? font : 0;
  primary_color=color>=1 && color<FACE_PALETTE_SIZE ? color : (edition ? 1 : 2);
- secondary_color=minute_color>=1 && minute_color<FACE_PALETTE_SIZE ? minute_color : 2;
- primary_width=width>=1 && width<=5 ? width : (edition ? -3 : -1);
- secondary_width=minute_width>=1 && minute_width<=5 ? minute_width : -1;
+ secondary_color=minute_color>=1 && minute_color<FACE_PALETTE_SIZE ? minute_color : (edition==3 ? 1 : edition==4 ? 46 : 2);
+ primary_width=width>=1 && width<=5 ? width : (edition==4 ? 4 : edition==3 ? 1 : edition ? -3 : -1);
+ secondary_width=minute_width>=1 && minute_width<=5 ? minute_width : (edition==4 ? 2 : edition==3 ? 1 : -1);
 }
 void face_render(int h,int m,uint8_t *pixels) {
  set_style(0,0,-1,-1,0,0);render_original(h,m,pixels);
@@ -160,6 +167,13 @@ void face_render_custom(int h,int m,int edition,int year,int month,int day,
                         int minute_color,int width,int minute_width,uint8_t *pixels) {
  set_style(edition,font,color,minute_color,width,minute_width);
  if(edition) render_split(h,m,pixels);else render_original(h,m,pixels);
+ /* Keep orientation marks outside the tested numeral envelope and date bands.
+  * The three-pixel marks remain visible when a number reaches a cardinal. */
+ if(edition==3 || edition==4) {
+  const int origins[4][2]={{99,19},{197,113},{99,206},{0,113}};
+  for(int k=0;k<4;++k) for(int y=0;y<3;++y) for(int x=0;x<3;++x)
+   pixels[(origins[k][1]+y)*FACE_W+origins[k][0]+x]=1;
+ }
  char text[32];face_date_text(year,month,day,weekday,mask,text);
  int len=(int)strlen(text),left=(FACE_W-(len*6-1)*2)/2;
  int top=position==1 ? FACE_H-18 : 4;

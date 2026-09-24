@@ -2,9 +2,14 @@
 #include <stdint.h>
 #define FACE_W 200
 #define FACE_H 228
-#define FACE_PALETTE_SIZE 10
+#define FACE_PALETTE_SIZE 74
 extern const uint8_t face_palette[FACE_PALETTE_SIZE][3];
 void face_sun(int year,int doy,int utc_minute,float *declination,float *longitude);
+/* Native incremental rendering: prepare until ready, then overlay rows [first,end).
+ * Callers supply valid coordinates and rows within [37,192). */
+int face_globe_prepare(int latitude,int longitude,int rows);
+void face_globe_overlay_rows(int h,int m,int utc_year,int doy,int utc_minute,
+                        int latitude,int longitude,int marker,uint8_t *pixels,int first,int end);
 void face_globe_overlay(int h,int m,int utc_year,int doy,int utc_minute,
                         int latitude,int longitude,int marker,uint8_t *pixels);
 int face_special(int hour, int minute);

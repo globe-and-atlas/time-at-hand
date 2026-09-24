@@ -32,3 +32,9 @@ User selected concept06 with night/day shading. Keep existing editions separate;
 - Decision: clear the globe within r=numeral scale of each stroke; keep the existing rectangular clearance for hands.
 - Alternatives: radius 1 or 2 fixed (too thin / speckled counters); tighter hand gap (would change Two Hands output and let hands enter glyph gaps for ~1 px gain — the gap is already ~2 px, so left alone).
 - Reason: the solid white block cut a square hole in the globe; the halo keeps numbers legible while showing the globe up to the letterforms.
+
+## 2026-09-23 — Device-safe rendering and math
+Reuse a single 8-bit bitmap as renderer buffer, convert indices only after rendering completes, and gate drawing on readiness. Split globe work into two-row timer callbacks; requests replace unfinished frames. Two measured native fault addresses identified unsafe SDK sqrt and trigonometric reducer loads; replace their internal symbols with numerically verified pointer-free routines. Synchronous host API remains for reference and preview. Emulator-only success is insufficient: final physical completion is still pending.
+
+## 2026-09-23 — Stronger default globe contrast
+Wearer found the functioning globe too faint. Darken only globe palette indices:170-gray to85-gray and85-gray toblack. Keep geometry, glyph halos and configured hand/date colors intact. Actual device capture verified the darker result; comfort/readability remains subject to wearer feedback.

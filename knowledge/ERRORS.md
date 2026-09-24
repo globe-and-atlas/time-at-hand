@@ -148,3 +148,56 @@ Final redundant reinstall timed out after60s. Five completed production-Hemisphe
 - Error: check_hemisphere_emulator.py died at its first stop() (`pebble repl` 20s timeout); then even a bare `pebble install --emulator emery` hung 10 min with no output. Seven old qemu-pebble processes were also running.
 - Cause: corrupted/stale emulator state after many runs; `pebble kill` did not clear the processes. Not a renderer fault.
 - Fix: `pebble kill; pkill -f qemu-pebble; pebble wipe`, then install succeeded in 4s and all five native comparisons passed. Wrap emulator calls in a hard timeout when scripting. Graduated to knowledge/procedural/verify_hemisphere.md.
+
+## 2026-09-23 — physical Meridian unresponsive
+Dev Connect install acknowledged success. Device screenshot shows Meridian is not responding. Collecting logs before acceptance. Initial log write used wrong cwd; corrected to absolute project path.
+
+## 2026-09-23 — Dev Connect diagnostic connection lost
+The bounded logs-before-install attempt authenticated with the proxy but waited for the phone until interrupted after 30 seconds. No install or native timing measurement occurred in this attempt. This is a connection blocker, not evidence of the rendering failure cause. The diagnostic wrapper returned zero despite timeout; its output must be inspected. Evidence: `.tmp/device-startup.log`.
+
+## 2026-09-23 — Bundle inspector interpreter
+Running inspect_bundles.py with system python3 failed because libpebble2 is installed in the SDK environment. Use the interpreter recorded in the project run procedure. No bundle failure was established.
+
+## 2026-09-23 — Connected diagnostic reinstall timeout
+Phone connected; logs-before-install attempt received other running watchface phone logs but no installation acknowledgement in 35 seconds. Native timing absent. No runtime cause established.
+
+## 2026-09-23 — Emulator preflight stopped
+Native comparison failed before installation because stop_emulator_app.py repl command returned 1. Renderer host checks passed. Inspect/restart emulator before drawing conclusions about bitmap change.
+
+CLI has no emu-info command; invalid command had no effect. An error-log append used watchface/ cwd and failed; corrected to absolute path.
+
+Direct emulator install also timed out fetching WatchVersion before installing the candidate. Restart emulator process; no candidate runtime evidence yet.
+
+Emulator retry timed out before stop/install. Process inspection found two qemu-pebble instances using the same emery flash image. Stop both observed emulator processes before restarting; physical watch is unaffected.
+
+Bitmap candidate installed but physical capture still says Meridian is not responding (.tmp/meridian-device-bitmap.png). Bitmap optimization alone does not resolve failure. Investigate earlier render/launch stages.
+
+Batched render installed but physical capture still errors. Launch logs now show native App fault PC 0x2c72 LR 0 after hands 203ms. This disproves treating callback duration alone as established cause. Resolve PC against .tmp/meridian.elf.
+
+Incremental candidate passed five Meridian emulator captures. Optional legacy smoke failed switching UUID (still reported Meridian) before screenshot; no visual regression established. Build changes overlapped this late smoke; serialize final validation. Log write again used watchface cwd; corrected absolute path.
+
+Square-root candidate advances but faults at PC0x2e7e in __ieee754_rem_pio2f, indexed load from SDK trig reduction table. Replace bounded-angle reducer with double arithmetic and two-part float remainder; solar/projection angles stay below32 radians. sqrt numerical oracle passed1,287,073 cases; historical images101 pass.
+
+After final math build install, screenshot shows Loading instead of fault. Subsequent 40-second diagnostic connection timed out waiting for phone, with no launch acknowledgement. Physical completion and minute tick remain unverified; asking wearer for current state.
+
+Final read-only screenshot retry still waited for phone; interrupted cleanly without capture. No additional hardware evidence.
+
+Contrast edition emulator suite stopped before installation in stop_emulator_app.py (repl returned1). Host and independent contrast oracle pass; use actual device captures for this palette-only update rather than treating old emulator report as fresh.
+
+Color-picker implementation review caught preview range validation still accepting only old8color IDs, which would reject new selections with400. Expanded to new10..73 range; verifier adds full64 coverage. Browser setup also needed explicit browser/tab due duplicate local tabs; selected existing tab1.
+
+Color-picker device install waited for phone without connecting; interrupted. Updated PBWs built but this attempt did not install them. Native emulator and browser checks passed.
+
+2026-09-23: Clear/4 Points native emulator installation command exited1 before screenshot comparison. Infrastructure diagnosis pending; host review passed. See .tmp/clear-points-native.log.
+
+2026-09-23: emulator reconnect after kill succeeded; first4 Points capture differs by12081 pixels. Inspect screenshot before identifying cause; native acceptance remains open.
+
+2026-09-23: emulator screenshot shows stale Meridian not-responding screen after new-edition install, not new-edition rendering. Clear emulator-only state before retesting. Physical watch unaffected.
+
+2026-09-23: emulator wipe retry still captured error-screen-sized mismatch (44600 pixels). Native acceptance unresolved; do not interpret successful bundle builds as a native pass. Physical Dev Connect remained waiting and was interrupted without installation.
+
+2026-09-23: official new-domain publishing guide returned404; used current forum and installed CLI source. CLI5.0.40 publish.py hardcodes isPublished=true for create/release and visible=true for create despite help defaultfalse. Do not use CLI to promise private/unlisted listing. No upload attempted.
+
+## 2026-09-24 — verify_incremental.py fails at commit time
+- `python3 execution/verify_incremental.py` → AssertionError (0, (0, 0), 1, 'pixel mismatch'). It compares chunked frames with baseline cade550 plus an intentional palette delta. Twelve other host suites and both node checks pass.
+- Status: undiagnosed. Committed as-is at the user's request so the other agent's work is saved. Next: decide whether the baseline delta is stale (a later intended change) or the chunked renderer regressed.

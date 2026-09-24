@@ -5,6 +5,18 @@ function hasSetting(items, key) {
   return items.some(function(item) { return item.messageKey === key || (item.items && hasSetting(item.items, key)); });
 }
 var meridian = hasSetting(config, 'LocationPreset');
+// Migrate only the phone UI schema. Native legacy palette indices stay valid.
+try {
+  var savedColors=JSON.parse(localStorage.getItem('clay-settings') || '{}');
+  var oldColors=[null,0x000000,0xffaa00,0xaa0000,0x0000aa,0x005500,0x5500aa,0x555555,0x005555];
+  ['HandColor','MinuteColor'].forEach(function(key) {
+    var old=Number(savedColors[key]);
+    if(savedColors[key+'RGB']===undefined && old>=1 && old<=8 && old%1===0) savedColors[key+'RGB']=oldColors[old];
+    // Old fields must not accompany future saves and reset native RGB colors.
+    delete savedColors[key];
+  });
+  if(localStorage.getItem('clay-settings')) localStorage.setItem('clay-settings',JSON.stringify(savedColors));
+} catch (_) { /* Retain existing native settings if phone storage is unavailable. */ }
 var clay = new Clay(config, null, {autoHandleEvents: !meridian});
 if (meridian) {
   var keys = require('message_keys');

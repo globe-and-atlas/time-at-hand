@@ -14,6 +14,7 @@ import zlib
 ROOT=Path(__file__).resolve().parents[1]
 W,H=200,228
 PALETTE=[(255,255,255),(0,0,0),(255,170,0),(170,0,0),(0,0,170),(0,85,0),(85,0,170),(85,85,85),(0,85,85),(170,170,170)]
+PALETTE += [(r,g,b) for r in (0,85,170,255) for g in (0,85,170,255) for b in (0,85,170,255)]
 def load_renderer():
     out=ROOT/'.tmp'/'face.dylib';out.parent.mkdir(exist_ok=True)
     subprocess.run(['cc','-O2','-shared','-fPIC',str(ROOT/'watchface/src/c/face.c'),'-o',str(out)],check=True)
@@ -28,10 +29,10 @@ def load_renderer():
     return lib
 def frame(lib,h:int,m:int,edition:int=0,mask:int=0,position:int=0,calendar:date|None=None,font:int=0,color:int=-1,minute_color:int=-1,width:int=0,minute_width:int=0,utc:float|None=None,lat:float=0,lon:float=0,marker:int=0)->bytes:
     if not 0<=h<24 or not 0<=m<60: raise ValueError('Invalid time')
-    if edition not in (0,1,2): raise ValueError('Invalid edition')
+    if edition not in (0,1,2,3,4): raise ValueError('Invalid edition')
     if not math.isfinite(lat) or not math.isfinite(lon) or not -90<=lat<=90 or not -180<=lon<=180 or marker not in (0,1): raise ValueError('Invalid location')
     if not 0<=mask<=15 or position not in (0,1): raise ValueError('Invalid calendar settings')
-    if not 0<=font<12 or color not in [-1,*range(1,9)] or minute_color not in [-1,*range(1,9)] or not 0<=width<=5 or not 0<=minute_width<=5: raise ValueError('Invalid style')
+    if not 0<=font<12 or color not in [-1,*range(1,9),*range(10,74)] or minute_color not in [-1,*range(1,9),*range(10,74)] or not 0<=width<=5 or not 0<=minute_width<=5: raise ValueError('Invalid style')
     d=calendar or date.today()
     pixels=(ctypes.c_uint8*(W*H))()
     lib.face_render_custom(h,m,edition,d.year,d.month,d.day,(d.weekday()+1)%7,mask,position,font,color,minute_color,width,minute_width,pixels)
@@ -60,8 +61,8 @@ def serve(port:int):
                     body=png(frame(lib,int(q.get('h',['3'])[0]),int(q.get('m',['30'])[0]),int(q.get('edition',['0'])[0]),int(q.get('mask',['0'])[0]),int(q.get('position',['0'])[0]),date.fromisoformat(q['date'][0]) if 'date' in q else None,**style));mime='image/png'
                 elif url.path in files:
                     name,mime=files[url.path];body=(ROOT/name).read_bytes()
-                elif url.path in ('/watchface.pbw','/two-hands.pbw','/meridian.pbw'):
-                    name={'/watchface.pbw':'time-as-hand-original.pbw','/two-hands.pbw':'time-as-hand-two-hands.pbw','/meridian.pbw':'meridian-hemisphere.pbw'}[url.path]
+                elif url.path in ('/watchface.pbw','/two-hands.pbw','/meridian.pbw','/four-points.pbw','/clear.pbw'):
+                    name={'/watchface.pbw':'time-as-hand-original.pbw','/two-hands.pbw':'time-as-hand-two-hands.pbw','/meridian.pbw':'meridian-hemisphere.pbw','/four-points.pbw':'four-points.pbw','/clear.pbw':'clear.pbw'}[url.path]
                     body=(ROOT/'dist'/name).read_bytes();mime='application/octet-stream'
                 else: self.send_error(404);return
                 self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)

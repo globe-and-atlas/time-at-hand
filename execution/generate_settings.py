@@ -10,8 +10,8 @@ def select(key,label,default,options):
     return {'type':'select','messageKey':key,'label':label,'defaultValue':str(default),'serializeValueAs':'integer','options':[{'value':str(value),'label':name} for value,name in options]}
 def configuration(edition):
     date_fields=[{'type':'toggle','messageKey':key,'label':label,'defaultValue':False} for key,label in [('ShowWeekday','Weekday · WED'),('ShowDay','Day · 23'),('ShowMonth','Month · SEP'),('ShowYear','Year · 2026')]]
-    style=[select('TimeFont','Time numerals',0,[(i,group+' / '+name) for i,(group,name,_) in enumerate(FONTS)]),select('HandColor','Hour hand color' if edition else 'Hand color',-1,COLORS),select('HandWidth','Hour hand width' if edition else 'Hand width',0,WIDTHS)]
-    if edition:style.extend([select('MinuteColor','Minute hand color',-1,COLORS),select('MinuteWidth','Minute hand width',0,WIDTHS)])
+    style=[select('TimeFont','Time numerals',0,[(i,group+' / '+name) for i,(group,name,_) in enumerate(FONTS)]),{'type':'color','messageKey':'HandColorRGB','label':'Hour hand color' if edition else 'Hand color','defaultValue':'000000' if edition else 'FFAA00','layout':'COLOR'},select('HandWidth','Hour hand width' if edition else 'Hand width',0,WIDTHS)]
+    if edition:style.extend([{'type':'color','messageKey':'MinuteColorRGB','label':'Minute hand color','defaultValue':'000000' if edition==3 else 'AA5500' if edition==4 else 'FFAA00','layout':'COLOR'},select('MinuteWidth','Minute hand width',0,WIDTHS)])
     location=[]
     if edition==2:
         location=[{'type':'section','items':[
@@ -23,7 +23,7 @@ def configuration(edition):
           {'type':'text','defaultValue':'Phone location is rounded to 0.1 degrees, refreshed on launch, Save, then hourly. If unavailable, the last saved view remains. No location is sent to a web service. Sunlight uses UTC; hands use your watch clock. Location does not set the time zone.'}
         ]}]
     return [
-      {'type':'heading','defaultValue':'G&A Meridian: Hemisphere' if edition==2 else 'Time as Hand: Two Hands' if edition else 'Time as Hand: Original'},
+      {'type':'heading','defaultValue':['Original','Two Hands','Meridian','4 Points','Clear'][edition]},
       {'type':'text','defaultValue':'Each edition remembers its own choices. Time numerals stay black; the date uses a consistent small pixel font.'},
       {'type':'section','items':[{'type':'heading','defaultValue':'Type & hands'},*style]},
       {'type':'section','items':[{'type':'heading','defaultValue':'Date line'},*date_fields,select('DatePosition','Position',0,[(0,'Top'),(1,'Bottom')])]},
