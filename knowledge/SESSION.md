@@ -29,6 +29,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-23 13:25 — commit: Meridian: glyph-shaped numeral halo and visible graticule over land | assets/store/meridian/london.png,assets/store/meridian/sydney.png,assets/store/meridian/world.png,execution/verify_hemisphere.py,knowledge/DECISIONS.md
 
 - 2026-09-24 09:36 — commit: Colour pickers, Clear and Four Points editions, device install tooling | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/phone-previews/clear/emery_preview.png,assets/phone-previews/four-points/emery_preview.png
+- 2026-09-24 10:47 — commit: Rename to time-at-hand; make the watchface CloudPebble-importable | .claude/memory/MEMORY.md,.claude/memory/project_context.md,PUBLISH.md,README.md,article/field-notes.md
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
