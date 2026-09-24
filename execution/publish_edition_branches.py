@@ -101,8 +101,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--push', action='store_true', help='force-push the verified edition branches to origin')
     args = parser.parse_args()
-    if git('status', '--porcelain', '--untracked-files=no'):
-        sys.exit('Commit main first: branches are generated from a committed main.')
+    # Branches come from the committed main; only uncommitted build inputs would make dist/ disagree.
+    # (A post-commit hook appends to knowledge/SESSION.md, so the whole tree is rarely clean.)
+    if git('status', '--porcelain', '--untracked-files=no', '--', 'watchface', 'execution'):
+        sys.exit('Commit watchface/ and execution/ changes first: branches are generated from main.')
     if git('rev-parse', '--abbrev-ref', 'HEAD') != 'main':
         sys.exit('Run from main.')
     main_sha = git('rev-parse', 'HEAD')

@@ -30,6 +30,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 
 - 2026-09-24 09:36 — commit: Colour pickers, Clear and Four Points editions, device install tooling | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/phone-previews/clear/emery_preview.png,assets/phone-previews/four-points/emery_preview.png
 - 2026-09-24 10:47 — commit: Rename to time-at-hand; make the watchface CloudPebble-importable | .claude/memory/MEMORY.md,.claude/memory/project_context.md,PUBLISH.md,README.md,article/field-notes.md
+- 2026-09-24 11:01 — commit: CloudPebble edition branches: edition.h, shared edition table, import simulator, branch publisher | README.md,execution/build_editions.py,execution/cloudpebble.py,execution/publish_edition_branches.py,knowledge/INDEX.md
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
