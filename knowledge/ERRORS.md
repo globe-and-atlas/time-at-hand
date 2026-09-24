@@ -201,3 +201,7 @@ Color-picker device install waited for phone without connecting; interrupted. Up
 ## 2026-09-24 — verify_incremental.py fails at commit time
 - `python3 execution/verify_incremental.py` → AssertionError (0, (0, 0), 1, 'pixel mismatch'). It compares chunked frames with baseline cade550 plus an intentional palette delta. Twelve other host suites and both node checks pass.
 - Status: undiagnosed. Committed as-is at the user's request so the other agent's work is saved. Next: decide whether the baseline delta is stale (a later intended change) or the chunked renderer regressed.
+
+## 2026-09-24 — Pebble SDK capability order is not deterministic
+- The edition-meridian archive check reported a mismatch that turned out to be only the order of `capabilities` in the built appinfo.json (`location, configurable` against `configurable, location`), with identical sources, binary and JS. The SDK evidently builds that list through an unordered structure, so order varies between runs.
+- Fix: publish_edition_branches.py compares capabilities as a set. The earlier worktree pass was luck.

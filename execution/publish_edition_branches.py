@@ -89,8 +89,10 @@ def verify(edition: int, tree: Path) -> dict:
     assert not dropped, (spec['slug'], dropped)
     built_bin, built_js, built_info = bundle(pbw)
     local_bin, local_js, local_info = bundle(ROOT / 'dist' / spec['pbw'])
-    for key in ('uuid', 'displayName', 'capabilities'):
+    for key in ('uuid', 'displayName'):
         assert built_info.get(key) == local_info.get(key), (spec['slug'], key, built_info.get(key), local_info.get(key))
+    # The SDK emits capabilities in run-dependent order; compare them as a set.
+    assert sorted(built_info.get('capabilities', [])) == sorted(local_info.get('capabilities', [])), spec['slug']
     assert built_js == local_js, (spec['slug'], 'phone JS differs from dist')
     assert comparable_binary(built_bin) == comparable_binary(local_bin), (spec['slug'], 'app binary differs from dist')
     return {'branch': branch_name(edition), 'uuid': built_info['uuid'], 'name': built_info['displayName'],
