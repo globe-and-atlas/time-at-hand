@@ -31,6 +31,8 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 09:36 — commit: Colour pickers, Clear and Four Points editions, device install tooling | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/phone-previews/clear/emery_preview.png,assets/phone-previews/four-points/emery_preview.png
 - 2026-09-24 10:47 — commit: Rename to time-at-hand; make the watchface CloudPebble-importable | .claude/memory/MEMORY.md,.claude/memory/project_context.md,PUBLISH.md,README.md,article/field-notes.md
 - 2026-09-24 11:01 — commit: CloudPebble edition branches: edition.h, shared edition table, import simulator, branch publisher | README.md,execution/build_editions.py,execution/cloudpebble.py,execution/publish_edition_branches.py,knowledge/INDEX.md
+- 2026-09-24 11:02 — commit: Branch publisher: only require build inputs to be committed | execution/publish_edition_branches.py,knowledge/SESSION.md
+- 2026-09-24 11:03 — commit: Branch publisher: compare capabilities as a set (SDK order varies between builds) | execution/publish_edition_branches.py,knowledge/ERRORS.md
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
@@ -100,3 +102,8 @@ Agent: OpenAI Codex
 Goal: attach five previews through unlisted dashboard listings, user signed in and requested phone delivery. Dashboard supports explicit Unlisted setting. Clear bundle/description/preview prepared; submission underway. No listed/public-search release intended.
 
 Checkpoint: all five dashboard listings submitted and verified Unlisted; each has published0.1.0 release and preview image. Listing IDs recorded assets/phone-previews/listings.json. Clear direct-link page verified with screenshot. User asked to reopen phone watchface list to verify thumbnail refresh; awaiting answer.
+
+## 2026-09-24 — Series naming
+Agent: OpenAI Codex
+Goal: rename the five editions to Origin, Vector, Meridian, Cardinal and Clarity while preserving UUIDs and behavior.
+Status: source and product-facing docs updated; five bundles rebuilt with renamed app metadata. Host verification passes. CloudPebble branch regeneration and GitHub push remain.

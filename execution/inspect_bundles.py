@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate manifest and embedded native identity for both distributables."""
+"""Validate manifest and embedded native identity for all five editions."""
 import json
 import hashlib
 from pathlib import Path

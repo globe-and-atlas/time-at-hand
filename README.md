@@ -6,7 +6,7 @@ timestamp: "2026-09-23"
 
 A native Pebble Time 2 watchface experiment with a matching local preview and article evidence kit.
 
-Five editions: Original puts the full digital time along an hour hand; Two Hands places upright hour and minute numbers near their respective hand tips; Meridian adds a globe with calculated day/night shading beneath those two hands. 4 Points adds four cardinal marks and fine black hands; Clear uses those marks with a heavy black hour hand and orange minute hand. Original reduces to a single upright numeral at 3:00, 6:00, 9:00 and 12:00 for that minute. The other editions retain both numbers. The two-hand editions use a48px hour track and82px minute track, with upright tip numerals. The clock uses local time and 12-hour notation; AM/PM is intentionally not displayed.
+Five editions: Origin puts the full digital time along an hour hand; Vector places upright hour and minute numbers near their respective hand tips; Meridian adds a globe with calculated day/night shading beneath those two hands. Cardinal adds four cardinal marks and fine black hands; Clarity uses those marks with a heavy black hour hand and orange minute hand. Origin reduces to a single upright numeral at 3:00, 6:00, 9:00 and 12:00 for that minute. The other editions retain both numbers. The two-hand editions use a48px hour track and82px minute track, with upright tip numerals. The clock uses local time and 12-hour notation; AM/PM is intentionally not displayed.
 
 Each offers 12 original pixel numeral fonts (Pixel, Retro, Modern, Classic), 64-color hand pickers, widths of 1–5 pixels, and optional weekday/day/month/year combinations at the top or bottom. The four two-hand editions style each hand independently. Date typography stays constant. Defaults retain the original appearance with date hidden.
 
@@ -32,7 +32,7 @@ cd watchface
 pebble install --emulator emery ../dist/time-at-hand-two-hands.pbw
 ```
 
-Installable outputs: `dist/time-at-hand-original.pbw`, `dist/time-at-hand-two-hands.pbw`, `dist/meridian-hemisphere.pbw`, `dist/four-points.pbw`, and `dist/clear.pbw`. Each has its own UUID, so the five can coexist. The build script restores the source manifest and default build to Original. Each preview edition links its matching download.
+Installable outputs: `dist/time-at-hand-original.pbw`, `dist/time-at-hand-two-hands.pbw`, `dist/meridian-hemisphere.pbw`, `dist/four-points.pbw`, and `dist/clear.pbw`. Each has its own UUID, so the five can coexist. The build script restores the source manifest and default build to Origin. Each preview edition links its matching download.
 
 For the physical watch, open the current Pebble mobile app, enable Dev Connect from Devices, then authenticate personally. From `watchface/`:
 
@@ -74,11 +74,11 @@ Each edition has its own importable branch. The links fill in the branch: CloudP
 
 | Edition | Branch | Import |
 | --- | --- | --- |
-| Original | `main` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/main) |
-| Two Hands | `edition-two-hands` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-two-hands) |
+| Origin | `main` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/main) |
+| Vector | `edition-two-hands` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-two-hands) |
 | Meridian | `edition-meridian` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-meridian) |
-| 4 Points | `edition-four-points` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-four-points) |
-| Clear | `edition-clear` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-clear) |
+| Cardinal | `edition-four-points` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-four-points) |
+| Clarity | `edition-clear` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-clear) |
 
 The import form pre-fills the project name with the account name (`globe-and-atlas`), so rename it in the dialog.
 

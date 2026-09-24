@@ -11,16 +11,16 @@ MERIDIAN_UUID='bf118b38-aaf3-438d-8c91-0e92c4f757e3'
 FOUR_POINTS_UUID='f05945f9-3cd9-462b-88e7-0fef77271d49'
 CLEAR_UUID='9f13e2a2-8cce-4163-a5e0-0f5455679749'
 # Single source of truth for editions: local builds here and CloudPebble branches
-# (execution/publish_edition_branches.py). Original (0) keeps the manifest as committed.
+# (execution/publish_edition_branches.py). Origin (0) keeps the manifest as committed.
 EDITIONS={
-    1:{'slug':'two-hands','name':'Two Hands','uuid':SPLIT_UUID,'capabilities':None,'pbw':'time-at-hand-two-hands.pbw'},
+    1:{'slug':'two-hands','name':'Vector','uuid':SPLIT_UUID,'capabilities':None,'pbw':'time-at-hand-two-hands.pbw'},
     2:{'slug':'meridian','name':'Meridian','uuid':MERIDIAN_UUID,'capabilities':['configurable','location'],'pbw':'meridian-hemisphere.pbw'},
-    3:{'slug':'four-points','name':'4 Points','uuid':FOUR_POINTS_UUID,'capabilities':['configurable'],'pbw':'four-points.pbw'},
-    4:{'slug':'clear','name':'Clear','uuid':CLEAR_UUID,'capabilities':['configurable'],'pbw':'clear.pbw'},
+    3:{'slug':'four-points','name':'Cardinal','uuid':FOUR_POINTS_UUID,'capabilities':['configurable'],'pbw':'four-points.pbw'},
+    4:{'slug':'clear','name':'Clarity','uuid':CLEAR_UUID,'capabilities':['configurable'],'pbw':'clear.pbw'},
 }
 
 def manifest_for(edition,original):
-    """Manifest text for an edition, derived from the committed (Original) manifest."""
+    """Manifest text for an edition, derived from the committed (Origin) manifest."""
     spec=EDITIONS[edition];data=json.loads(original)
     data['pebble']['uuid']=spec['uuid'];data['pebble']['displayName']=spec['name']
     if spec['capabilities'] is not None:data['pebble']['capabilities']=spec['capabilities']

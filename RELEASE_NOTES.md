@@ -18,12 +18,12 @@ A globe beneath the hands, with daylight moving across its surface. The hour and
 
 For Pebble Time 2 (Emery). This is a prototype for sideloading, not a store release. The map is simplified; shading shows geometric day/night, not weather or exact sunrise times. Physical wrist readability, phone permissions, and battery life still need testing. Manual globe location does not change the watch's time zone.
 
-## Clear and 4 Points · 0.1.0 prototypes
+## Clarity and Cardinal · 0.1.0 prototypes
 
-- Clear: a heavy black hour hand, orange minute hand, and upright numbers at their tips.
-- 4 Points: fine black hands with upright tip numbers.
+- Clarity: a heavy black hour hand, orange minute hand, and upright numbers at their tips.
+- Cardinal: fine black hands with upright tip numbers.
 - Four small cardinal marks provide orientation on both faces.
 - Both include 12 numeral fonts, independent hand color/width controls, and optional date combinations at the top or bottom.
 - Separate app identities preserve each edition’s settings. For Pebble Time 2; not published to the store.
 
-Proportion refinement: Two Hands, Meridian, 4 Points and Clear move the hour hand and its numeral20% farther from the center. The shorter hour reach remains distinct from the minute hand. Original retains its full-time hand.
+Proportion refinement: Vector, Meridian, Cardinal and Clarity move the hour hand and its numeral20% farther from the center. The shorter hour reach remains distinct from the minute hand. Origin retains its full-time hand.

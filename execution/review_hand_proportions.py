@@ -16,7 +16,7 @@ def main():
     candidate.face_render_custom.argtypes=lib.face_render_custom.argtypes
     candidate.face_globe_overlay.argtypes=lib.face_globe_overlay.argtypes
     canvas=Image.new('RGB',(1200,5*270),'#dddddd');draw=ImageDraw.Draw(canvas)
-    for edition,name in enumerate(['Original','Two Hands','Meridian','4 Points','Clear']):
+    for edition,name in enumerate(['Origin','Vector','Meridian','Cardinal','Clarity']):
         for col,(hour,minute) in enumerate([(10,10),(3,30),(11,55)]):
             for variant,renderer in enumerate([lib,candidate]):
                 x=(col*2+variant)*200;y=edition*270

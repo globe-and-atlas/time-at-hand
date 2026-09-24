@@ -110,7 +110,7 @@ function setEdition() {
   $('momentTitle').textContent = edition ? 'Two numbers, four positions.' : 'Four moments of stillness.';
   $('buildDownload').href = edition ? '/two-hands.pbw' : '/watchface.pbw';
   $('buildDownload').download = edition ? 'time-at-hand-two-hands.pbw' : 'time-at-hand-original.pbw';
-  $('buildDownload').textContent = edition ? 'Download Two Hands for Pebble ↗' : 'Download Original for Pebble ↗';
+  $('buildDownload').textContent = edition ? 'Download Vector for Pebble ↗' : 'Download Origin for Pebble ↗';
   if (edition === 2) {
     $('editionIntro').textContent = 'Local time in your hands. Daylight moving across the world beneath them.';
     $('editionNote').textContent = 'A north-up globe centered on your chosen location. Gray land, a dotted night hemisphere, and two upright numbers. Sunlight is calculated from UTC and the season, even offline.';
@@ -119,7 +119,7 @@ function setEdition() {
     $('buildDownload').textContent = 'Download Meridian for Pebble ↗';
   }
   if(edition===3 || edition===4) {
-    const name=edition===3 ? '4 Points' : 'Clear',file=edition===3 ? 'four-points' : 'clear';
+    const name=edition===3 ? 'Cardinal' : 'Clarity',file=edition===3 ? 'four-points' : 'clear';
     $('editionIntro').textContent=edition===3 ? 'Four quiet points. Two fine hands. The time stays upright.' : 'A stronger hour hand. A warm minute hand. Time made clear.';
     $('editionNote').textContent=edition===3 ? 'Four black cardinal marks orient the dial. Fine black hands keep the face spare.' : 'Four cardinal marks frame a heavy black hour hand and a lighter burnt-orange minute hand. Customize either hand below.';
     $('buildDownload').href=`/${file}.pbw`;$('buildDownload').download=`${file}.pbw`;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent whole-frame oracle for Clear and 4 Points host rendering."""
+"""Independent whole-frame oracle for Cardinal and Clarity host rendering."""
 import ctypes
 from datetime import date
 import json
@@ -14,7 +14,7 @@ from verify_editions import Number
 def main():
     lib = load_renderer()
     lib.face_split_layout.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.POINTER(Number)]
-    # Independent fixed geometry oracle: the established Two Hands algorithm,
+    # Independent fixed geometry oracle: the established Vector algorithm,
     # with its literal hour radius changed to48, without edition dispatch.
     source = (ROOT / 'watchface/src/c/face.c').read_text()
     source = source.replace('static void split_layout_radius(int h,int m,FaceNumber *labels,int radius)',
@@ -122,7 +122,7 @@ def main():
 
     original = json.loads((ROOT / 'watchface/package.json').read_text())['pebble']['uuid']
     assert len({original, SPLIT_UUID, MERIDIAN_UUID, FOUR_POINTS_UUID, CLEAR_UUID}) == 5
-    for edition, name, minute_rgb in [(3, '4 Points', '000000'), (4, 'Clear', 'AA5500')]:
+    for edition, name, minute_rgb in [(3, 'Cardinal', '000000'), (4, 'Clarity', 'AA5500')]:
         config = configuration(edition)
         assert config[0]['defaultValue'] == name
         fields = {item['messageKey']: item for section in config

@@ -73,16 +73,25 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] RGB selections persist on the watch. (Native emulator restart verified.)
 - [x] Independent verifier approves the change.
 
-- [x] Install Original color-picker build on the physical watch.
-- [x] Install Two Hands color-picker build on the physical watch.
+- [x] Install Origin color-picker build on the physical watch.
+- [x] Install Vector color-picker build on the physical watch.
 - [x] Install Meridian color-picker build on the physical watch.
 
-## Clear and 4 Points
-- [x] Add Clear with heavy black hour and orange minute defaults.
-- [x] Add 4 Points with fine black hands.
+## Clarity and Cardinal
+- [x] Add Clarity with heavy black hour and orange minute defaults.
+- [x] Add Cardinal with fine black hands.
 - [x] Keep four cardinal markers clear of time/date labels.
 - [x] Expose both editions in preview.
 - [x] Build separate watch UUIDs.
 - [x] Verify native rendering. (Physical captures for both new editions.)
 - [x] Obtain independent review.
 - [x] Install both editions on the physical watch.
+
+## Series naming — verified
+- [x] Rename Original to Origin.
+- [x] Rename Two Hands to Vector.
+- [x] Keep Meridian as Meridian.
+- [x] Rename 4 Points to Cardinal.
+- [x] Rename Clear to Clarity.
+- [ ] Regenerate and verify CloudPebble edition branches.
+- [ ] Push renamed sources and branches to GitHub.
