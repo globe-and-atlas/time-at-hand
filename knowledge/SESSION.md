@@ -28,6 +28,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-23 — halo: glyph-shaped numeral halo (r=scale) + white graticule over land in globe.inc; verify_hemisphere.py rewritten to derive the halo independently (fails on old rectangle and on r=1 mutant); host suites pass; rebuilt; native emulator 5/5 zero-diff after pebble wipe; store screenshots refreshed. Independent verifier: first pass rejected (test missed an over-large halo); test strengthened with cross-frame consensus check, mutant table re-verified, APPROVED.
 - 2026-09-23 13:25 — commit: Meridian: glyph-shaped numeral halo and visible graticule over land | assets/store/meridian/london.png,assets/store/meridian/sydney.png,assets/store/meridian/world.png,execution/verify_hemisphere.py,knowledge/DECISIONS.md
 
+- 2026-09-24 09:36 — commit: Colour pickers, Clear and Four Points editions, device install tooling | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/phone-previews/clear/emery_preview.png,assets/phone-previews/four-points/emery_preview.png
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
