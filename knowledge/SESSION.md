@@ -33,6 +33,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 11:01 — commit: CloudPebble edition branches: edition.h, shared edition table, import simulator, branch publisher | README.md,execution/build_editions.py,execution/cloudpebble.py,execution/publish_edition_branches.py,knowledge/INDEX.md
 - 2026-09-24 11:02 — commit: Branch publisher: only require build inputs to be committed | execution/publish_edition_branches.py,knowledge/SESSION.md
 - 2026-09-24 11:03 — commit: Branch publisher: compare capabilities as a set (SDK order varies between builds) | execution/publish_edition_branches.py,knowledge/ERRORS.md
+- 2026-09-24 17:24 — commit: Rename watchface editions as a cohesive series | PUBLISH.md,README.md,RELEASE_NOTES.md,execution/build_editions.py,execution/generate_settings.py
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
@@ -107,3 +108,5 @@ Checkpoint: all five dashboard listings submitted and verified Unlisted; each ha
 Agent: OpenAI Codex
 Goal: rename the five editions to Origin, Vector, Meridian, Cardinal and Clarity while preserving UUIDs and behavior.
 Status: source and product-facing docs updated; five bundles rebuilt with renamed app metadata. Host verification passes. CloudPebble branch regeneration and GitHub push remain.
+
+Checkpoint: host verifier passed 34,560 default frames, 35,840 overrides and 1,536 date frames. Five PBWs now embed Origin, Vector, Meridian, Cardinal and Clarity with unchanged UUIDs. CloudPebble branch generation verified all four edition imports and force-pushed renamed branch metadata; main pushed at 8464914. Root pebble-time index README still needs its naming commit.

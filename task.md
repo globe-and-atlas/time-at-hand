@@ -93,5 +93,5 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] Keep Meridian as Meridian.
 - [x] Rename 4 Points to Cardinal.
 - [x] Rename Clear to Clarity.
-- [ ] Regenerate and verify CloudPebble edition branches.
-- [ ] Push renamed sources and branches to GitHub.
+- [x] Regenerate and verify CloudPebble edition branches.
+- [x] Push renamed sources and branches to GitHub.
