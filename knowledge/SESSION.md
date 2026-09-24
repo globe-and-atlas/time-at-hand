@@ -35,6 +35,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 11:03 — commit: Branch publisher: compare capabilities as a set (SDK order varies between builds) | execution/publish_edition_branches.py,knowledge/ERRORS.md
 - 2026-09-24 17:24 — commit: Rename watchface editions as a cohesive series | PUBLISH.md,README.md,RELEASE_NOTES.md,execution/build_editions.py,execution/generate_settings.py
 - 2026-09-24 17:26 — commit: Record renamed edition verification | knowledge/SESSION.md,task.md
+- 2026-09-24 17:27 — commit: Align phone preview listing names | assets/phone-previews/listings.json,knowledge/SESSION.md
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
