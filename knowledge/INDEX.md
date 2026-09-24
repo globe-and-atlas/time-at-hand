@@ -35,3 +35,5 @@ Last updated 2026-09-23: renderer.md covers editions/calendar/fonts; deps.md cov
 2026-09-23 update: run_prototype.md includes collection proportion checks and successful physical deployment; PUBLISH.md corrects CLI visibility and documents phone-thumbnail assets/sign-in blocker.
 
 2026-09-23 update: run_prototype.md and PUBLISH.md record five unlisted releases with screenshot previews; mobile thumbnail verification pending.
+
+| [procedural/publish_cloudpebble.md](procedural/publish_cloudpebble.md) | procedural | 2026-09-24 | CloudPebble edition branches: generate, verify, push; import gotchas |

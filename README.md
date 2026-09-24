@@ -70,10 +70,27 @@ See [PUBLISH.md](PUBLISH.md) for the Pebble dashboard route, bundle choices and 
 
 ## CloudPebble
 
-Import: <https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand>
+Each edition has its own importable branch. The links fill in the branch: CloudPebble's import form defaults an empty branch to `master`, which doesn't exist here.
 
-CloudPebble finds `watchface/package.json`, imports only `.c`/`.h` files from `src/c` and `.js`/`.json` files from `src/pkjs`, and replaces our `wscript` with its own. So:
+| Edition | Branch | Import |
+| --- | --- | --- |
+| Original | `main` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/main) |
+| Two Hands | `edition-two-hands` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-two-hands) |
+| Meridian | `edition-meridian` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-meridian) |
+| 4 Points | `edition-four-points` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-four-points) |
+| Clear | `edition-clear` | [Open in CloudPebble](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-clear) |
+
+The import form pre-fills the project name with the account name (`globe-and-atlas`), so rename it in the dialog.
+
+How it works. CloudPebble finds `watchface/package.json`, imports only `.c`/`.h` files from `src/c` and `.js`/`.json` files from `src/pkjs`, and replaces our `wscript` with its own:
 - Renderer fragments included by `face.c` use `.h` names (`face_colors.h`, `face_globe.h`), not `.inc`.
-- With CloudPebble's `wscript`, `TAH_EDITION` falls back to `0` and it builds **Original**. The other editions come from `python3 execution/build_editions.py`, which swaps the manifest and settings for each build.
+- The edition comes from `watchface/src/c/edition.h`: 0 on main. Locally, `build_editions.py` passes `-DTAH_EDITION` through our `wscript`, which takes precedence.
+- The `edition-*` branches are generated. Each is main plus one commit setting that edition's manifest, phone settings and `edition.h`. **Don't edit them.** Change main, then:
 
-Checked 2026-09-24 against the CloudPebble source (coredevices/cloudpebble @ 08298a2): a simulated import (same file filter, same generated `wscript`) built an Original binary identical to the local build, apart from the CRC, timestamp and build ID.
+```bash
+python3 execution/build_editions.py                   # dist/ must match main
+python3 execution/publish_edition_branches.py         # generate and verify each branch
+python3 execution/publish_edition_branches.py --push  # then force-push the edition-* branches
+```
+
+Verification: `execution/cloudpebble.py` simulates CloudPebble's import (its file filter and its generated `wscript`, from coredevices/cloudpebble @ 08298a2). The publish script builds every branch that way and requires the same manifest identity, identical phone JS, and an app binary identical to the local `dist/` build apart from the CRC, timestamp and build ID.
