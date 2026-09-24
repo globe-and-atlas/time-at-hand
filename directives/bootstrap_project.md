@@ -35,7 +35,7 @@ Update these fields specifically:
 
 ### 2. Populate `README.md`
 
-- Replace `time-as-hand` with the real name
+- Replace `time-at-hand` with the real name
 - Write a one-sentence description
 - Update the Architecture section if the stack differs from the template defaults
 

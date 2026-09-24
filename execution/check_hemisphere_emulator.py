@@ -75,7 +75,7 @@ def main(resume=False,legacy_smoke=False):
     if legacy_smoke:
         for edition,name,uuid in [(0,'original','8d9227ba-dc65-4c72-a54e-71e917d6194a'),(1,'two-hands',SPLIT_UUID)]:
             run(['pebble','kill'])
-            install(f'time-as-hand-{name}.pbw',uuid)
+            install(f'time-at-hand-{name}.pbw',uuid)
             send({'TimeFont':0,'HandColor':4,'MinuteColor':3,'HandWidth':3,'MinuteWidth':2,'ShowWeekday':0,'ShowDay':0,'ShowMonth':0,'ShowYear':0,'DatePosition':1},uuid)
             check(name,0,0,0,edition=edition)
         install();check('final-production',-33.9,151.2,1,15,3)

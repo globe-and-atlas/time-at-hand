@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Publish Time as Hand
+# Publish Time at Hand
 
 Status: five version0.1.0 releases uploaded through the signed-in dashboard with Unlisted visibility and one current preview image each. Hidden from search/browsing, accessible by direct link. Phone thumbnail refresh awaiting wearer confirmation.
 
@@ -17,8 +17,8 @@ The authenticated dashboard form has not been accessed, so exact button labels a
 
 | Edition | PBW | UUID |
 | --- | --- | --- |
-| Original | `dist/time-as-hand-original.pbw` | `8d9227ba-dc65-4c72-a54e-71e917d6194a` |
-| Two Hands | `dist/time-as-hand-two-hands.pbw` | `a12bd695-9b47-4a44-b416-43006dc54b9f` |
+| Original | `dist/time-at-hand-original.pbw` | `8d9227ba-dc65-4c72-a54e-71e917d6194a` |
+| Two Hands | `dist/time-at-hand-two-hands.pbw` | `a12bd695-9b47-4a44-b416-43006dc54b9f` |
 
 Both target Emery only. Do not claim support for Pebble Round or other resolutions. The phone settings page is bundled, so there is no configuration website to host. The optional public marketing site is separate from the local preview.
 

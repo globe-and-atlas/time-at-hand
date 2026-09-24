@@ -38,3 +38,8 @@ Reuse a single 8-bit bitmap as renderer buffer, convert indices only after rende
 
 ## 2026-09-23 — Stronger default globe contrast
 Wearer found the functioning globe too faint. Darken only globe palette indices:170-gray to85-gray and85-gray toblack. Keep geometry, glyph halos and configured hand/date colors intact. Actual device capture verified the darker result; comfort/readability remains subject to wearer feedback.
+
+## 2026-09-24 — Rename to time-at-hand; one GitHub repo per watch project (CloudPebble)
+- Renamed folder, package name, docs and PBW filenames from time-as-hand / Time as Hand. UUIDs unchanged, so installed faces update in place. Preview localStorage keys keep the old `time-as-hand.` prefix so saved preview settings survive. Knowledge logs and shorten_names.py keep historical wording.
+- CloudPebble's import takes the first manifest in a repo, so each watch project gets its own repo (globe-and-atlas/time-at-hand, globe-and-atlas/personal-atlas). The Codex-created monorepo globe-and-atlas/pebble-time becomes an index.
+- CloudPebble compatibility: .inc → .h (face_colors.h, face_globe.h), and a TAH_EDITION fallback of 0 in watchface.c. Verified with a simulated import build; the rendering code is binary-identical.

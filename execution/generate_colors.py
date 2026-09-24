@@ -8,5 +8,5 @@ def main():
         for g in range(4):
             for b in range(4):
                 rows.append(f'{{{r*85},{g*85},{b*85}}},')
-    (ROOT/'watchface/src/c/colors.inc').write_text('\n'.join(rows)+'\n')
+    (ROOT/'watchface/src/c/face_colors.h').write_text('\n'.join(rows)+'\n')
 if __name__ == '__main__': main()

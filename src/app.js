@@ -109,7 +109,7 @@ function setEdition() {
   $('editionNote').textContent = edition ? 'Both numbers stay upright. Separate inner and outer tracks keep them readable when the hands align. Minutes always use two digits, including 00.' : 'At 3:00, 6:00, 9:00 and 12:00, the hand becomes one upright numeral for a minute. Your optional date line stays visible.';
   $('momentTitle').textContent = edition ? 'Two numbers, four positions.' : 'Four moments of stillness.';
   $('buildDownload').href = edition ? '/two-hands.pbw' : '/watchface.pbw';
-  $('buildDownload').download = edition ? 'time-as-hand-two-hands.pbw' : 'time-as-hand-original.pbw';
+  $('buildDownload').download = edition ? 'time-at-hand-two-hands.pbw' : 'time-at-hand-original.pbw';
   $('buildDownload').textContent = edition ? 'Download Two Hands for Pebble ↗' : 'Download Original for Pebble ↗';
   if (edition === 2) {
     $('editionIntro').textContent = 'Local time in your hands. Daylight moving across the world beneath them.';

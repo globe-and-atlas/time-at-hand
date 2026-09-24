@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Build Time as Hand
+# Build Time at Hand
 
 ## Contract
 - Target directive: `directives/build_watchface.md`.

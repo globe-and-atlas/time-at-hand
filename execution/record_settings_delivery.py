@@ -22,9 +22,9 @@ Handoff-type: continuation
 Goal: two watchface editions with date, fonts and hand settings; update preview and explain store publishing.
 Status: implemented and independently verified. Physical trial and publication remain user next steps.
 
-Project: /Users/danielbally/Git/time-as-hand
+Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (execution/preview.py)
-Builds: dist/time-as-hand-original.pbw; dist/time-as-hand-two-hands.pbw
+Builds: dist/time-at-hand-original.pbw; dist/time-at-hand-two-hands.pbw
 Source manifest/default build: Original; normal live clock. Distinct embedded UUIDs verified.
 Settings: 12 original numeral glyph sets, eight hand colors, widths1–5, optional weekday/day/month/year top/bottom; each edition saves separately. Clay1.1.0 phone configuration bundled. No external data service.
 Evidence: .tmp/editions-verification.json, calendar-verification.json, styles-verification.json, calendar-emulator-verification.json. 17 native comparisons pass, including style/date persistence and production live clock. 17,280 styled time states and 5,920 date formatting checks pass. Original digest preserved.
@@ -49,7 +49,7 @@ Closing audit: requested controls are concrete in both preview and native builds
     p=ROOT/'knowledge/INDEX.md'
     with p.open('a') as f:f.write('\nLast updated 2026-09-23: renderer.md covers editions/calendar/fonts; deps.md covers Clay1.1.0 and SDK keys; run_prototype.md covers current build/native lifecycle and publication workflow; ../PUBLISH.md contains current store guide.\n')
     p=ROOT/'knowledge/REFLECTIONS.jsonl'
-    with p.open('a') as f:f.write(json.dumps({'date':'2026-09-23','project':'time-as-hand','effort':'extended','what_constrained':'Emery installation acknowledged before switching watchface UUID; transport timed out during extended batches.','what_worked':'Shared renderer, original pixel digest, explicit app stop before install, independent review, native fixture and restart comparisons.','what_differently':'Verify embedded UUID and active application early; keep native fixture batches bounded and preserve wearable testing as next milestone.'})+'\n')
+    with p.open('a') as f:f.write(json.dumps({'date':'2026-09-23','project':'time-at-hand','effort':'extended','what_constrained':'Emery installation acknowledged before switching watchface UUID; transport timed out during extended batches.','what_worked':'Shared renderer, original pixel digest, explicit app stop before install, independent review, native fixture and restart comparisons.','what_differently':'Verify embedded UUID and active application early; keep native fixture batches bounded and preserve wearable testing as next milestone.'})+'\n')
     p=ROOT/'.tmp/runlog.md'
     with p.open('a') as f:f.write(f'\n### {datetime.now().isoformat(timespec="minutes")} — Settings delivered\n- Changed: second edition, calendar, typography, hand styling, preview, PBWs, publishing guide.\n- Test: native17/17, styled17280, calendar5920, baseline and bundle hashes passed; independent verifier approved.\n- Next: physical trial before publication.\n')
     print('Recorded verified delivery; physical trial remains pending.')

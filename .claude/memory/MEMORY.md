@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Memory Index — time-as-hand
+# Memory Index — time-at-hand
 
 ## Project
 - [Project context](project_context.md) — purpose, stack, key constraints (populated at bootstrap)

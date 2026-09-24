@@ -26,7 +26,7 @@ Handoff-type: new-project
 Goal: build a native watchface prototype with article evidence.
 Status: Prototype milestone verified; physical trial pending.
 
-Project: /Users/danielbally/Git/time-as-hand
+Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (execution/preview.py)
 Build: watchface/build/watchface.pbw (Emery, normal local clock)
 Evidence: .tmp/verification.json, .tmp/emulator-verification.json, .tmp/live-verification.json
@@ -36,6 +36,6 @@ Next: user enables Dev Connect and installs on paired Pebble Time 2. Capture rea
 Closing audit: the prototype answers the requested behavior. Physical usefulness remains unproven; the article explicitly preserves that gap.
 ''')
 with (ROOT/'knowledge/REFLECTIONS.jsonl').open('a') as f:
-    f.write(json.dumps({'date':'2026-09-23','project':'time-as-hand','effort':'extended','what_constrained':'Precise behavioral interpretation and Emery clock injection','what_worked':'Shared C renderer, exhaustive minute checks and explicit native fixtures','what_differently':'Inspect SDK template filenames before patching; use known Emery clock limitation earlier'})+'\n')
+    f.write(json.dumps({'date':'2026-09-23','project':'time-at-hand','effort':'extended','what_constrained':'Precise behavioral interpretation and Emery clock injection','what_worked':'Shared C renderer, exhaustive minute checks and explicit native fixtures','what_differently':'Inspect SDK template filenames before patching; use known Emery clock limitation earlier'})+'\n')
 with (ROOT/'.tmp/runlog.md').open('a') as f:f.write('\n- Prototype and article draft delivered. Tests and independent review passed. Physical installation pending.\n')
 print('Prototype documentation checkpoint saved.')

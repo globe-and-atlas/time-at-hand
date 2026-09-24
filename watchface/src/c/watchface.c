@@ -1,5 +1,10 @@
 #include <pebble.h>
 #include "face.h"
+/* build_editions.py selects the edition through the local wscript. CloudPebble generates its
+ * own wscript, so default to the Original edition there. */
+#ifndef TAH_EDITION
+#define TAH_EDITION 0
+#endif
 static Window *window;
 static Layer *face;
 static uint8_t *pixels;

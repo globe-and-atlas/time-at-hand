@@ -7,7 +7,7 @@ dimensions:
   - performance
 ---
 
-# Parallel Loop Config — time-as-hand
+# Parallel Loop Config — time-at-hand
 
 ## Validation Contract
 

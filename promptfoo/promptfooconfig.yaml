@@ -6,7 +6,7 @@
 #   npx promptfoo@latest view          # open results in browser
 #   npx promptfoo@latest redteam run   # run red team attack suite
 
-description: "time-as-hand prompt evaluation"
+description: "time-at-hand prompt evaluation"
 
 # ── Prompts ────────────────────────────────────────────────────────────────────
 # Reference prompt files or inline them here.
@@ -55,7 +55,7 @@ tests:
 # Uncomment when the project exposes an LLM endpoint to users.
 #
 # redteam:
-#   purpose: "Customer-facing AI assistant for time-as-hand"
+#   purpose: "Customer-facing AI assistant for time-at-hand"
 #   plugins:
 #     - prompt-injection              # core — always enable for user-facing apps
 #     - harmful:hate

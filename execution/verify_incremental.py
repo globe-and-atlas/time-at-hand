@@ -5,6 +5,7 @@ from __future__ import annotations
 import ctypes
 import json
 from pathlib import Path
+import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,23 +13,27 @@ BASELINE = 'cade550b6908856dd0b52cdd7a17b1b4af61becb'
 SIZE = 200 * 228
 Buffer = ctypes.c_uint8 * SIZE
 Pointer = ctypes.POINTER(ctypes.c_uint8)
+HISTORICAL_NAMES = {'face_globe.h': 'globe.inc'}
 
 
 def library(baseline: bool) -> ctypes.CDLL:
     """Keep separate source/library names so the loader cannot reuse a handle."""
     folder = ROOT / '.tmp' / 'incremental-test' / ('baseline' if baseline else 'candidate')
-    folder.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(folder, ignore_errors=True)
+    folder.mkdir(parents=True)
     source = ROOT / 'watchface/src/c'
     for path in source.iterdir():
-        if path.suffix not in ('.h', '.inc', '.c') or path.name == 'watchface.c':
+        if path.suffix not in ('.h', '.c') or path.name == 'watchface.c':
             continue
         # Added after the historical renderer; its face.c has no such include.
-        if baseline and path.name == 'colors.inc':
+        if baseline and path.name == 'face_colors.h':
             continue
-        data = (subprocess.run(['git', 'show', f'{BASELINE}:watchface/src/c/{path.name}'],
+        # Renamed for CloudPebble; the historical face.c includes the old name.
+        name = HISTORICAL_NAMES.get(path.name, path.name) if baseline else path.name
+        data = (subprocess.run(['git', 'show', f'{BASELINE}:watchface/src/c/{name}'],
                                cwd=ROOT, check=True, capture_output=True).stdout
                 if baseline else path.read_bytes())
-        (folder / path.name).write_bytes(data)
+        (folder / name).write_bytes(data)
     output = folder / 'renderer.dylib'
     subprocess.run(['cc', '-O2', '-shared', '-fPIC', str(folder / 'face.c'),
                     '-o', str(output)], check=True)

@@ -62,14 +62,14 @@ def serve(port:int):
                 elif url.path in files:
                     name,mime=files[url.path];body=(ROOT/name).read_bytes()
                 elif url.path in ('/watchface.pbw','/two-hands.pbw','/meridian.pbw','/four-points.pbw','/clear.pbw'):
-                    name={'/watchface.pbw':'time-as-hand-original.pbw','/two-hands.pbw':'time-as-hand-two-hands.pbw','/meridian.pbw':'meridian-hemisphere.pbw','/four-points.pbw':'four-points.pbw','/clear.pbw':'clear.pbw'}[url.path]
+                    name={'/watchface.pbw':'time-at-hand-original.pbw','/two-hands.pbw':'time-at-hand-two-hands.pbw','/meridian.pbw':'meridian-hemisphere.pbw','/four-points.pbw':'four-points.pbw','/clear.pbw':'clear.pbw'}[url.path]
                     body=(ROOT/'dist'/name).read_bytes();mime='application/octet-stream'
                 else: self.send_error(404);return
                 self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
             except FileNotFoundError: self.send_error(404)
             except (ValueError,IndexError,OverflowError,OSError): self.send_error(400,'Invalid time or location')
         def log_message(self,fmt,*args): pass
-    print(f'Time as Hand: http://127.0.0.1:{port}',flush=True)
+    print(f'Time at Hand: http://127.0.0.1:{port}',flush=True)
     HTTPServer(('127.0.0.1',port),Handler).serve_forever()
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--port',type=int,default=4286);serve(p.parse_args().port)

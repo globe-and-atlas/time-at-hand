@@ -9,7 +9,7 @@ from libpebble2.util.bundle import PebbleBundle
 from libpebble2.util.hardware import PebbleHardware
 ROOT=Path(__file__).resolve().parents[1]
 for name in ('original','two-hands','meridian','four-points','clear'):
-    path=ROOT/'dist'/('meridian-hemisphere.pbw' if name=='meridian' else f'{name}.pbw' if name in ('four-points','clear') else f'time-as-hand-{name}.pbw')
+    path=ROOT/'dist'/('meridian-hemisphere.pbw' if name=='meridian' else f'{name}.pbw' if name in ('four-points','clear') else f'time-at-hand-{name}.pbw')
     with ZipFile(path) as z:
         info=json.loads(z.read('appinfo.json'))
     bundle=PebbleBundle(str(path),hardware=PebbleHardware.OBELIX_PVT)

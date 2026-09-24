@@ -34,7 +34,7 @@ def build_editions():
         split['pebble']['displayName']='Two Hands'
         manifest.write_text(json.dumps(split,indent=2)+'\n')
         build(1)
-        (ROOT/'dist/time-as-hand-two-hands.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
+        (ROOT/'dist/time-at-hand-two-hands.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
         for edition,name,uuid,filename in [(3,'4 Points',FOUR_POINTS_UUID,'four-points'),(4,'Clear',CLEAR_UUID,'clear')]:
             variant=json.loads(original);variant['pebble']['uuid']=uuid
             variant['pebble']['displayName']=name
@@ -46,6 +46,6 @@ def build_editions():
         manifest.write_text(original)
         build(0)
         config.write_text(original_config)
-    (ROOT/'dist/time-as-hand-original.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
+    (ROOT/'dist/time-at-hand-original.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
     print('Built five editions in dist/; restored default original build.')
 if __name__=='__main__':build_editions()

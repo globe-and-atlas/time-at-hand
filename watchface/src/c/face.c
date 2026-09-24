@@ -7,7 +7,8 @@
 const uint8_t face_palette[FACE_PALETTE_SIZE][3]={
  {255,255,255},{0,0,0},{255,170,0},{170,0,0},{0,0,170},
  {0,85,0},{85,0,170},{85,85,85},{0,85,85},{170,170,170},
-#include "colors.inc"
+/* Fragments of this file use .h names because CloudPebble imports only .c/.h sources. */
+#include "face_colors.h"
 };
 static int hour_radius=48;
 static int active_font=0,primary_color=2,secondary_color=2,primary_width=1,secondary_width=1;
@@ -190,4 +191,4 @@ void face_render_config(int h,int m,int edition,int year,int month,int day,
                         int weekday,int mask,int position,uint8_t *pixels) {
  face_render_custom(h,m,edition,year,month,day,weekday,mask,position,0,-1,-1,0,0,pixels);
 }
-#include "globe.inc"
+#include "face_globe.h"

@@ -222,7 +222,7 @@ def check_tasks() -> None:
         check("task.md exists", False)
         return
     content = task_md.read_text()
-    is_template = "time-as-hand" in content or "[Objective Name]" in content
+    is_template = "time-at-hand" in content or "[Objective Name]" in content
     check("task.md has been updated from template", not is_template,
           "still using placeholder text" if is_template else "", warning=True)
 

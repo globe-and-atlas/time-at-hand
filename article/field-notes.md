@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Time as Hand — article evidence kit
+# Time at Hand — article evidence kit
 
 Status: working experiment; not a completed wear-test article. No originality claim.
 

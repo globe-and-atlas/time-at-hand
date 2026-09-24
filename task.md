@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Time as Hand
+# Time at Hand
 
 Goal: deliver a testable native watchface plus an honest article evidence kit.
 

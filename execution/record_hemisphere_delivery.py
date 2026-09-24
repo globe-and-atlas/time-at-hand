@@ -39,9 +39,9 @@ Handoff-type: continuation
 Goal: implement selected Meridian Hemisphere third edition.
 Status: implemented; independent verifier approved. Physical trial remains open.
 
-Project: /Users/danielbally/Git/time-as-hand
+Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (third edition selected).
-Builds: dist/time-as-hand-original.pbw; dist/time-as-hand-two-hands.pbw; dist/meridian-hemisphere.pbw.
+Builds: dist/time-at-hand-original.pbw; dist/time-at-hand-two-hands.pbw; dist/meridian-hemisphere.pbw.
 Source manifest/default build: Original, production live clock. Three embedded UUID/download hashes verified.
 Hemisphere: location-centered low-resolution globe, seasonal UTC night shading, two numbered hands, existing date/font/color/width controls, opt-in coarse phone coordinates and remembered offline view.
 Evidence: .tmp/hemisphere-verification.json; hemisphere-emulator-verification.json (five zero-difference cases); existing style/calendar regression reports. Phone sandbox tests pass. See procedural/verify_hemisphere.md for commands and limitations.
@@ -51,7 +51,7 @@ Next: physical paired-phone settings/permission checks, non-UTC/DST watch behavi
 Closing audit: the chosen visual concept is now a working third prototype. Article notes capture measured failures and evidence boundaries; more feature expansion should wait for wear-test results.
 ''')
     p=ROOT/'knowledge/REFLECTIONS.jsonl'
-    with p.open('a') as f:f.write(json.dumps({'date':'2026-09-23','project':'time-as-hand','effort':'extended','what_constrained':'Native relocatable math and emulator RTC/timezone behavior','what_worked':'Shared renderer, pixel comparisons, independent challenge to an unproven cache explanation','what_differently':'Set an explicit emulator timezone before testing solar and civil time; capture a minimal native math baseline earlier'})+'\n')
+    with p.open('a') as f:f.write(json.dumps({'date':'2026-09-23','project':'time-at-hand','effort':'extended','what_constrained':'Native relocatable math and emulator RTC/timezone behavior','what_worked':'Shared renderer, pixel comparisons, independent challenge to an unproven cache explanation','what_differently':'Set an explicit emulator timezone before testing solar and civil time; capture a minimal native math baseline earlier'})+'\n')
     print('Recorded final Hemisphere delivery evidence.')
 
 if __name__=='__main__':main()

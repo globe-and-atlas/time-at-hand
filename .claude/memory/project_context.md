@@ -1,10 +1,10 @@
 ---
-name: time-as-hand — project context
+name: time-at-hand — project context
 description: Core project facts for auto-loading — purpose, stack, constraints, out-of-scope
 type: project
 ---
 
-**Project:** time-as-hand
+**Project:** time-at-hand
 **Purpose:** [One sentence — what this does and for whom]
 **Stack:** [Brief — language, framework, key deps]
 **Deploy:** local-only

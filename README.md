@@ -2,7 +2,7 @@
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
-# Time as Hand
+# Time at Hand
 
 A native Pebble Time 2 watchface experiment with a matching local preview and article evidence kit.
 
@@ -15,7 +15,7 @@ Hemisphere uses UTC plus the date for sunlight, independently of local daylight 
 ## Try it now
 
 ```bash
-cd /Users/danielbally/Git/time-as-hand
+cd /Users/danielbally/Git/time-at-hand
 python3 execution/preview.py
 ```
 
@@ -26,19 +26,19 @@ Open http://127.0.0.1:4286. Select an edition; adjust time, typography, hands an
 SDK installed for this session: Pebble CLI 5.0.40, SDK 4.33.1. Native target: Emery only (Pebble Time 2).
 
 ```bash
-cd /Users/danielbally/Git/time-as-hand
+cd /Users/danielbally/Git/time-at-hand
 python3 execution/build_editions.py
 cd watchface
-pebble install --emulator emery ../dist/time-as-hand-two-hands.pbw
+pebble install --emulator emery ../dist/time-at-hand-two-hands.pbw
 ```
 
-Installable outputs: `dist/time-as-hand-original.pbw`, `dist/time-as-hand-two-hands.pbw`, `dist/meridian-hemisphere.pbw`, `dist/four-points.pbw`, and `dist/clear.pbw`. Each has its own UUID, so the five can coexist. The build script restores the source manifest and default build to Original. Each preview edition links its matching download.
+Installable outputs: `dist/time-at-hand-original.pbw`, `dist/time-at-hand-two-hands.pbw`, `dist/meridian-hemisphere.pbw`, `dist/four-points.pbw`, and `dist/clear.pbw`. Each has its own UUID, so the five can coexist. The build script restores the source manifest and default build to Original. Each preview edition links its matching download.
 
 For the physical watch, open the current Pebble mobile app, enable Dev Connect from Devices, then authenticate personally. From `watchface/`:
 
 ```bash
 pebble login
-pebble install --cloudpebble ../dist/time-as-hand-two-hands.pbw
+pebble install --cloudpebble ../dist/time-at-hand-two-hands.pbw
 ```
 
 The build needs no API key. Bundled Clay phone-side JavaScript provides offline settings; no custom phone app, hosted settings page, or preview server is needed on the wrist. No store submission is needed for sideloading. Official setup: https://developer.repebble.com/sdk/
@@ -67,3 +67,13 @@ See [PUBLISH.md](PUBLISH.md) for the Pebble dashboard route, bundle choices and 
 ## Article
 
 `article/draft.md` is a working draft about the experiment so far. `article/field-notes.md` holds provenance, evidence limits and questions for the physical trial. Neither is published. Hardware readability, battery measurements and wearer observations remain untested.
+
+## CloudPebble
+
+Import: <https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand>
+
+CloudPebble finds `watchface/package.json`, imports only `.c`/`.h` files from `src/c` and `.js`/`.json` files from `src/pkjs`, and replaces our `wscript` with its own. So:
+- Renderer fragments included by `face.c` use `.h` names (`face_colors.h`, `face_globe.h`), not `.inc`.
+- With CloudPebble's `wscript`, `TAH_EDITION` falls back to `0` and it builds **Original**. The other editions come from `python3 execution/build_editions.py`, which swaps the manifest and settings for each build.
+
+Checked 2026-09-24 against the CloudPebble source (coredevices/cloudpebble @ 08298a2): a simulated import (same file filter, same generated `wscript`) built an Original binary identical to the local build, apart from the CRC, timestamp and build ID.
