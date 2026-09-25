@@ -13,6 +13,7 @@ const uint8_t face_palette[FACE_PALETTE_SIZE][3]={
 static int hour_radius=48;
 static int active_font=0,primary_color=2,secondary_color=2,primary_width=1,secondary_width=1;
 static int hour_label_scale=3,minute_label_scale=2,show_ticks=0;
+static int date_order=0,hour_leading_zero=0,minute_leading_zero=1,show_center_pivot=1;
 static int stroke_ink(float across,int width) {
  /* Negative values preserve the original optical weights. Explicit pixel
   * widths use a half-open span so even widths remain distinct on axis. */
@@ -32,8 +33,17 @@ int face_special(int h, int m) { return m == 0 && h % 3 == 0; }
 int face_angle(int h, int m) { return (h % 12) * 60 + m; }
 void face_label(int h, int m, char *out) {
  int hour=h%12; if (!hour) hour=12;
- if (face_special(h,m)) snprintf(out,6,"%d",hour);
- else snprintf(out,6,"%d:%02d",hour,m);
+ if (face_special(h,m)) {
+  if(hour_leading_zero && hour<10) snprintf(out,6,"0%d",hour);
+  else snprintf(out,6,"%d",hour);
+ } else {
+  char hh[3],mm[3];
+  if(hour_leading_zero && hour<10) snprintf(hh,sizeof(hh),"0%d",hour);
+  else snprintf(hh,sizeof(hh),"%d",hour);
+  if(minute_leading_zero || m>=10) snprintf(mm,sizeof(mm),"%02d",m);
+  else snprintf(mm,sizeof(mm),"%d",m);
+  snprintf(out,6,"%s:%s",hh,mm);
+ }
 }
 static int ink(const char *s,int x,int y,int scale) {
  if(x<0 || y<0 || y>=7*scale) return 0;
@@ -78,7 +88,7 @@ static void render_original(int h,int m,uint8_t *pixels) {
   float tx=radial-46,ty=lateral;
   if(flip) {tx=-tx;ty=-ty;}
   if(ink(label,nearest(tx+width/2.0f),nearest(ty+8*scale),scale)) c=1;
-  if(xx*xx+yy*yy<=9) c=1;
+  if(show_center_pivot && xx*xx+yy*yy<=9) c=1;
   pixels[y*FACE_W+x]=c;
  }
 }
@@ -89,8 +99,11 @@ static void split_layout_radius_scaled(int h,int m,FaceNumber *labels,int radius
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  /* Distinct tracks keep labels separate even when hands align at noon. */
  int radii[2]={radius,82};
- snprintf(labels[0].text,3,"%d",h%12 ? h%12 : 12);
- snprintf(labels[1].text,3,"%02d",m);
+ int hour=h%12 ? h%12 : 12;
+ if(hour_leading_zero && hour<10) snprintf(labels[0].text,3,"0%d",hour);
+ else snprintf(labels[0].text,3,"%d",hour);
+ if(minute_leading_zero || m>=10) snprintf(labels[1].text,3,"%02d",m);
+ else snprintf(labels[1].text,3,"%d",m);
  for(int i=0;i<2;++i) {
   FaceNumber *n=&labels[i];
   n->scale=i==0 ? hour_scale : minute_scale;
@@ -131,7 +144,7 @@ static void render_split(int h,int m,uint8_t *pixels) {
   }
   for(int i=0;i<2;++i)
    if(ink(labels[i].text,x-labels[i].x,y-labels[i].y,labels[i].scale)) c=1;
-  if(xx*xx+yy*yy<=9) c=1;
+  if(show_center_pivot && xx*xx+yy*yy<=9) c=1;
   pixels[y*FACE_W+x]=c;
  }
 }
@@ -171,21 +184,46 @@ void face_date_text(int year,int month,int day,int weekday,int mask,char *out) {
  static const char *months[]={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
  out[0]=0;
  if(year<1 || year>9999 || month<1 || month>12 || day<1 || day>31 || weekday<0 || weekday>6) return;
- char date[3],yr[5];snprintf(date,sizeof(date),"%02d",day);snprintf(yr,sizeof(yr),"%04d",year);
+ char date[3],month_num[3],yr[5];snprintf(date,sizeof(date),"%02d",day);snprintf(month_num,sizeof(month_num),"%02d",month);snprintf(yr,sizeof(yr),"%04d",year);
  const char *parts[]={days[weekday],date,months[month-1],yr};
- for(int i=0;i<4;++i) if(mask&(1<<i)) {
-  if(out[0]) strcat(out," ");
-  strcat(out,parts[i]);
+ const int orders[3][4]={{0,1,2,3},{1,2,3,0},{2,1,3,0}};
+ if(date_order==3) {
+  if(mask&14) {
+   strcat(out,yr);strcat(out,"-");strcat(out,month_num);strcat(out,"-");strcat(out,date);
+  }
+  if(mask&1) {if(out[0]) strcat(out," ");strcat(out,days[weekday]);}
+  return;
+ }
+ const int *order=orders[date_order>=0 && date_order<3 ? date_order : 0];
+ for(int j=0;j<4;++j) {
+  int i=order[j];
+  if(mask&(1<<i)) {
+   if(out[0]) strcat(out," ");
+   strcat(out,parts[i]);
+  }
  }
 }
-void face_render_custom(int h,int m,int edition,int year,int month,int day,
+void face_apply_theme(int dial_theme,uint8_t *pixels) {
+ if(dial_theme!=1) return;
+ for(int i=0;i<FACE_W*FACE_H;++i) {
+  if(pixels[i]==0) pixels[i]=1;
+  else if(pixels[i]==1) pixels[i]=0;
+ }
+}
+void face_render_full(int h,int m,int edition,int year,int month,int day,
                         int weekday,int mask,int position,int font,int color,
                         int minute_color,int width,int minute_width,
-                        int hour_size,int minute_size,int ticks,uint8_t *pixels) {
+                        int hour_size,int minute_size,int ticks,
+                        int date_format,int hour_format,int minute_format,
+                        int dial_theme,int pivot,uint8_t *pixels) {
  set_style(edition,font,color,minute_color,width,minute_width);
  hour_label_scale=label_scale(hour_size,3);
  minute_label_scale=label_scale(minute_size,2);
  show_ticks=ticks ? 1 : 0;
+ date_order=date_format>=0 && date_format<=3 ? date_format : 0;
+ hour_leading_zero=hour_format ? 1 : 0;
+ minute_leading_zero=minute_format ? 1 : 0;
+ show_center_pivot=pivot ? 1 : 0;
  if(edition) render_split(h,m,pixels);else render_original(h,m,pixels);
  if(show_ticks) {
   for(int k=0;k<12;++k) {
@@ -198,7 +236,7 @@ void face_render_custom(int h,int m,int edition,int year,int month,int day,
  }
  /* Keep orientation marks outside the tested numeral envelope and date bands.
   * The three-pixel marks remain visible when a number reaches a cardinal. */
- if(edition==3 || edition==4) {
+ if(edition==3) {
   const int origins[4][2]={{99,19},{197,113},{99,206},{0,113}};
   for(int k=0;k<4;++k) for(int y=0;y<3;++y) for(int x=0;x<3;++x)
    pixels[(origins[k][1]+y)*FACE_W+origins[k][0]+x]=1;
@@ -214,6 +252,14 @@ void face_render_custom(int h,int m,int edition,int year,int month,int day,
    for(int sy=0;sy<2;++sy) for(int sx=0;sx<2;++sx)
     pixels[(top+row*2+sy)*FACE_W+left+i*12+col*2+sx]=1;
  }
+ if(edition!=2) face_apply_theme(dial_theme,pixels);
+}
+void face_render_custom(int h,int m,int edition,int year,int month,int day,
+                        int weekday,int mask,int position,int font,int color,
+                        int minute_color,int width,int minute_width,
+                        int hour_size,int minute_size,int ticks,uint8_t *pixels) {
+ face_render_full(h,m,edition,year,month,day,weekday,mask,position,font,color,minute_color,
+                  width,minute_width,hour_size,minute_size,ticks,0,0,1,0,1,pixels);
 }
 void face_render_config(int h,int m,int edition,int year,int month,int day,
                         int weekday,int mask,int position,uint8_t *pixels) {

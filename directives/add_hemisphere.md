@@ -7,7 +7,7 @@ timestamp: "2026-09-23"
 ## Contract
 Target: third edition, G&A Meridian — Hemisphere, based on selected concept 06.
 Scripts: execution/generate_land.py, execution/preview.py, execution/build_editions.py, execution/verify_hemisphere.py.
-Outputs: shared native renderer; preview at port 4286; dist/meridian-hemisphere.pbw; article/field-notes.md.
+Outputs: shared native renderer; preview at port 4286; dist/meridian.pbw; article/field-notes.md.
 Safety: no secret reads, commits, publication, or external location service. Transient evidence stays in .tmp/.
 
 ## Validation Contract

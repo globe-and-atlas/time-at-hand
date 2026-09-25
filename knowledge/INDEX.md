@@ -20,6 +20,8 @@ Add domain or procedural files as real knowledge emerges.
 
 Last updated 2026-09-24: renderer.md covers editions/calendar/fonts and 0.1.1 hand geometry controls; deps.md covers Clay1.1.0 and SDK keys; run_prototype.md covers current build/native lifecycle, settings release and publication workflow; ../PUBLISH.md contains current store guide.
 
+Last updated 2026-09-25: renderer.md and run_prototype.md cover 0.1.2 shared dial/status controls, date-order settings and the rebuild/verification workflow.
+
 | [procedural/verify_hemisphere.md](procedural/verify_hemisphere.md) | procedural | 2026-09-23: five native checks, browser evidence, UTC emulator limitation |
 
 2026-09-23 update: procedural/verify_hemisphere.md covers physical SDK math faults, numeric oracle commands, incremental renderer, and current pending device acceptance.

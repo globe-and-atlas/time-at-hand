@@ -86,7 +86,7 @@ def main():
     finally:
         manifest.write_text(original)
         build_editions()
-        install(ROOT/'dist/time-at-hand-two-hands.pbw')
+        install(ROOT/'dist/vector.pbw')
         launch(SPLIT_UUID)
     settings(SPLIT_UUID,15,1);check('native-calendar-production-live',1,15,1)
     (ROOT/'.tmp/calendar-emulator-verification.json').write_text(json.dumps(reports,indent=2)+'\n')

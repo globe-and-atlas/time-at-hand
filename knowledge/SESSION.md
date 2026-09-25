@@ -11,7 +11,7 @@ Status: implemented; independent verifier approved. Physical trial remains open.
 
 Project: /Users/danielbally/Git/time-as-hand
 Preview: http://127.0.0.1:4286 (third edition selected).
-Builds: dist/time-as-hand-original.pbw; dist/time-as-hand-two-hands.pbw; dist/meridian-hemisphere.pbw.
+Builds: dist/origin.pbw; dist/vector.pbw; dist/meridian.pbw.
 Source manifest/default build: Original, production live clock. Three embedded UUID/download hashes verified.
 Hemisphere: location-centered low-resolution globe, seasonal UTC night shading, two numbered hands, existing date/font/color/width controls, opt-in coarse phone coordinates and remembered offline view.
 Evidence: .tmp/hemisphere-verification.json; hemisphere-emulator-verification.json (five zero-difference cases); existing style/calendar regression reports. Phone sandbox tests pass. See procedural/verify_hemisphere.md for commands and limitations.
@@ -88,11 +88,11 @@ Last Known State: all three color-picker builds installed successfully. Actual d
 
 ## Clear and 4 Points
 Agent: OpenAI Codex
-Goal: add two independent editions to preview and phone/watch. Status: implementing shared renderer variants; existing editions unchanged. Execution build_editions.py, generate_settings.py, preview.py, focused host/native checks and Dev Connect install. Outputs dist/clear.pbw and dist/four-points.pbw. No publication, credential reads or changes to existing UUIDs.
+Goal: add two independent editions to preview and phone/watch. Status: implementing shared renderer variants; existing editions unchanged. Execution build_editions.py, generate_settings.py, preview.py, focused host/native checks and Dev Connect install. Outputs dist/clarity.pbw and dist/cardinal.pbw. No publication, credential reads or changes to existing UUIDs.
 
 Checkpoint: five bundles built and identities/download hashes verified. Browser checked both new editions. Fresh verifier approved 17,280 default frames,17,920 override frames,768 date states and marker clearance. Physical installer still awaiting phone connection; native emulator check running.
 
-Last Known State: Clear and4 Points implemented in preview/settings and separate built PBWs. Browser review, bundle hashes, existing host regressions and independent exhaustive renderer review pass. Native emulator verification blocked by stale Meridian error screen even after wipe retry; not marked passed. Dev Connect never connected; interrupted with neither new edition installed. Next: reconnect phone and install dist/four-points.pbw then dist/clear.pbw sequentially; capture each physical face. Closing audit: software additions delivered, requested physical deployment remains incomplete.
+Last Known State: Clear and4 Points implemented in preview/settings and separate built PBWs. Browser review, bundle hashes, existing host regressions and independent exhaustive renderer review pass. Native emulator verification blocked by stale Meridian error screen even after wipe retry; not marked passed. Dev Connect never connected; interrupted with neither new edition installed. Next: reconnect phone and install dist/cardinal.pbw then dist/clarity.pbw sequentially; capture each physical face. Closing audit: software additions delivered, requested physical deployment remains incomplete.
 
 ## Retry new-edition deployment
 Agent: OpenAI Codex
@@ -116,3 +116,31 @@ Goal: rename the five editions to Origin, Vector, Meridian, Cardinal and Clarity
 Status: source and product-facing docs updated; five bundles rebuilt with renamed app metadata. Host verification passes. CloudPebble branch regeneration and GitHub push remain.
 
 Checkpoint: host verifier passed 34,560 default frames, 35,840 overrides and 1,536 date frames. Five PBWs now embed Origin, Vector, Meridian, Cardinal and Clarity with unchanged UUIDs. CloudPebble branch generation verified all four edition imports and force-pushed renamed branch metadata; main pushed at 8464914. Root pebble-time index README still needs its naming commit.
+
+## 2026-09-25 — 0.1.2 common settings
+Agent: OpenAI Codex
+Goal: add shared battery, Bluetooth, leading-zero, date-order, theme and pivot controls to all five faces.
+Status: implemented and verified locally; not committed or pushed.
+
+Checkpoint: 0.1.2 common settings added across native renderer, Pebble AppMessage persistence, Clay phone settings and web preview. Generated phone settings and all five PBWs rebuilt. Host suites passed: verify_styles, verify_clear_points, verify_calendar, verify_editions, verify_hemisphere and verify_location. Bundle inspector confirmed Origin, Vector, Meridian, Cardinal and Clarity UUIDs/names plus preview download routes. Release notes, README, PUBLISH, renderer knowledge and run procedure updated. No GitHub push or dashboard upload performed.
+
+## 2026-09-25 — Public PBW filenames
+Agent: OpenAI Codex
+Goal: rename generated PBW artifacts to match the public edition names.
+Status: implemented and verified locally; not committed or pushed.
+
+Checkpoint: build_editions.py now writes dist/origin.pbw, dist/vector.pbw, dist/meridian.pbw, dist/cardinal.pbw and dist/clarity.pbw. Preview download routes and buttons, bundle inspector, helper scripts, README, PUBLISH, procedures and directives were updated. Old dist PBWs were removed. Rebuilt all five PBWs and inspected each renamed route against a fresh preview server. verify_preview passes with renamed route expectations.
+
+## 2026-09-25 — Clarity marker distinction
+Agent: OpenAI Codex
+Goal: remove Cardinal markers from Clarity so the two editions have distinct visual roles.
+Status: implemented, images regenerated, PBWs rebuilt and inspected; not committed or pushed.
+
+Checkpoint: Clarity no longer draws built-in four-point markers. Cardinal remains the orientation-point edition. verify_clear_points now asserts clarity_cardinal_pixels=0 and passed; verify_styles passed. Listing images/contact sheet regenerated. All five PBWs rebuilt and inspected through renamed preview routes.
+
+## 2026-09-25 — Meridian land and water colors
+Agent: OpenAI Codex
+Goal: add Meridian-only land and water color controls.
+Status: implemented, verified, rebuilt locally; not committed or pushed.
+
+Checkpoint: Meridian phone settings and browser preview now include water and land color pickers. Native renderer uses face_globe_colors before globe overlay rows and persists WaterColorRGB/LandColorRGB choices. Defaults preserve white water and gray land. verify_hemisphere asserts custom_globe_colors=pass; verify_styles, verify_clear_points and verify_location pass. All five renamed PBWs rebuilt and inspected.

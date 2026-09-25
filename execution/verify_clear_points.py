@@ -61,10 +61,11 @@ def main():
             actual = bytes(pixels)
         else:
             actual = frame(lib, hour, minute, edition, **options, **({} if defaults else style))
-        # Marks must occupy previously empty pixels, never replacing time/date ink.
+        # Cardinal marks must occupy previously empty pixels, never replacing
+        # time/date ink. Clarity must remain clear of those built-in marks.
         assert all(baseline[i] == 0 for i in markers), (edition, font, hour, minute, 'marker collision')
         expected = bytearray(baseline)
-        if edition in (3, 4):
+        if edition == 3:
             for i in markers:
                 expected[i] = 1
         assert actual == expected, (edition, font, hour, minute, mask, position, 'whole-frame mismatch')
@@ -130,12 +131,13 @@ def main():
                   for item in section.get('items', []) if 'messageKey' in item}
         required = {'TimeFont', 'HandColorRGB', 'HandWidth', 'MinuteColorRGB', 'MinuteWidth',
                     'HourLabelSize', 'MinuteLabelSize', 'ShowTicks', 'ShowWeekday', 'ShowDay',
-                    'ShowMonth', 'ShowYear', 'DatePosition'}
+                    'ShowMonth', 'ShowYear', 'DatePosition', 'DateFormat', 'DialTheme',
+                    'ShowPivot', 'BatteryMode', 'BluetoothMode', 'HourFormat', 'MinuteFormat'}
         assert set(fields) == required
         assert fields['HandColorRGB']['defaultValue'] == '000000'
         assert fields['MinuteColorRGB']['defaultValue'] == minute_rgb
         assert len(fields['TimeFont']['options']) == 12
-    report = dict(status='pass', **counts, cardinal_pixels=36, fonts=12, unique_uuids=5, dual_hand_hour_radius=48,
+    report = dict(status='pass', **counts, cardinal_pixels=36, clarity_cardinal_pixels=0, fonts=12, unique_uuids=5, dual_hand_hour_radius=48,
                   minimum_label_gap=minimum_gap, upright_glyph_crops=len(glyphs),
                   boundary='Host oracle only; native bundles and device interaction require separate checks.')
     (ROOT / '.tmp/clear-points-verification.json').write_text(json.dumps(report, indent=2) + '\n')

@@ -11,7 +11,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--seconds',type=int,default=35)
     parser.add_argument('--launch-only',action='store_true')
     args=parser.parse_args()
-    bundle=ROOT/'dist/meridian-hemisphere.pbw'
+    bundle=ROOT/'dist/meridian.pbw'
     code='from pebble_tool.util.logs import PebbleLogPrinter\nfrom pebble_tool.commands.install import ToolAppInstaller\n'
     code+='logger=PebbleLogPrinter(pebble,force_colour=False)\n'
     if args.launch_only:

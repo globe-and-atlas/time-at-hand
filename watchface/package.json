@@ -1,7 +1,7 @@
 {
   "name": "time-at-hand",
   "author": "Daniel Bally",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "pebble-app"
   ],
@@ -37,6 +37,13 @@
       "HourLabelSize",
       "MinuteLabelSize",
       "ShowTicks",
+      "DateFormat",
+      "HourFormat",
+      "MinuteFormat",
+      "DialTheme",
+      "ShowPivot",
+      "BatteryMode",
+      "BluetoothMode",
       "Latitude",
       "Longitude",
       "LocationValid",
@@ -45,7 +52,9 @@
       "ManualLatitude",
       "ManualLongitude",
       "HandColorRGB",
-      "MinuteColorRGB"
+      "MinuteColorRGB",
+      "WaterColorRGB",
+      "LandColorRGB"
     ],
     "resources": {
       "media": []

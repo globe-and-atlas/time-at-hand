@@ -24,7 +24,7 @@ Run `python3 execution/build_editions.py`, `python3 execution/verify_hemisphere.
 
 Five production native comparisons passed with zero differing pixels: world, London, remembered restart, Sydney, a real minute tick. Host checks cover seasonal solstices, seven camera centers, the repeated DST hour, 720 dial states and label/date protection. Current host regressions pass 17,280 style states and 5,920 calendar cases. Re-running the legacy native faces was blocked by an emulator UUID-switching issue; their earlier 17 native comparisons are historical evidence, not a fresh rerun. Phone sandbox tests cover opt-in, rounding, fallback, stale responses and empty phone storage; no real user location was requested.
 
-Run `execution/inspect_bundles.py` with the Pebble Python runtime while the local preview is running to verify embedded UUIDs and HTTP download hashes for three bundles. Source manifest/default build stays Original; use dist/meridian-hemisphere.pbw explicitly. Build script retains .tmp/meridian.elf for fault diagnosis. Transient logs and test reports stay in .tmp/.
+Run `execution/inspect_bundles.py` with the Pebble Python runtime while the local preview is running to verify embedded UUIDs and HTTP download hashes for three bundles. Source manifest/default build stays Original; use dist/meridian.pbw explicitly. Build script retains .tmp/meridian.elf for fault diagnosis. Transient logs and test reports stay in .tmp/.
 
 Browser observed: edition switching retains independent controls; London updates the globe; date fields appear below; reload retains location; a spring DST gap normalizes forward; live view shows America/Chicago local time and a separate UTC solar instant. Browser geolocation was not granted or called. Ambiguous autumn manual time selects the first occurrence; live mode uses the actual instant.
 
@@ -41,7 +41,7 @@ Status: implemented; independent verifier approved. Physical trial remains open.
 
 Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (third edition selected).
-Builds: dist/time-at-hand-original.pbw; dist/time-at-hand-two-hands.pbw; dist/meridian-hemisphere.pbw.
+Builds: dist/origin.pbw; dist/vector.pbw; dist/meridian.pbw.
 Source manifest/default build: Original, production live clock. Three embedded UUID/download hashes verified.
 Hemisphere: location-centered low-resolution globe, seasonal UTC night shading, two numbered hands, existing date/font/color/width controls, opt-in coarse phone coordinates and remembered offline view.
 Evidence: .tmp/hemisphere-verification.json; hemisphere-emulator-verification.json (five zero-difference cases); existing style/calendar regression reports. Phone sandbox tests pass. See procedural/verify_hemisphere.md for commands and limitations.

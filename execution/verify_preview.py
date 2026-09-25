@@ -26,7 +26,7 @@ def verify(port=4299):
                 if status(port,'/')==200:break
                 time.sleep(0.1)
             cases={'/':200,'/face.png?h=3&m=30':200,'/face.png?h=99&m=0':400,'/face.png?h=3&m=30&lat=999':400,
-                   '/watchface.pbw':404,'/meridian.pbw':404,'/style.css':404,'/nope':404}
+                   '/origin.pbw':404,'/meridian.pbw':404,'/style.css':404,'/nope':404}
             for path,expected in cases.items():
                 assert status(port,path)==expected,(path,status(port,path),expected)
         finally:preview.ROOT=real

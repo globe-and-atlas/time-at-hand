@@ -9,6 +9,11 @@ static uint8_t earth_cache[(FACE_W*FACE_H+3)/4];
 static int earth_last_lat=99999,earth_last_lon=99999;
 static int earth_next_row=38;
 static float earth_slat,earth_clat,earth_slon,earth_clon;
+static uint8_t earth_water_color=0,earth_land_color=7;
+void face_globe_colors(int water_color,int land_color) {
+ earth_water_color=(water_color>=0 && water_color<FACE_PALETTE_SIZE) ? water_color : 0;
+ earth_land_color=(land_color>=0 && land_color<FACE_PALETTE_SIZE) ? land_color : 7;
+}
 /* The SDK trigonometric reducer also contains absolute table pointers. Our
  * solar/projection angles are bounded to |x| < 32 radians, so double-precision
  * reduction is sufficient without tables. Preserve the two-part remainder
@@ -133,10 +138,10 @@ void face_globe_overlay_rows(int h,int m,int utc_year,int doy,int utc_minute,
   float light=e*sun_e+n*sun_n+__ieee754_sqrtf(1-rr)*sun_z;
   /* Dark gray survives the physical display's low contrast; white graticule
    * cuts through land while dark gray marks it over the white ocean. */
-  uint8_t c=(value&1) ? 7 : 0;
-  if(value&2) c=(value&1) ? 0 : 7;
+  uint8_t c=(value&1) ? earth_land_color : earth_water_color;
+  if(value&2) c=(value&1) ? earth_water_color : earth_land_color;
   /* Night is visibly textured; land retains a darker silhouette. */
-  if(light<0 && ((x+y)&1)==0) c=(value&1) ? 1 : 7;
+  if(light<0 && ((x+y)&1)==0) c=(value&1) ? 1 : earth_land_color;
   if(marker && (x-100)*(x-100)+(y-114)*(y-114)>=30 && (x-100)*(x-100)+(y-114)*(y-114)<=42) c=8;
   pixels[i]=c;
  }

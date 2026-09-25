@@ -4,6 +4,18 @@ timestamp: "2026-09-23"
 ---
 # Time at Hand release notes
 
+## 0.1.2 point release · shared dial and status settings
+
+- All five faces now share light/dark dial theme controls.
+- Center pivot visibility can be turned off for a cleaner dial.
+- Hour and minute leading-zero formats can be set from the phone app and preview.
+- Date order can be changed between weekday-first, day-first, month-first, and ISO-style layouts.
+- Optional battery status can be hidden, shown as a percent, shown as a thin bar, or shown only when low.
+- Optional Bluetooth disconnect marker adds a small `x` when the phone connection drops.
+- Meridian adds land and water color pickers for the globe while preserving its daylight overlay.
+
+Upload this as version 0.1.2 to each existing dashboard listing. The five app identities, names, UUIDs, and direct links remain unchanged.
+
 ## 0.1.1 point release · renamed collection and expanded controls
 
 - The five-face series is now named **Origin**, **Vector**, **Meridian**, **Cardinal**, and **Clarity**. UUIDs and existing app links remain unchanged.
@@ -32,7 +44,7 @@ For Pebble Time 2 (Emery). This is a prototype for sideloading, not a store rele
 
 - Clarity: a heavy black hour hand, orange minute hand, and upright numbers at their tips.
 - Cardinal: fine black hands with upright tip numbers.
-- Four small cardinal marks provide orientation on both faces.
+- Cardinal includes four small cardinal marks for orientation; Clarity removes them for a cleaner dial.
 - Both include 12 numeral fonts, independent hand color/width controls, and optional date combinations at the top or bottom.
 - Separate app identities preserve each edition’s settings. For Pebble Time 2; not published to the store.
 

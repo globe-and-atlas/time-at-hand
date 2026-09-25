@@ -7,7 +7,7 @@ timestamp: "2026-09-23"
 Physical Dev Connect installation succeeds but the watch displays Meridian is not responding. Diagnose the actual failure before declaring the physical trial successful.
 
 Execution: build_editions.py, inspect_bundles.py, existing host renderer checks, device install/screenshot/log CLI.
-Artifacts: dist/meridian-hemisphere.pbw, .tmp/device screenshots and timing evidence.
+Artifacts: dist/meridian.pbw, .tmp/device screenshots and timing evidence.
 Safety: preserve app UUIDs, preserve saved settings, no credential reads or publication. User authorized paired-watch installation through Dev Connect.
 
 ## Validation contract

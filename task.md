@@ -80,7 +80,7 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 ## Clarity and Cardinal
 - [x] Add Clarity with heavy black hour and orange minute defaults.
 - [x] Add Cardinal with fine black hands.
-- [x] Keep four cardinal markers clear of time/date labels.
+- [x] Keep Cardinal's four markers clear of time/date labels.
 - [x] Expose both editions in preview.
 - [x] Build separate watch UUIDs.
 - [x] Verify native rendering. (Physical captures for both new editions.)
@@ -103,3 +103,21 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] Preserve existing defaults, UUIDs, and legacy setting persistence.
 - [x] Rebuild all five PBWs and pass renderer/style regression checks.
 - [x] Record the new release notes and naming changes.
+
+## 0.1.2 common watchface settings — verified
+- [x] Add optional battery indicator to all editions.
+- [x] Add optional Bluetooth disconnect marker to all editions.
+- [x] Add hour leading-zero control to all editions.
+- [x] Add minute leading-zero control to all editions.
+- [x] Add date-order control to all editions.
+- [x] Add light/dark dial theme to all editions.
+- [x] Add center pivot visibility control to all editions.
+- [x] Preserve 0.1.1 defaults and UUIDs.
+- [x] Rebuild all five PBWs and pass focused renderer checks.
+
+## Meridian globe color controls — verified
+- [x] Add water color picker to Meridian phone settings and preview.
+- [x] Add land color picker to Meridian phone settings and preview.
+- [x] Preserve existing default globe colors.
+- [x] Persist globe color choices on the watch.
+- [x] Rebuild all PBWs and verify custom globe colors.

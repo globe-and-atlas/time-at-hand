@@ -12,6 +12,7 @@ void face_globe_overlay_rows(int h,int m,int utc_year,int doy,int utc_minute,
                         int latitude,int longitude,int marker,uint8_t *pixels,int first,int end);
 void face_globe_overlay(int h,int m,int utc_year,int doy,int utc_minute,
                         int latitude,int longitude,int marker,uint8_t *pixels);
+void face_globe_colors(int water_color,int land_color);
 int face_special(int hour, int minute);
 int face_angle(int hour, int minute);
 void face_label(int hour, int minute, char *out);
@@ -33,3 +34,10 @@ void face_render_custom(int hour,int minute,int edition,int year,int month,int d
                         int minute_color,int hand_width,int minute_width,
                         int hour_label_size,int minute_label_size,int show_ticks,
                         uint8_t *pixels);
+void face_render_full(int hour,int minute,int edition,int year,int month,int day,
+                        int weekday,int mask,int position,int font,int hand_color,
+                        int minute_color,int hand_width,int minute_width,
+                        int hour_label_size,int minute_label_size,int show_ticks,
+                        int date_format,int hour_format,int minute_format,
+                        int dial_theme,int show_pivot,uint8_t *pixels);
+void face_apply_theme(int dial_theme,uint8_t *pixels);

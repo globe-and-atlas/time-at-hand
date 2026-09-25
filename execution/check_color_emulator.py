@@ -17,7 +17,7 @@ def main():
         result=subprocess.run(['pebble',*args],cwd=ROOT/'watchface',capture_output=True,text=True,timeout=60)
         with (ROOT/'.tmp/color-emulator.log').open('a') as f:f.write(result.stdout+result.stderr)
         result.check_returncode()
-    def install():run(['install','--emulator','emery',str(ROOT/'dist/meridian-hemisphere.pbw')])
+    def install():run(['install','--emulator','emery',str(ROOT/'dist/meridian.pbw')])
     def check(name,hour_index,minute_index):
         path=ROOT/'.tmp'/f'color-{name}.png'
         deadline=time.monotonic()+15

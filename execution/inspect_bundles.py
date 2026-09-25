@@ -2,14 +2,16 @@
 """Validate manifest and embedded native identity for all five editions."""
 import json
 import hashlib
+import os
 from pathlib import Path
 from zipfile import ZipFile
 from urllib.request import urlopen
 from libpebble2.util.bundle import PebbleBundle
 from libpebble2.util.hardware import PebbleHardware
 ROOT=Path(__file__).resolve().parents[1]
-for name in ('original','two-hands','meridian','four-points','clear'):
-    path=ROOT/'dist'/('meridian-hemisphere.pbw' if name=='meridian' else f'{name}.pbw' if name in ('four-points','clear') else f'time-at-hand-{name}.pbw')
+PORT=int(os.environ.get('TAH_PREVIEW_PORT','4286'))
+for name, filename in (('origin','origin.pbw'),('vector','vector.pbw'),('meridian','meridian.pbw'),('cardinal','cardinal.pbw'),('clarity','clarity.pbw')):
+    path=ROOT/'dist'/filename
     with ZipFile(path) as z:
         info=json.loads(z.read('appinfo.json'))
     bundle=PebbleBundle(str(path),hardware=PebbleHardware.OBELIX_PVT)
@@ -18,7 +20,7 @@ for name in ('original','two-hands','meridian','four-points','clear'):
     print(name,info['uuid'],metadata)
     assert info['uuid'].lower()==str(metadata['uuid'])
     assert 'configurable' in info['capabilities']
-    route={'original':'watchface.pbw','two-hands':'two-hands.pbw','meridian':'meridian.pbw','four-points':'four-points.pbw','clear':'clear.pbw'}[name]
-    with urlopen('http://127.0.0.1:4286/'+route,timeout=5) as r:download=r.read()
+    route=filename
+    with urlopen(f'http://127.0.0.1:{PORT}/'+route,timeout=5) as r:download=r.read()
     assert hashlib.sha256(download).digest()==hashlib.sha256(path.read_bytes()).digest()
     print('Preview download matches bundle:',route)

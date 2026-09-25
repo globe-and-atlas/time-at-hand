@@ -4,21 +4,21 @@ timestamp: "2026-09-23"
 ---
 # Publish Time at Hand
 
-Status: five version0.1.0 releases uploaded through the signed-in dashboard with Unlisted visibility and one current preview image each. The next point release is 0.1.1, carrying the Origin / Vector / Meridian / Cardinal / Clarity naming and expanded hand controls. Hidden from search/browsing, accessible by direct link.
+Status: five version0.1.0 releases uploaded through the signed-in dashboard with Unlisted visibility and one current preview image each. The next point release is 0.1.2, carrying the Origin / Vector / Meridian / Cardinal / Clarity naming, expanded hand controls, common dial/status controls, and date-order options. Hidden from search/browsing, accessible by direct link.
 
 ## Easiest route: Pebble Developer Dashboard
 1. Test the selected edition on a paired Pebble Time 2, including phone settings, restart persistence and legibility. Emulator success does not establish wrist readability or battery performance.
 2. Sign in at [developer.repebble.com/dashboard](https://developer.repebble.com/dashboard). Current sign-in offers Google, GitHub and Apple.
 3. Create a watchface listing for each edition you want to release. The current titles are **Origin**, **Vector**, **Meridian**, **Cardinal**, and **Clarity**. They have separate UUIDs; do not upload one edition as an update to the other.
-4. Upload the corresponding PBW from `dist/`, enter a description and add representative 200×228 screenshots for Emery/Pebble Time 2. For the point release, use version `0.1.1`. Provide any other metadata the current dashboard requests, such as support contact or icons. Website/source links should point to published locations, never the localhost preview.
+4. Upload the corresponding PBW from `dist/`, enter a description and add representative 200×228 screenshots for Emery/Pebble Time 2. For the point release, use version `0.1.2`. Provide any other metadata the current dashboard requests, such as support contact or icons. Website/source links should point to published locations, never the localhost preview.
 5. Review the listing and publish when ready. Keep the UUID stable for future updates; increase package version before rebuilding later releases.
 
 The authenticated dashboard form has not been accessed, so exact button labels and account-specific requirements have not been verified. The entry point and current CLI behavior were verified on 2026-09-23.
 
 | Edition | PBW | UUID |
 | --- | --- | --- |
-| Origin | `dist/time-at-hand-original.pbw` | `8d9227ba-dc65-4c72-a54e-71e917d6194a` |
-| Vector | `dist/time-at-hand-two-hands.pbw` | `a12bd695-9b47-4a44-b416-43006dc54b9f` |
+| Origin | `dist/origin.pbw` | `8d9227ba-dc65-4c72-a54e-71e917d6194a` |
+| Vector | `dist/vector.pbw` | `a12bd695-9b47-4a44-b416-43006dc54b9f` |
 
 Both target Emery only. Do not claim support for Pebble Round or other resolutions. The phone settings page is bundled, so there is no configuration website to host. The optional public marketing site is separate from the local preview.
 
@@ -44,7 +44,7 @@ Important for this repository: `pebble publish` rebuilds the source project, whi
 - [Official SDK and physical install instructions](https://developer.repebble.com/sdk/)
 
 ## Third edition: Meridian
-The separate third bundle is `dist/meridian-hemisphere.pbw`, with UUID `bf118b38-aaf3-438d-8c91-0e92c4f757e3` and display name `Meridian`. Use this explicit file, not the default build directory (which is restored to Origin). Store copy can start from `RELEASE_NOTES.md`. Name availability/trademark clearance is not established for Meridian.
+The separate third bundle is `dist/meridian.pbw`, with UUID `bf118b38-aaf3-438d-8c91-0e92c4f757e3` and display name `Meridian`. Use this explicit file, not the default build directory (which is restored to Origin). Store copy can start from `RELEASE_NOTES.md`. Name availability/trademark clearance is not established for Meridian.
 
 Hemisphere adds optional location permission. Explain its purpose: center the globe; round coordinates to 0.1°; retain the saved view offline; do not transmit location to a web service. Test phone permission refusal, permission acceptance, settings Save, and a phone-disconnected restart on the physical watch before publication. Check local time across a time-zone change. Latitude/longitude do not choose the clock time zone. The terminator is calculated day/night, not live weather.
 
@@ -52,8 +52,8 @@ Hemisphere adds optional location permission. Explain its purpose: center the gl
 
 | Display name | Bundle | UUID |
 |---|---|---|
-| Cardinal | `dist/four-points.pbw` | `f05945f9-3cd9-462b-88e7-0fef77271d49` |
-| Clarity | `dist/clear.pbw` | `9f13e2a2-8cce-4163-a5e0-0f5455679749` |
+| Cardinal | `dist/cardinal.pbw` | `f05945f9-3cd9-462b-88e7-0fef77271d49` |
+| Clarity | `dist/clarity.pbw` | `9f13e2a2-8cce-4163-a5e0-0f5455679749` |
 
 Both are configurable Emery prototypes with independent settings. Store submissions remain unpublished.
 

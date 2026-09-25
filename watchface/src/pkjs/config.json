@@ -161,6 +161,81 @@
     "items": [
       {
         "type": "heading",
+        "defaultValue": "Dial status"
+      },
+      {
+        "type": "select",
+        "messageKey": "DialTheme",
+        "label": "Dial theme",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Light"
+          },
+          {
+            "value": "1",
+            "label": "Dark"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "messageKey": "ShowPivot",
+        "label": "Show center pivot",
+        "defaultValue": true
+      },
+      {
+        "type": "select",
+        "messageKey": "BatteryMode",
+        "label": "Battery indicator",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Off"
+          },
+          {
+            "value": "1",
+            "label": "Percent"
+          },
+          {
+            "value": "2",
+            "label": "Thin bar"
+          },
+          {
+            "value": "3",
+            "label": "Low battery only"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "messageKey": "BluetoothMode",
+        "label": "Show disconnect marker",
+        "defaultValue": true
+      },
+      {
+        "type": "toggle",
+        "messageKey": "HourFormat",
+        "label": "Leading zero on hour",
+        "defaultValue": false
+      },
+      {
+        "type": "toggle",
+        "messageKey": "MinuteFormat",
+        "label": "Leading zero on minute",
+        "defaultValue": true
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
         "defaultValue": "Date line"
       },
       {
@@ -201,6 +276,31 @@
           {
             "value": "1",
             "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "messageKey": "DateFormat",
+        "label": "Order",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Weekday \u00b7 day \u00b7 month \u00b7 year"
+          },
+          {
+            "value": "1",
+            "label": "Day \u00b7 month \u00b7 year \u00b7 weekday"
+          },
+          {
+            "value": "2",
+            "label": "Month \u00b7 day \u00b7 year \u00b7 weekday"
+          },
+          {
+            "value": "3",
+            "label": "ISO date \u00b7 weekday"
           }
         ]
       }

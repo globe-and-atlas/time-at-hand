@@ -7,6 +7,7 @@
 <fieldset class="calendar" id="globeSettings"><legend>Hemisphere view</legend>
 <label for="locationPreset">Center the globe</label><select id="locationPreset"><option value="0">World view · no location set</option><option value="1">London</option><option value="2">Chicago</option><option value="3">Tokyo</option><option value="4">Sydney</option><option value="5">Custom coordinates</option></select>
 <div class="date-layout"><div><label for="latitude">Latitude</label><input id="latitude" type="number" min="-90" max="90" step="0.1" value="0"></div><div><label for="longitude">Longitude</label><input id="longitude" type="number" min="-180" max="180" step="0.1" value="0"></div></div>
+<div class="date-layout"><div><label for="waterColor">Water color</label><input type="color" id="waterColor" value="#ffffff"></div><div><label for="landColor">Land color</label><input type="color" id="landColor" value="#555555"></div></div>
 <button type="button" id="locate">Use my location once</button><p class="note" id="locationStatus" aria-live="polite">World view. Location is optional.</p>
 <p class="note">Clock and preview date use this device’s time zone, including daylight saving. Changing the globe center does not change the clock. The small teal ring marks your chosen center.</p><p class="note" id="solarStatus"></p></fieldset>
 <fieldset class="calendar"><legend>Type &amp; hands</legend>
@@ -17,14 +18,22 @@
 <div class="date-layout" id="minuteStyles"><div><label for="minuteColor">Minute hand color</label><input type="color" id="minuteColor" value="#ffaa00"></div><div><label for="minuteWidth">Minute hand width</label><select id="minuteWidth"></select></div><div><label for="minuteLabelSize">Minute label size</label><select id="minuteLabelSize"></select></div></div>
 <p class="note">Pick a color; the preview snaps to Pebble’s 64 display colors.</p>
 <p class="note" id="styleSummary" aria-live="polite"></p></fieldset>
+<fieldset class="calendar"><legend>Dial status</legend>
+<div class="date-layout"><div><label for="dialTheme">Theme</label><select id="dialTheme"></select></div><div><label for="batteryMode">Battery</label><select id="batteryMode"></select></div></div>
+<div class="date-fields">
+<label><input id="bluetoothMode" type="checkbox"> Disconnect marker <span>×</span></label>
+<label><input id="showPivot" type="checkbox"> Center pivot <span>•</span></label>
+<label><input id="hourFormat" type="checkbox"> Leading hour zero <span>03</span></label>
+<label><input id="minuteFormat" type="checkbox"> Leading minute zero <span>07</span></label>
+</div></fieldset>
 <fieldset class="calendar"><legend>Date line</legend><p class="note">Choose any combination. Leave unchecked for a clean dial.</p><div class="date-fields">
 <label><input id="weekday" type="checkbox" value="1"> Weekday <span>WED</span></label>
 <label><input id="day" type="checkbox" value="2"> Day <span>23</span></label>
 <label><input id="month" type="checkbox" value="4"> Month <span>SEP</span></label>
 <label><input id="year" type="checkbox" value="8"> Year <span>2026</span></label>
-</div><div class="date-layout"><div><label for="datePosition">Position</label><select id="datePosition"><option value="0">Top</option><option value="1">Bottom</option></select></div><div><label for="sampleDate">Preview date</label><input type="date" id="sampleDate" min="0001-01-01" max="9999-12-31"></div></div>
+</div><div class="date-layout"><div><label for="datePosition">Position</label><select id="datePosition"><option value="0">Top</option><option value="1">Bottom</option></select></div><div><label for="dateFormat">Order</label><select id="dateFormat"></select></div></div><div class="date-layout"><div><label for="sampleDate">Preview date</label><input type="date" id="sampleDate" min="0001-01-01" max="9999-12-31"></div></div>
 <p id="dateSummary" class="note" aria-live="polite">Date hidden.</p></fieldset>
 <p class="note">Preview choices are saved separately for each edition in this browser. On your watch, use the face’s settings in the Pebble phone app.</p>
-<a class="download" id="buildDownload" href="/two-hands.pbw" download="time-at-hand-two-hands.pbw">Download Pebble prototype ↗</a></div></section>
+<a class="download" id="buildDownload" href="/vector.pbw" download="vector.pbw">Download Pebble prototype ↗</a></div></section>
 <section class="moments"><div class="section-title"><h2 id="momentTitle">Two numbers, four positions.</h2><p>Click a moment to inspect it.</p></div><div class="moment-grid"><button data-time="180"><img src="/face.png?h=3&m=0" alt="Upright 3 on the right"><span>03:00 / THREE</span></button><button data-time="360"><img src="/face.png?h=6&m=0" alt="Upright 6 at the bottom"><span>06:00 / SIX</span></button><button data-time="540"><img src="/face.png?h=9&m=0" alt="Upright 9 on the left"><span>09:00 / NINE</span></button><button data-time="0"><img src="/face.png?h=0&m=0" alt="Upright 12 at the top"><span>12:00 / TWELVE</span></button></div></section>
 <section class="article"><p class="eyebrow">FIELD NOTES / ARTICLE IN PROGRESS</p><h2>Can a watch teach you<br>a different way to read time?</h2><p>This is the experiment. The next evidence comes from wearing it: the awkward angles, the first instinctive glance, and whether the four quiet moments are useful or merely pleasing.</p><p class="note">This preview uses the watch’s C drawing code. Screen reflectance, wrist readability and battery life still require hardware testing.</p></section></main><footer>TIME AS HAND · FIVE EDITIONS<span>DESIGNED WITH AI. JUDGED ON THE WRIST.</span></footer><script src="/src/settings.js"></script><script src="/src/app.js"></script></body></html>

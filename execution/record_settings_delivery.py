@@ -24,7 +24,7 @@ Status: implemented and independently verified. Physical trial and publication r
 
 Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (execution/preview.py)
-Builds: dist/time-at-hand-original.pbw; dist/time-at-hand-two-hands.pbw
+Builds: dist/origin.pbw; dist/vector.pbw
 Source manifest/default build: Original; normal live clock. Distinct embedded UUIDs verified.
 Settings: 12 original numeral glyph sets, eight hand colors, widths1–8, independent label sizes, optional tick marks, and optional weekday/day/month/year top/bottom; each edition saves separately. Clay1.1.0 phone configuration bundled. No external data service.
 Evidence: .tmp/editions-verification.json, calendar-verification.json, styles-verification.json, calendar-emulator-verification.json. 17 native comparisons pass, including style/date persistence and production live clock. 17,280 styled time states and 5,920 date formatting checks pass. Original digest preserved.

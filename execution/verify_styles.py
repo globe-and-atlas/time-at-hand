@@ -52,11 +52,23 @@ def main():
     clean=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,0)
     ticked=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,1)
     assert ticked != clean and sum(a != b for a,b in zip(clean,ticked)) >= 36, 'Tick toggle has no visible effect'
+    no_pivot=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,0,0,0,1,0,0)
+    with_pivot=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,0,0,0,1,0,1)
+    assert no_pivot != with_pivot and with_pivot.count(1) > no_pivot.count(1), 'Pivot toggle has no visible effect'
+    dark=frame(lib,3,30,1,15,1,d,0,1,2,0,0,0,0,0,0,0,1,1,1)
+    light=frame(lib,3,30,1,15,1,d,0,1,2,0,0,0,0,0,0,0,1,0,1)
+    assert dark.count(0) < light.count(0) and dark.count(1) > light.count(1), 'Dark theme does not invert dial colors'
+    hour_zero=frame(lib,3,7,1,0,0,d,0,1,2,0,0,0,0,0,0,1,1,0,1)
+    hour_plain=frame(lib,3,7,1,0,0,d,0,1,2,0,0,0,0,0,0,0,1,0,1)
+    minute_plain=frame(lib,3,7,1,0,0,d,0,1,2,0,0,0,0,0,0,0,0,0,1)
+    assert hour_zero != hour_plain and minute_plain != hour_plain, 'Leading-zero toggles have no visible effect'
+    dates=[frame(lib,3,30,0,15,0,d,0,2,-1,0,0,0,0,0,fmt,0,1,0,1) for fmt in range(4)]
+    assert len(set(dates)) == 4, 'Date order options must produce distinct frames'
     for font in range(12):
         g=(ctypes.c_uint8*(W*H+32))(*([199]*(W*H+32)))
         ptr=ctypes.cast(ctypes.byref(g,16),ctypes.POINTER(ctypes.c_uint8))
         lib.face_render_custom(23,59,1,9999,12,31,5,15,1,font,8,3,8,8,0,0,0,ptr)
         assert list(g[:16])==[199]*16 and list(g[-16:])==[199]*16
-    result={'status':'pass','fonts':12,'font_minute_states':12*2*720,'distinct_cycle_digests':len(set(signatures)),'width_ink_counts':widths,'palette_colors':8,'date_font_unchanged':True,'buffer_guards':'pass'}
+    result={'status':'pass','fonts':12,'font_minute_states':12*2*720,'distinct_cycle_digests':len(set(signatures)),'width_ink_counts':widths,'palette_colors':8,'date_font_unchanged':True,'common_display_settings':'pass','buffer_guards':'pass'}
     (ROOT/'.tmp/styles-verification.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 if __name__=='__main__':main()

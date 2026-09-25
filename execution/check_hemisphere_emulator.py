@@ -22,7 +22,7 @@ def main(resume=False,legacy_smoke=False):
         result=subprocess.run(args,cwd=ROOT/'watchface',capture_output=True,text=True,timeout=60)
         with (ROOT/'.tmp/hemisphere-emulator.log').open('a') as log:log.write(result.stdout+result.stderr)
         result.check_returncode();return result
-    def install(bundle='meridian-hemisphere.pbw',uuid=MERIDIAN_UUID):
+    def install(bundle='meridian.pbw',uuid=MERIDIAN_UUID):
         stop();run(['pebble','install','--emulator','emery',str(ROOT/'dist'/bundle)])
         code='import time\nfrom uuid import UUID\nfrom libpebble2.protocol.apps import AppRunState,AppRunStateRequest,AppRunStateStart\n'
         code+='deadline=time.monotonic()+15\ncurrent=None\nwhile time.monotonic()<deadline:\n'
@@ -75,7 +75,7 @@ def main(resume=False,legacy_smoke=False):
     if legacy_smoke:
         for edition,name,uuid in [(0,'original','8d9227ba-dc65-4c72-a54e-71e917d6194a'),(1,'two-hands',SPLIT_UUID)]:
             run(['pebble','kill'])
-            install(f'time-at-hand-{name}.pbw',uuid)
+            install('origin.pbw' if edition==0 else 'vector.pbw',uuid)
             send({'TimeFont':0,'HandColor':4,'MinuteColor':3,'HandWidth':3,'MinuteWidth':2,'ShowWeekday':0,'ShowDay':0,'ShowMonth':0,'ShowYear':0,'DatePosition':1},uuid)
             check(name,0,0,0,edition=edition)
         install();check('final-production',-33.9,151.2,1,15,3)

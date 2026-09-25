@@ -13,10 +13,10 @@ CLEAR_UUID='9f13e2a2-8cce-4163-a5e0-0f5455679749'
 # Single source of truth for editions: local builds here and CloudPebble branches
 # (execution/publish_edition_branches.py). Origin (0) keeps the manifest as committed.
 EDITIONS={
-    1:{'slug':'two-hands','name':'Vector','uuid':SPLIT_UUID,'capabilities':None,'pbw':'time-at-hand-two-hands.pbw'},
-    2:{'slug':'meridian','name':'Meridian','uuid':MERIDIAN_UUID,'capabilities':['configurable','location'],'pbw':'meridian-hemisphere.pbw'},
-    3:{'slug':'four-points','name':'Cardinal','uuid':FOUR_POINTS_UUID,'capabilities':['configurable'],'pbw':'four-points.pbw'},
-    4:{'slug':'clear','name':'Clarity','uuid':CLEAR_UUID,'capabilities':['configurable'],'pbw':'clear.pbw'},
+    1:{'slug':'two-hands','name':'Vector','uuid':SPLIT_UUID,'capabilities':None,'pbw':'vector.pbw'},
+    2:{'slug':'meridian','name':'Meridian','uuid':MERIDIAN_UUID,'capabilities':['configurable','location'],'pbw':'meridian.pbw'},
+    3:{'slug':'four-points','name':'Cardinal','uuid':FOUR_POINTS_UUID,'capabilities':['configurable'],'pbw':'cardinal.pbw'},
+    4:{'slug':'clear','name':'Clarity','uuid':CLEAR_UUID,'capabilities':['configurable'],'pbw':'clarity.pbw'},
 }
 
 def manifest_for(edition,original):
@@ -48,6 +48,6 @@ def build_editions():
         manifest.write_text(original)
         build(0)
         config.write_text(original_config)
-    (ROOT/'dist/time-at-hand-original.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
+    (ROOT/'dist/origin.pbw').write_bytes((ROOT/'watchface/build/watchface.pbw').read_bytes())
     print('Built five editions in dist/; restored default original build.')
 if __name__=='__main__':build_editions()
