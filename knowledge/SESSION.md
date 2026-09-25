@@ -37,6 +37,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 17:26 — commit: Record renamed edition verification | knowledge/SESSION.md,task.md
 - 2026-09-24 17:27 — commit: Align phone preview listing names | assets/phone-previews/listings.json,knowledge/SESSION.md
 - 2026-09-24 18:05 — settings expansion: 1–8px hands, label-size controls, optional tick marks, and 0.1.1 release notes | watchface/src/c/face.c,watchface/src/c/watchface.c,watchface/src/pkjs/config.json,src/app.js,RELEASE_NOTES.md,PUBLISH.md
+- 2026-09-24 21:43 — commit: Add customizable hand geometry controls | PUBLISH.md,README.md,RELEASE_NOTES.md,execution/generate_settings.py,execution/preview.py
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex

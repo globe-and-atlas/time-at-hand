@@ -215,3 +215,8 @@ Color-picker device install waited for phone without connecting; interrupted. Up
 - `python3 execution/build_editions.py` initially failed during `pebble clean` before compilation.
 - Cause: the Pebble SDK attempted to write its shared settings outside the workspace sandbox.
 - Next action: rerun the authorized build with escalated filesystem access; no source failure was observed.
+
+## 2026-09-24 — CloudPebble branch verification needs SDK access
+- `python3 execution/publish_edition_branches.py` failed while simulating a CloudPebble build at `pebble build`.
+- Cause: the branch verifier invokes the Pebble SDK and the sandbox blocks its shared settings write.
+- Next action: rerun the read-only branch verification with escalated SDK filesystem access; no branch source failure was observed yet.
