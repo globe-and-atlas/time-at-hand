@@ -40,6 +40,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 21:43 — commit: Add customizable hand geometry controls | PUBLISH.md,README.md,RELEASE_NOTES.md,execution/generate_settings.py,execution/preview.py
 - 2026-09-24 21:44 — commit: Record customizable settings verification | knowledge/ERRORS.md,knowledge/SESSION.md
 - 2026-09-24 21:47 — commit: Document 0.1.1 hand geometry controls | knowledge/INDEX.md,knowledge/domain/renderer.md,knowledge/procedural/run_prototype.md
+- 2026-09-25 07:55 — commit: Add Meridian globe colors and 0.1.2 release updates | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/listing-images/cardinal/calendar.png,assets/listing-images/cardinal/dark.png
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
@@ -144,3 +145,10 @@ Goal: add Meridian-only land and water color controls.
 Status: implemented, verified, rebuilt locally; not committed or pushed.
 
 Checkpoint: Meridian phone settings and browser preview now include water and land color pickers. Native renderer uses face_globe_colors before globe overlay rows and persists WaterColorRGB/LandColorRGB choices. Defaults preserve white water and gray land. verify_hemisphere asserts custom_globe_colors=pass; verify_styles, verify_clear_points and verify_location pass. All five renamed PBWs rebuilt and inspected.
+
+## 2026-09-25 — CloudPebble branch push
+Agent: OpenAI Codex
+Goal: push current watchface sources to GitHub and CloudPebble import branches.
+Status: main and four generated edition branches pushed.
+
+Checkpoint: committed current 0.1.2 state as 521d1dc and pushed main to origin. publish_edition_branches.py verified and force-pushed edition-two-hands, edition-meridian, edition-four-points and edition-clear. Import links recorded in .tmp/edition-branches.json.
