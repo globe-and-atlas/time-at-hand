@@ -26,7 +26,7 @@ Project: /Users/danielbally/Git/time-at-hand
 Preview: http://127.0.0.1:4286 (execution/preview.py)
 Builds: dist/time-at-hand-original.pbw; dist/time-at-hand-two-hands.pbw
 Source manifest/default build: Original; normal live clock. Distinct embedded UUIDs verified.
-Settings: 12 original numeral glyph sets, eight hand colors, widths1–5, optional weekday/day/month/year top/bottom; each edition saves separately. Clay1.1.0 phone configuration bundled. No external data service.
+Settings: 12 original numeral glyph sets, eight hand colors, widths1–8, independent label sizes, optional tick marks, and optional weekday/day/month/year top/bottom; each edition saves separately. Clay1.1.0 phone configuration bundled. No external data service.
 Evidence: .tmp/editions-verification.json, calendar-verification.json, styles-verification.json, calendar-emulator-verification.json. 17 native comparisons pass, including style/date persistence and production live clock. 17,280 styled time states and 5,920 date formatting checks pass. Original digest preserved.
 Independent review: verify_two_hands, verify_calendar and verify_styles approved; final native/bundle evidence reviewed by verify_styles.
 Emulator gotcha: stop active app before changing UUID; restarting transport between edition fixture batches avoids observed timeouts. See execution/check_calendar_emulator.py and knowledge/ERRORS.md.
@@ -38,7 +38,7 @@ Closing audit: requested controls are concrete in both preview and native builds
     with p.open('a') as f:f.write('''\n## 2026-09-23 — Editions and personalization
 - Keep distinct UUIDs for Original and Two Hands so each can coexist and retain settings independently.
 - Twelve original 5×7 numeral glyph sets preserve layout bounds; date uses a consistent small typeface. No external font assets.
-- Hand styling retains optical defaults, supports eight Pebble-native foreground colors and explicit widths1–5. Time labels stay black.
+- Hand styling retains optical defaults, supports eight Pebble-native foreground colors and explicit widths1–8. Hour/minute tip labels have independent size choices, and twelve-position ticks are optional. Time labels stay black.
 - Bundle Clay1.1.0 configuration rather than hosting a settings page. Browser preferences demonstrate the feature but do not mutate PBWs.
 - Use developer dashboard uploads of explicit PBWs for first store release; CLI publish rebuilds the default source edition.
 ''')

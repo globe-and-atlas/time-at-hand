@@ -108,8 +108,51 @@
           {
             "value": "5",
             "label": "5 px"
+          },
+          {
+            "value": "6",
+            "label": "6 px"
+          },
+          {
+            "value": "7",
+            "label": "7 px"
+          },
+          {
+            "value": "8",
+            "label": "8 px"
           }
         ]
+      },
+      {
+        "type": "select",
+        "messageKey": "HourLabelSize",
+        "label": "Hour label size",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Edition default"
+          },
+          {
+            "value": "1",
+            "label": "Small"
+          },
+          {
+            "value": "2",
+            "label": "Medium"
+          },
+          {
+            "value": "3",
+            "label": "Large"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "messageKey": "ShowTicks",
+        "label": "Show twelve tick marks",
+        "defaultValue": false
       }
     ]
   },

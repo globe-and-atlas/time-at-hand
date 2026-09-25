@@ -20,7 +20,8 @@ def main():
     source = source.replace('static void split_layout_radius(int h,int m,FaceNumber *labels,int radius)',
                             'void face_split_layout(int h,int m,FaceNumber *labels)')
     source = source.replace('int radii[2]={radius,82};', 'int radii[2]={48,82};')
-    source = source.replace('void face_split_layout(int h,int m,FaceNumber *labels) {\n split_layout_radius(h,m,labels,48);\n}', '')
+    source = source.replace('void face_split_layout(int h,int m,FaceNumber *labels) {\n split_layout_radius_scaled(h,m,labels,radius,3,2);\n}', '')
+    source = source.replace('split_layout_radius(h,m,labels,48);', 'split_layout_radius_scaled(h,m,labels,48,3,2);')
     source = source.replace('split_layout_radius(h,m,labels,hour_radius)', 'face_split_layout(h,m,labels)')
     source = source.replace('i==0 ? hour_radius : 82', 'i==0 ? 48 : 82')
     folder = ROOT / '.tmp/clear-fixed-oracle'
@@ -56,7 +57,7 @@ def main():
                 s.update(style)
             pixels = (ctypes.c_uint8 * (W * H))()
             lib.face_render_custom(hour, minute, edition, calendar.year, calendar.month, calendar.day,
-                (calendar.weekday()+1)%7, mask, position, *s.values(), pixels)
+                (calendar.weekday()+1)%7, mask, position, *s.values(), 0, 0, 0, pixels)
             actual = bytes(pixels)
         else:
             actual = frame(lib, hour, minute, edition, **options, **({} if defaults else style))
@@ -106,17 +107,17 @@ def main():
                     compare(12, 0, edition, font, style, mask, position, defaults=True)
                     counts['date_frames'] += 1
             # Max-width colored hands test clearance independently of black defaults.
-            override = dict(color=26, minute_color=63, width=5, minute_width=5)
+            override = dict(color=26, minute_color=63, width=8, minute_width=8)
             for minute in range(720):
                 compare(minute // 60, minute % 60, edition, font, override)
                 counts['override_frames'] += 1
-        for width in range(1, 6):
+        for width in range(1, 9):
             for color in range(10, 74):
-                override = dict(color=color, minute_color=73 - color + 10, width=width, minute_width=6-width)
+                override = dict(color=color, minute_color=73 - color + 10, width=width, minute_width=9-width)
                 compare(3, 40, edition, 0, override, 15, 1)
                 counts['override_frames'] += 1
         guard = (ctypes.c_uint8 * (W * H + 32))(*([199] * (W * H + 32)))
-        lib.face_render_custom(23, 59, edition, 2026, 12, 31, 4, 15, 1, 11, 73, 63, 5, 5,
+        lib.face_render_custom(23, 59, edition, 2026, 12, 31, 4, 15, 1, 11, 73, 63, 8, 8, 3, 3, 1,
                                ctypes.cast(ctypes.byref(guard, 16), ctypes.POINTER(ctypes.c_uint8)))
         assert bytes(guard[:16]) + bytes(guard[-16:]) == bytes([199]) * 32
 
@@ -128,7 +129,8 @@ def main():
         fields = {item['messageKey']: item for section in config
                   for item in section.get('items', []) if 'messageKey' in item}
         required = {'TimeFont', 'HandColorRGB', 'HandWidth', 'MinuteColorRGB', 'MinuteWidth',
-                    'ShowWeekday', 'ShowDay', 'ShowMonth', 'ShowYear', 'DatePosition'}
+                    'HourLabelSize', 'MinuteLabelSize', 'ShowTicks', 'ShowWeekday', 'ShowDay',
+                    'ShowMonth', 'ShowYear', 'DatePosition'}
         assert set(fields) == required
         assert fields['HandColorRGB']['defaultValue'] == '000000'
         assert fields['MinuteColorRGB']['defaultValue'] == minute_rgb

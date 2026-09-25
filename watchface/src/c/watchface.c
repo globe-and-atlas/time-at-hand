@@ -16,7 +16,8 @@ static int year,month,day,weekday;
 static int date_mask,date_position;
 static int latitude,longitude,location_valid;
 /* 0/default font, automatic primary color, amber minute, automatic widths. */
-static int style[5]={0,-1,-1,0,0};
+/* font, hour color, minute color, hand widths, label sizes, ticks */
+static int style[8]={0,-1,-1,0,0,0,0,0};
 enum { PERSIST_DATE_MASK=100, PERSIST_DATE_POSITION=101 };
 static uint32_t milliseconds(void) {
  time_t seconds;uint16_t ms;time_ms(&seconds,&ms);
@@ -34,7 +35,8 @@ static void render_step(void *context) {
  (void)context;render_timer=NULL;
  if(render_phase==0) {
  render_started=milliseconds();
- face_render_custom(hour,minute,TAH_EDITION,year,month,day,weekday,date_mask,date_position,style[0],style[1],style[2],style[3],style[4],pixels);
+ face_render_custom(hour,minute,TAH_EDITION,year,month,day,weekday,date_mask,date_position,
+                    style[0],style[1],style[2],style[3],style[4],style[5],style[6],style[7],pixels);
  APP_LOG(APP_LOG_LEVEL_INFO,"hands %lu ms",(unsigned long)(milliseconds()-render_started));
 #if TAH_EDITION == 2
  time_t instant=time(NULL);
@@ -109,9 +111,9 @@ static void inbox(DictionaryIterator *iter,void *context) {
  if(p && (p->type==TUPLE_INT || p->type==TUPLE_UINT) && (p->value->int32==0 || p->value->int32==1)) date_position=p->value->int32;
  persist_write_int(PERSIST_DATE_MASK,date_mask);
  persist_write_int(PERSIST_DATE_POSITION,date_position);
- const uint32_t style_keys[]={MESSAGE_KEY_TimeFont,MESSAGE_KEY_HandColor,MESSAGE_KEY_MinuteColor,MESSAGE_KEY_HandWidth,MESSAGE_KEY_MinuteWidth};
- const int lower[]={0,-1,-1,0,0},upper[]={11,8,8,5,5};
- for(int i=0;i<5;++i) {
+ const uint32_t style_keys[]={MESSAGE_KEY_TimeFont,MESSAGE_KEY_HandColor,MESSAGE_KEY_MinuteColor,MESSAGE_KEY_HandWidth,MESSAGE_KEY_MinuteWidth,MESSAGE_KEY_HourLabelSize,MESSAGE_KEY_MinuteLabelSize,MESSAGE_KEY_ShowTicks};
+ const int lower[]={0,-1,-1,0,0,0,0,0},upper[]={11,8,8,8,8,3,3,1};
+ for(int i=0;i<8;++i) {
   Tuple *t=dict_find(iter,style_keys[i]);
   if(t && (t->type==TUPLE_INT || t->type==TUPLE_UINT) && t->value->int32>=lower[i] && t->value->int32<=upper[i]) {
    style[i]=t->value->int32;persist_write_int(110+i,style[i]);
@@ -147,7 +149,7 @@ int main(void) {
  if(latitude< -9000 || latitude>9000 || longitude< -18000 || longitude>18000) {latitude=0;longitude=0;location_valid=0;}
  date_mask=persist_exists(PERSIST_DATE_MASK) ? persist_read_int(PERSIST_DATE_MASK)&15 : 0;
  date_position=persist_exists(PERSIST_DATE_POSITION) && persist_read_int(PERSIST_DATE_POSITION)==1 ? 1 : 0;
- for(int i=0;i<5;++i) if(persist_exists(110+i)) style[i]=persist_read_int(110+i);
+ for(int i=0;i<8;++i) if(persist_exists(110+i)) style[i]=persist_read_int(110+i);
  time_t now=time(NULL);struct tm *t=localtime(&now);read_time(t);
  window=window_create();window_set_window_handlers(window,(WindowHandlers){.load=load,.unload=unload});
  window_stack_push(window,true);tick_timer_service_subscribe(MINUTE_UNIT,tick);

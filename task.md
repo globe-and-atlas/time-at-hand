@@ -95,3 +95,11 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] Rename Clear to Clarity.
 - [x] Regenerate and verify CloudPebble edition branches.
 - [x] Push renamed sources and branches to GitHub.
+
+## Custom hand geometry — verified
+- [x] Expose hour and minute widths from 1 through 8 pixels in preview and phone settings.
+- [x] Expose independent hour and minute hand-number label sizes in preview and phone settings.
+- [x] Expose optional twelve-position tick marks in preview and phone settings.
+- [x] Preserve existing defaults, UUIDs, and legacy setting persistence.
+- [x] Rebuild all five PBWs and pass renderer/style regression checks.
+- [x] Record the new release notes and naming changes.

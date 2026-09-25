@@ -38,16 +38,24 @@ def main():
     widths={}
     for edition in (0,1):
         counts=[]
-        for width in range(1,6):
+        for width in range(1,9):
             p=frame(lib,3,0 if edition else 30,edition,0,0,d,0,4,3,width,width)
             counts.append((p.count(4),p.count(3)))
         assert all(b[0]>a[0] for a,b in zip(counts,counts[1:])),counts
         if edition:assert all(b[1]>a[1] for a,b in zip(counts,counts[1:])),counts
         widths[str(edition)]=counts
+    # Larger label settings and optional ticks must stay inside the glass.
+    for hour_size in (1, 2, 3):
+        for minute_size in (1, 2, 3):
+            pix=frame(lib,3,30,1,0,0,d,0,4,3,8,8,hour_size,minute_size,0)
+            assert not any(pix[0::W]) and not any(pix[199::W]), (hour_size, minute_size, 'label edge clipping')
+    clean=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,0)
+    ticked=frame(lib,3,30,0,0,0,d,0,2,-1,0,0,0,0,1)
+    assert ticked != clean and sum(a != b for a,b in zip(clean,ticked)) >= 36, 'Tick toggle has no visible effect'
     for font in range(12):
         g=(ctypes.c_uint8*(W*H+32))(*([199]*(W*H+32)))
         ptr=ctypes.cast(ctypes.byref(g,16),ctypes.POINTER(ctypes.c_uint8))
-        lib.face_render_custom(23,59,1,9999,12,31,5,15,1,font,8,3,5,5,ptr)
+        lib.face_render_custom(23,59,1,9999,12,31,5,15,1,font,8,3,8,8,0,0,0,ptr)
         assert list(g[:16])==[199]*16 and list(g[-16:])==[199]*16
     result={'status':'pass','fonts':12,'font_minute_states':12*2*720,'distinct_cycle_digests':len(set(signatures)),'width_ink_counts':widths,'palette_colors':8,'date_font_unchanged':True,'buffer_guards':'pass'}
     (ROOT/'.tmp/styles-verification.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

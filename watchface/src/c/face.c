@@ -12,6 +12,7 @@ const uint8_t face_palette[FACE_PALETTE_SIZE][3]={
 };
 static int hour_radius=48;
 static int active_font=0,primary_color=2,secondary_color=2,primary_width=1,secondary_width=1;
+static int hour_label_scale=3,minute_label_scale=2,show_ticks=0;
 static int stroke_ink(float across,int width) {
  /* Negative values preserve the original optical weights. Explicit pixel
   * widths use a half-open span so even widths remain distinct on axis. */
@@ -42,6 +43,15 @@ static int ink(const char *s,int x,int y,int scale) {
  return ((g==10 ? glyphs[10][y/scale] : numeral_fonts[active_font][g][y/scale])>>(4-col))&1;
 }
 static int nearest(float v) { return (int)(v>=0 ? v+0.5f : v-0.5f); }
+static int label_scale(int setting,int fallback) {
+ /* 0 keeps the optical default; 1/2/3 are compact, medium and large. */
+ return setting>=1 && setting<=3 ? setting+1 : fallback;
+}
+static int clamp_label_start(int value,int width) {
+ if(value<3) return 3;
+ if(value+width>FACE_W-3) return FACE_W-3-width;
+ return value;
+}
 static void render_original(int h,int m,uint8_t *pixels) {
  char label[6]; face_label(h,m,label);
  int step=face_angle(h,m);
@@ -50,13 +60,15 @@ static void render_original(int h,int m,uint8_t *pixels) {
  float dy=-(float)face_sine[(step+180)%720]/16384;
  memset(pixels,0,FACE_W*FACE_H);
  if(face_special(h,m)) {
-  int width=((int)strlen(label)*6-1)*4;
-  int left=nearest(100+73*dx)-width/2, top=nearest(114+78*dy)-14;
+  int scale=hour_label_scale==3 ? 4 : hour_label_scale;
+  int width=((int)strlen(label)*6-1)*scale;
+  int left=clamp_label_start(nearest(100+73*dx)-width/2,width), top=nearest(114+78*dy)-7*scale/2;
   for(int y=0;y<FACE_H;++y) for(int x=0;x<FACE_W;++x)
-   if(ink(label,x-left,y-top,4)) pixels[y*FACE_W+x]=1;
+   if(ink(label,x-left,y-top,scale)) pixels[y*FACE_W+x]=1;
   return;
  }
- int width=((int)strlen(label)*6-1)*3, flip=step>360;
+ int scale=hour_label_scale;
+ int width=((int)strlen(label)*6-1)*scale, flip=step>360;
  for(int y=0;y<FACE_H;++y) for(int x=0;x<FACE_W;++x) {
   float xx=x-100, yy=y-114;
   float radial=xx*dx+yy*dy, lateral=xx*(-dy)+yy*dx;
@@ -65,7 +77,7 @@ static void render_original(int h,int m,uint8_t *pixels) {
   if(radial>=84 && radial<=88 && lateral>=-2 && lateral<=2) c=primary_color;
   float tx=radial-46,ty=lateral;
   if(flip) {tx=-tx;ty=-ty;}
-  if(ink(label,nearest(tx+width/2.0f),nearest(ty+24),3)) c=1;
+  if(ink(label,nearest(tx+width/2.0f),nearest(ty+8*scale),scale)) c=1;
   if(xx*xx+yy*yy<=9) c=1;
   pixels[y*FACE_W+x]=c;
  }
@@ -73,7 +85,7 @@ static void render_original(int h,int m,uint8_t *pixels) {
 
 int face_minute_angle(int minute) { return minute*12; }
 
-static void split_layout_radius(int h,int m,FaceNumber *labels,int radius) {
+static void split_layout_radius_scaled(int h,int m,FaceNumber *labels,int radius,int hour_scale,int minute_scale) {
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  /* Distinct tracks keep labels separate even when hands align at noon. */
  int radii[2]={radius,82};
@@ -81,14 +93,17 @@ static void split_layout_radius(int h,int m,FaceNumber *labels,int radius) {
  snprintf(labels[1].text,3,"%02d",m);
  for(int i=0;i<2;++i) {
   FaceNumber *n=&labels[i];
-  n->scale=i==0 ? 3 : 2;
+  n->scale=i==0 ? hour_scale : minute_scale;
   n->width=((int)strlen(n->text)*6-1)*n->scale;
   n->height=7*n->scale;
   float dx=(float)face_sine[steps[i]]/16384;
   float dy=-(float)face_sine[(steps[i]+180)%720]/16384;
-  n->x=nearest(100+radii[i]*dx)-n->width/2;
+  n->x=clamp_label_start(nearest(100+radii[i]*dx)-n->width/2,n->width);
   n->y=nearest(114+radii[i]*dy)-n->height/2;
  }
+}
+static void split_layout_radius(int h,int m,FaceNumber *labels,int radius) {
+ split_layout_radius_scaled(h,m,labels,radius,3,2);
 }
 
 void face_split_layout(int h,int m,FaceNumber *labels) {
@@ -96,7 +111,7 @@ void face_split_layout(int h,int m,FaceNumber *labels) {
 }
 
 static void render_split(int h,int m,uint8_t *pixels) {
- FaceNumber labels[2];split_layout_radius(h,m,labels,hour_radius);
+ FaceNumber labels[2];split_layout_radius_scaled(h,m,labels,hour_radius,hour_label_scale,minute_label_scale);
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  float dx[2],dy[2];
  for(int i=0;i<2;++i) {
@@ -126,8 +141,8 @@ static void set_style(int edition,int font,int color,int minute_color,int width,
  active_font=font>=0 && font<12 ? font : 0;
  primary_color=color>=1 && color<FACE_PALETTE_SIZE ? color : (edition ? 1 : 2);
  secondary_color=minute_color>=1 && minute_color<FACE_PALETTE_SIZE ? minute_color : (edition==3 ? 1 : edition==4 ? 46 : 2);
- primary_width=width>=1 && width<=5 ? width : (edition==4 ? 4 : edition==3 ? 1 : edition ? -3 : -1);
- secondary_width=minute_width>=1 && minute_width<=5 ? minute_width : (edition==4 ? 2 : edition==3 ? 1 : -1);
+ primary_width=width>=1 && width<=8 ? width : (edition==4 ? 4 : edition==3 ? 1 : edition ? -3 : -1);
+ secondary_width=minute_width>=1 && minute_width<=8 ? minute_width : (edition==4 ? 2 : edition==3 ? 1 : -1);
 }
 void face_render(int h,int m,uint8_t *pixels) {
  set_style(0,0,-1,-1,0,0);render_original(h,m,pixels);
@@ -165,9 +180,22 @@ void face_date_text(int year,int month,int day,int weekday,int mask,char *out) {
 }
 void face_render_custom(int h,int m,int edition,int year,int month,int day,
                         int weekday,int mask,int position,int font,int color,
-                        int minute_color,int width,int minute_width,uint8_t *pixels) {
+                        int minute_color,int width,int minute_width,
+                        int hour_size,int minute_size,int ticks,uint8_t *pixels) {
  set_style(edition,font,color,minute_color,width,minute_width);
+ hour_label_scale=label_scale(hour_size,3);
+ minute_label_scale=label_scale(minute_size,2);
+ show_ticks=ticks ? 1 : 0;
  if(edition) render_split(h,m,pixels);else render_original(h,m,pixels);
+ if(show_ticks) {
+  for(int k=0;k<12;++k) {
+   int step=k*60;
+   float dx=(float)face_sine[step]/16384,dy=-(float)face_sine[(step+180)%720]/16384;
+   int cx=nearest(100+92*dx),cy=nearest(114+92*dy);
+   for(int yy=-1;yy<=1;++yy) for(int xx=-1;xx<=1;++xx)
+    if(cx+xx>=0 && cx+xx<FACE_W && cy+yy>=0 && cy+yy<FACE_H) pixels[(cy+yy)*FACE_W+cx+xx]=1;
+  }
+ }
  /* Keep orientation marks outside the tested numeral envelope and date bands.
   * The three-pixel marks remain visible when a number reaches a cardinal. */
  if(edition==3 || edition==4) {
@@ -189,6 +217,6 @@ void face_render_custom(int h,int m,int edition,int year,int month,int day,
 }
 void face_render_config(int h,int m,int edition,int year,int month,int day,
                         int weekday,int mask,int position,uint8_t *pixels) {
- face_render_custom(h,m,edition,year,month,day,weekday,mask,position,0,-1,-1,0,0,pixels);
+ face_render_custom(h,m,edition,year,month,day,weekday,mask,position,0,-1,-1,0,0,0,0,0,pixels);
 }
 #include "face_globe.h"

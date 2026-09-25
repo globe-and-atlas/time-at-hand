@@ -24,18 +24,18 @@ def load_renderer():
     lib.face_label.argtypes=[ctypes.c_int,ctypes.c_int,ctypes.c_char_p]
     lib.face_date_text.argtypes=[ctypes.c_int]*5+[ctypes.c_char_p]
     lib.face_render_config.argtypes=[ctypes.c_int]*9+[ctypes.POINTER(ctypes.c_uint8)]
-    lib.face_render_custom.argtypes=[ctypes.c_int]*14+[ctypes.POINTER(ctypes.c_uint8)]
+    lib.face_render_custom.argtypes=[ctypes.c_int]*17+[ctypes.POINTER(ctypes.c_uint8)]
     lib.face_globe_overlay.argtypes=[ctypes.c_int]*8+[ctypes.POINTER(ctypes.c_uint8)]
     return lib
-def frame(lib,h:int,m:int,edition:int=0,mask:int=0,position:int=0,calendar:date|None=None,font:int=0,color:int=-1,minute_color:int=-1,width:int=0,minute_width:int=0,utc:float|None=None,lat:float=0,lon:float=0,marker:int=0)->bytes:
+def frame(lib,h:int,m:int,edition:int=0,mask:int=0,position:int=0,calendar:date|None=None,font:int=0,color:int=-1,minute_color:int=-1,width:int=0,minute_width:int=0,hour_label_size:int=0,minute_label_size:int=0,ticks:int=0,utc:float|None=None,lat:float=0,lon:float=0,marker:int=0)->bytes:
     if not 0<=h<24 or not 0<=m<60: raise ValueError('Invalid time')
     if edition not in (0,1,2,3,4): raise ValueError('Invalid edition')
     if not math.isfinite(lat) or not math.isfinite(lon) or not -90<=lat<=90 or not -180<=lon<=180 or marker not in (0,1): raise ValueError('Invalid location')
     if not 0<=mask<=15 or position not in (0,1): raise ValueError('Invalid calendar settings')
-    if not 0<=font<12 or color not in [-1,*range(1,9),*range(10,74)] or minute_color not in [-1,*range(1,9),*range(10,74)] or not 0<=width<=5 or not 0<=minute_width<=5: raise ValueError('Invalid style')
+    if not 0<=font<12 or color not in [-1,*range(1,9),*range(10,74)] or minute_color not in [-1,*range(1,9),*range(10,74)] or not 0<=width<=8 or not 0<=minute_width<=8 or not 0<=hour_label_size<=3 or not 0<=minute_label_size<=3 or ticks not in (0,1): raise ValueError('Invalid style')
     d=calendar or date.today()
     pixels=(ctypes.c_uint8*(W*H))()
-    lib.face_render_custom(h,m,edition,d.year,d.month,d.day,(d.weekday()+1)%7,mask,position,font,color,minute_color,width,minute_width,pixels)
+    lib.face_render_custom(h,m,edition,d.year,d.month,d.day,(d.weekday()+1)%7,mask,position,font,color,minute_color,width,minute_width,hour_label_size,minute_label_size,ticks,pixels)
     if edition==2:
         instant=datetime.fromtimestamp(utc,timezone.utc) if utc is not None else datetime.now(timezone.utc)
         lib.face_globe_overlay(h,m,instant.year,instant.timetuple().tm_yday,instant.hour*60+instant.minute,round(lat*100),round(lon*100),marker,pixels)
@@ -55,7 +55,7 @@ def serve(port:int):
             try:
                 if url.path=='/face.png':
                     q=parse_qs(url.query)
-                    style={key:int(q.get(key,[str(default)])[0]) for key,default in [('font',0),('color',-1),('minute_color',-1),('width',0),('minute_width',0)]}
+                    style={key:int(q.get(key,[str(default)])[0]) for key,default in [('font',0),('color',-1),('minute_color',-1),('width',0),('minute_width',0),('hour_label_size',0),('minute_label_size',0),('ticks',0)]}
                     style.update({key:float(q[key][0]) for key in ('utc','lat','lon') if key in q})
                     style['marker']=int(q.get('marker',['0'])[0])
                     body=png(frame(lib,int(q.get('h',['3'])[0]),int(q.get('m',['30'])[0]),int(q.get('edition',['0'])[0]),int(q.get('mask',['0'])[0]),int(q.get('position',['0'])[0]),date.fromisoformat(q['date'][0]) if 'date' in q else None,**style));mime='image/png'

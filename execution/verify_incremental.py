@@ -38,7 +38,8 @@ def library(baseline: bool) -> ctypes.CDLL:
     subprocess.run(['cc', '-O2', '-shared', '-fPIC', str(folder / 'face.c'),
                     '-o', str(output)], check=True)
     lib = ctypes.CDLL(str(output))
-    lib.face_render_custom.argtypes = [ctypes.c_int] * 14 + [Pointer]
+    lib.face_render_custom.argtypes = [ctypes.c_int] * (14 if baseline else 17) + [Pointer]
+    lib._legacy_renderer = baseline
     lib.face_globe_overlay.argtypes = [ctypes.c_int] * 8 + [Pointer]
     if not baseline:
         lib.face_globe_prepare.argtypes = [ctypes.c_int] * 3
@@ -48,9 +49,13 @@ def library(baseline: bool) -> ctypes.CDLL:
 
 
 def hands(lib: ctypes.CDLL, number: int, pixels: Buffer) -> None:
-    lib.face_render_custom(number % 24, (number * 17) % 60, 2, 2026, 9, 23, 3,
-                           15, number % 2, number % 12, 1 + number % 8,
-                           1 + (number + 3) % 8, 1 + number % 5, 1 + (number + 2) % 5, pixels)
+    args=(number % 24, (number * 17) % 60, 2, 2026, 9, 23, 3,
+          15, number % 2, number % 12, 1 + number % 8,
+          1 + (number + 3) % 8, 1 + number % 8, 1 + (number + 2) % 8)
+    if getattr(lib, '_legacy_renderer', False):
+        lib.face_render_custom(*args, pixels)
+    else:
+        lib.face_render_custom(*args, 0, 0, 0, pixels)
 
 
 def parameters(number: int, location: tuple[int, int]) -> tuple[int, ...]:

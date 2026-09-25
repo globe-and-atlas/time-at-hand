@@ -4,13 +4,13 @@ timestamp: "2026-09-23"
 ---
 # Publish Time at Hand
 
-Status: five version0.1.0 releases uploaded through the signed-in dashboard with Unlisted visibility and one current preview image each. Hidden from search/browsing, accessible by direct link. Phone thumbnail refresh awaiting wearer confirmation.
+Status: five version0.1.0 releases uploaded through the signed-in dashboard with Unlisted visibility and one current preview image each. The next point release is 0.1.1, carrying the Origin / Vector / Meridian / Cardinal / Clarity naming and expanded hand controls. Hidden from search/browsing, accessible by direct link.
 
 ## Easiest route: Pebble Developer Dashboard
 1. Test the selected edition on a paired Pebble Time 2, including phone settings, restart persistence and legibility. Emulator success does not establish wrist readability or battery performance.
 2. Sign in at [developer.repebble.com/dashboard](https://developer.repebble.com/dashboard). Current sign-in offers Google, GitHub and Apple.
-3. Create a watchface listing for each edition you want to release. Suggested titles: **Origin**, **Vector**, and **Meridian**. They have separate UUIDs; do not upload one edition as an update to the other.
-4. Upload the corresponding PBW from `dist/`, enter a description and add representative 200×228 screenshots for Emery/Pebble Time 2. Provide any other metadata the current dashboard requests, such as support contact or icons. Website/source links should point to published locations, never the localhost preview.
+3. Create a watchface listing for each edition you want to release. The current titles are **Origin**, **Vector**, **Meridian**, **Cardinal**, and **Clarity**. They have separate UUIDs; do not upload one edition as an update to the other.
+4. Upload the corresponding PBW from `dist/`, enter a description and add representative 200×228 screenshots for Emery/Pebble Time 2. For the point release, use version `0.1.1`. Provide any other metadata the current dashboard requests, such as support contact or icons. Website/source links should point to published locations, never the localhost preview.
 5. Review the listing and publish when ready. Keep the UUID stable for future updates; increase package version before rebuilding later releases.
 
 The authenticated dashboard form has not been accessed, so exact button labels and account-specific requirements have not been verified. The entry point and current CLI behavior were verified on 2026-09-23.

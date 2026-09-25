@@ -30,4 +30,6 @@ void face_render_config(int hour,int minute,int edition,int year,int month,int d
                         int weekday,int mask,int position,uint8_t *pixels);
 void face_render_custom(int hour,int minute,int edition,int year,int month,int day,
                         int weekday,int mask,int position,int font,int hand_color,
-                        int minute_color,int hand_width,int minute_width,uint8_t *pixels);
+                        int minute_color,int hand_width,int minute_width,
+                        int hour_label_size,int minute_label_size,int show_ticks,
+                        uint8_t *pixels);

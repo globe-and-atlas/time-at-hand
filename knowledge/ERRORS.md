@@ -205,3 +205,13 @@ Color-picker device install waited for phone without connecting; interrupted. Up
 ## 2026-09-24 — Pebble SDK capability order is not deterministic
 - The edition-meridian archive check reported a mismatch that turned out to be only the order of `capabilities` in the built appinfo.json (`location, configurable` against `configurable, location`), with identical sources, binary and JS. The SDK evidently builds that list through an unordered structure, so order varies between runs.
 - Fix: publish_edition_branches.py compares capabilities as a set. The earlier worktree pass was luck.
+
+## 2026-09-24 — Historical incremental fixture is unavailable
+- `python3 execution/verify_incremental.py` → `git show cade550b...:watchface/src/c/edition.h` failed because the historical baseline predates `edition.h`.
+- Cause: the fixture script assumes every current C source existed in the older baseline commit.
+- Fix status: current renderer, style, hemisphere, location, edition and Cardinal/Clarity suites pass; the historical incremental comparison remains blocked by its stale fixture setup.
+
+## 2026-09-24 — SDK build sandbox write blocked
+- `python3 execution/build_editions.py` initially failed during `pebble clean` before compilation.
+- Cause: the Pebble SDK attempted to write its shared settings outside the workspace sandbox.
+- Next action: rerun the authorized build with escalated filesystem access; no source failure was observed.

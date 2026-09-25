@@ -1,7 +1,7 @@
 const $ = id => document.getElementById(id);
 let total = 210, live = false, timer = null, edition = Number($('edition').value);
 const dateFields = ['weekday', 'day', 'month', 'year'];
-const styleIds = ['timeFont','handColor','minuteColor','handWidth','minuteWidth'];
+const styleIds = ['timeFont','handColor','minuteColor','handWidth','minuteWidth','hourLabelSize','minuteLabelSize','showTicks'];
 function fillOptions(id, options) {
   options.forEach(item => { const option = document.createElement('option'); option.value = item.id; option.textContent = item.name; $(id).appendChild(option); });
 }
@@ -25,15 +25,18 @@ function pickColor(id) {
 }
 ['handColor','minuteColor'].forEach(id=>$(id).addEventListener('change',()=>pickColor(id)));
 fillOptions('handWidth', WatchStyles.widths); fillOptions('minuteWidth', WatchStyles.widths);
-function styleSettings() { return styleIds.map(id => Number($(id).type==='color' ? $(id).dataset.colorId : $(id).value)); }
+fillOptions('hourLabelSize', WatchStyles.labelSizes); fillOptions('minuteLabelSize', WatchStyles.labelSizes);
+function styleSettings() { return styleIds.map(id => $(id).type==='color' ? Number($(id).dataset.colorId) : $(id).type==='checkbox' ? Number($(id).checked) : Number($(id).value)); }
 function restoreStyle() {
-  let s = [0,-1,-1,0,0];
+  let s = [0,-1,-1,0,0,0,0,0];
   try {
     const saved = JSON.parse(localStorage.getItem(`time-as-hand.style.${edition}`));
-    if (Array.isArray(saved) && saved.length === 5 && saved.every((v,i) => (i===1 || i===2) ? Number.isInteger(v) && (v===-1 || (v>=1 && v<=73)) : Array.from($(styleIds[i]).options).some(o => String(v) === o.value))) s = saved;
+    const migrated = Array.isArray(saved) && saved.length === 5 ? saved.concat([0,0,0]) : saved;
+    if (Array.isArray(migrated) && migrated.length === 8 && migrated.every((v,i) => (i===1 || i===2) ? Number.isInteger(v) && (v===-1 || (v>=1 && v<=73)) : $(styleIds[i]).type === 'checkbox' ? (v===0 || v===1) : Array.from($(styleIds[i]).options).some(o => String(v) === o.value))) s = migrated;
   } catch (_) { /* Defaults work without browser storage. */ }
   styleIds.forEach((id,i) => {
     if($(id).type==='color') {$(id).dataset.colorId=String(s[i]);$(id).value=colorHex(s[i],id);}
+    else if($(id).type==='checkbox') $(id).checked=Boolean(s[i]);
     else $(id).value=String(s[i]);
   });
   $('minuteStyles').hidden = !edition;
@@ -43,7 +46,9 @@ function restoreStyle() {
 }
 function updateStyleSummary() {
   const font = WatchStyles.fonts[Number($('timeFont').value)];
-  $('styleSummary').textContent = `${font.group} / ${font.name}. Numerals stay black for contrast.`;
+  const width = $('handWidth').value === '0' ? 'edition default' : `${$('handWidth').value}px hour`;
+  const ticks = $('showTicks').checked ? 'ticks on' : 'ticks off';
+  $('styleSummary').textContent = `${font.group} / ${font.name}. ${width}; ${ticks}. Numerals stay black for contrast.`;
 }
 function localDate(d = new Date()) {
   return `${String(d.getFullYear()).padStart(4, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -54,9 +59,9 @@ function calendarSettings() {
 }
 function imageURL(h, m) {
   const s = calendarSettings();
-  const [font,color,minute_color,width,minute_width] = styleSettings();
+  const [font,color,minute_color,width,minute_width,hour_label_size,minute_label_size,ticks] = styleSettings();
   const instant = solarInstant(h,m);
-  return `/face.png?h=${h}&m=${m}&edition=${edition}&mask=${s.mask}&position=${s.position}&date=${$('sampleDate').value || localDate()}&font=${font}&color=${color}&minute_color=${minute_color}&width=${width}&minute_width=${minute_width}&utc=${Math.floor(instant.getTime()/1000)}&lat=${globe.lat}&lon=${globe.lon}&marker=${globe.valid}`;
+  return `/face.png?h=${h}&m=${m}&edition=${edition}&mask=${s.mask}&position=${s.position}&date=${$('sampleDate').value || localDate()}&font=${font}&color=${color}&minute_color=${minute_color}&width=${width}&minute_width=${minute_width}&hour_label_size=${hour_label_size}&minute_label_size=${minute_label_size}&ticks=${ticks}&utc=${Math.floor(instant.getTime()/1000)}&lat=${globe.lat}&lon=${globe.lon}&marker=${globe.valid}`;
 }
 function calendarLabel() {
   const d = new Date(`${$('sampleDate').value || localDate()}T12:00:00`), s = calendarSettings();
