@@ -10,8 +10,8 @@
     "@rebble/clay": "1.1.0"
   },
   "pebble": {
-    "displayName": "Origin",
-    "uuid": "8d9227ba-dc65-4c72-a54e-71e917d6194a",
+    "displayName": "Cardinal",
+    "uuid": "f05945f9-3cd9-462b-88e7-0fef77271d49",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "capabilities": [
