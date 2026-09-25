@@ -10,8 +10,8 @@
     "@rebble/clay": "1.1.0"
   },
   "pebble": {
-    "displayName": "Origin",
-    "uuid": "8d9227ba-dc65-4c72-a54e-71e917d6194a",
+    "displayName": "Vector",
+    "uuid": "a12bd695-9b47-4a44-b416-43006dc54b9f",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "capabilities": [
