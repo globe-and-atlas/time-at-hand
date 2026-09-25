@@ -1,7 +1,7 @@
 [
   {
     "type": "heading",
-    "defaultValue": "Origin"
+    "defaultValue": "Meridian"
   },
   {
     "type": "text",
@@ -74,14 +74,14 @@
       {
         "type": "color",
         "messageKey": "HandColorRGB",
-        "label": "Hand color",
-        "defaultValue": "FFAA00",
+        "label": "Hour hand color",
+        "defaultValue": "000000",
         "layout": "COLOR"
       },
       {
         "type": "select",
         "messageKey": "HandWidth",
-        "label": "Hand width",
+        "label": "Hour hand width",
         "defaultValue": "0",
         "serializeValueAs": "integer",
         "options": [
@@ -153,6 +153,83 @@
         "messageKey": "ShowTicks",
         "label": "Show twelve tick marks",
         "defaultValue": false
+      },
+      {
+        "type": "color",
+        "messageKey": "MinuteColorRGB",
+        "label": "Minute hand color",
+        "defaultValue": "FFAA00",
+        "layout": "COLOR"
+      },
+      {
+        "type": "select",
+        "messageKey": "MinuteWidth",
+        "label": "Minute hand width",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Edition default"
+          },
+          {
+            "value": "1",
+            "label": "1 px"
+          },
+          {
+            "value": "2",
+            "label": "2 px"
+          },
+          {
+            "value": "3",
+            "label": "3 px"
+          },
+          {
+            "value": "4",
+            "label": "4 px"
+          },
+          {
+            "value": "5",
+            "label": "5 px"
+          },
+          {
+            "value": "6",
+            "label": "6 px"
+          },
+          {
+            "value": "7",
+            "label": "7 px"
+          },
+          {
+            "value": "8",
+            "label": "8 px"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "messageKey": "MinuteLabelSize",
+        "label": "Minute label size",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "Edition default"
+          },
+          {
+            "value": "1",
+            "label": "Small"
+          },
+          {
+            "value": "2",
+            "label": "Medium"
+          },
+          {
+            "value": "3",
+            "label": "Large"
+          }
+        ]
       }
     ]
   },
@@ -309,6 +386,96 @@
   {
     "type": "text",
     "defaultValue": "Choose any date combination, for example WED 23 SEP 2026. Turn every field off for a clean dial. Dates follow watch local time."
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Hemisphere location"
+      },
+      {
+        "type": "toggle",
+        "messageKey": "UsePhoneLocation",
+        "label": "Use phone location (optional)",
+        "defaultValue": false
+      },
+      {
+        "type": "select",
+        "messageKey": "LocationPreset",
+        "label": "Manual view / initial fallback",
+        "defaultValue": "0",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "0",
+            "label": "World view"
+          },
+          {
+            "value": "1",
+            "label": "London"
+          },
+          {
+            "value": "2",
+            "label": "Chicago"
+          },
+          {
+            "value": "3",
+            "label": "Tokyo"
+          },
+          {
+            "value": "4",
+            "label": "Sydney"
+          },
+          {
+            "value": "5",
+            "label": "Custom coordinates"
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "messageKey": "ManualLatitude",
+        "label": "Custom latitude (-90 to 90)",
+        "defaultValue": "0",
+        "attributes": {
+          "type": "number",
+          "min": -90,
+          "max": 90,
+          "step": 0.1
+        }
+      },
+      {
+        "type": "input",
+        "messageKey": "ManualLongitude",
+        "label": "Custom longitude (-180 to 180)",
+        "defaultValue": "0",
+        "attributes": {
+          "type": "number",
+          "min": -180,
+          "max": 180,
+          "step": 0.1
+        }
+      },
+      {
+        "type": "color",
+        "messageKey": "WaterColorRGB",
+        "label": "Water color",
+        "defaultValue": "FFFFFF",
+        "layout": "COLOR"
+      },
+      {
+        "type": "color",
+        "messageKey": "LandColorRGB",
+        "label": "Land color",
+        "defaultValue": "555555",
+        "layout": "COLOR"
+      },
+      {
+        "type": "text",
+        "defaultValue": "Phone location is rounded to 0.1 degrees, refreshed on launch, Save, then hourly. If unavailable, the last saved view remains. No location is sent to a web service. Sunlight uses UTC; hands use your watch clock. Location does not set the time zone."
+      }
+    ]
   },
   {
     "type": "submit",

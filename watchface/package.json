@@ -10,12 +10,13 @@
     "@rebble/clay": "1.1.0"
   },
   "pebble": {
-    "displayName": "Origin",
-    "uuid": "8d9227ba-dc65-4c72-a54e-71e917d6194a",
+    "displayName": "Meridian",
+    "uuid": "bf118b38-aaf3-438d-8c91-0e92c4f757e3",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "capabilities": [
-      "configurable"
+      "configurable",
+      "location"
     ],
     "targetPlatforms": [
       "emery"

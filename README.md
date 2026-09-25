@@ -1,3 +1,5 @@
+> **Generated branch: Meridian edition.** CloudPebble builds Meridian from `watchface/` ([import](https://cloudpebble.repebble.com/ide/import/github/globe-and-atlas/time-at-hand/edition-meridian)). Don't edit here: change `main`, then run `python3 execution/publish_edition_branches.py --push`. Generated from main 521d1dc.
+
 ---
 generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
