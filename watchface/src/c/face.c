@@ -90,6 +90,10 @@ static void render_original(int h,int m,uint8_t *pixels) {
  }
  int scale=hour_label_scale;
  int width=((int)strlen(label)*6-1)*scale, flip=step>360;
+ /* A five-character label ("15:30", or "09:30" with a leading zero) at the Large size runs past the
+  * screen edge at most angles; step it down until it fits beside the hand. 12-hour labels without a
+  * leading zero keep their size, so existing renders are unchanged. */
+ while((hour_24 || hour_leading_zero) && width>92 && scale>2) width=((int)strlen(label)*6-1)*--scale;
  for(int y=0;y<FACE_H;++y) for(int x=0;x<FACE_W;++x) {
   float xx=x-100, yy=y-114;
   float radial=xx*dx+yy*dy, lateral=xx*(-dy)+yy*dx;
