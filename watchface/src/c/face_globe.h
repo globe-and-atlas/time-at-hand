@@ -10,9 +10,14 @@ static int earth_last_lat=99999,earth_last_lon=99999;
 static int earth_next_row=38;
 static float earth_slat,earth_clat,earth_slon,earth_clon;
 static uint8_t earth_water_color=0,earth_land_color=7;
+static int earth_texture=1;
 void face_globe_colors(int water_color,int land_color) {
  earth_water_color=(water_color>=0 && water_color<FACE_PALETTE_SIZE) ? water_color : 0;
  earth_land_color=(land_color>=0 && land_color<FACE_PALETTE_SIZE) ? land_color : 7;
+}
+void face_globe_style(int water_color,int land_color,int texture) {
+ face_globe_colors(water_color,land_color);
+ earth_texture=(texture>=0 && texture<=2) ? texture : 1;
 }
 /* The SDK trigonometric reducer also contains absolute table pointers. Our
  * solar/projection angles are bounded to |x| < 32 radians, so double-precision
@@ -96,9 +101,10 @@ int face_globe_prepare(int lat,int lon,int rows) {
   if(my>179) my=179;
   if(my<0) my=0;
   int mi=my*360+mx,land=(earth_land[mi/8]>>(mi%8))&1;
-  /* Thin dotted 30-degree meridians and parallels. */
+  /* Subtle mode marks sparse 30-degree meridians and parallels.
+   * Mac stipple mode uses a coarse 8x8 Classic Mac-style land texture. */
   float a=fabsf(remainderf(north,30)),b=fabsf(remainderf(east,30));
-  int grid=(a<0.5f || b<0.5f) && ((x+y)%3==0);
+  int grid=(a<0.7f || b<0.7f);
   int i=y*FACE_W+x;
   earth_cache[i/4]|=(land|(grid<<1))<<((i%4)*2);
  }
@@ -136,10 +142,16 @@ void face_globe_overlay_rows(int h,int m,int utc_year,int doy,int utc_minute,
   if(rr>=0.985f) {pixels[i]=1;continue;}
   int value=(earth_cache[i/4]>>((i%4)*2))&3;
   float light=e*sun_e+n*sun_n+__ieee754_sqrtf(1-rr)*sun_z;
-  /* Dark gray survives the physical display's low contrast; white graticule
-   * cuts through land while dark gray marks it over the white ocean. */
+  /* Dark gray survives the physical display's low contrast. Subtle mode
+   * inverts sparse map dots; Mac stipple applies a coarse 8x8 land pattern. */
   uint8_t c=(value&1) ? earth_land_color : earth_water_color;
-  if(value&2) c=(value&1) ? earth_water_color : earth_land_color;
+  if(earth_texture==1 && (value&2) && ((x+y)%3==0)) {
+   c=(value&1) ? earth_water_color : earth_land_color;
+  } else if(earth_texture==2 && (value&1)) {
+   int mx=x&7,my=y&7;
+   int bit=(mx==0&&my==0)||(mx==4&&my==0)||(mx==2&&my==2)||(mx==6&&my==2)||(mx==0&&my==4)||(mx==4&&my==4)||(mx==2&&my==6)||(mx==6&&my==6);
+   if(bit) c=9;
+  }
   /* Night is visibly textured; land retains a darker silhouette. */
   if(light<0 && ((x+y)&1)==0) c=(value&1) ? 1 : earth_land_color;
   if(marker && (x-100)*(x-100)+(y-114)*(y-114)>=30 && (x-100)*(x-100)+(y-114)*(y-114)<=42) c=8;

@@ -33,6 +33,7 @@ function pickPaletteColor(id) {
 fillOptions('handWidth', WatchStyles.widths); fillOptions('minuteWidth', WatchStyles.widths);
 fillOptions('hourLabelSize', WatchStyles.labelSizes); fillOptions('minuteLabelSize', WatchStyles.labelSizes);
 fillOptions('dateFormat', WatchStyles.dateFormats); fillOptions('dialTheme', WatchStyles.themes); fillOptions('batteryMode', WatchStyles.batteryModes);
+fillOptions('globeWireframe', WatchStyles.wireframes);
 function styleSettings() { return styleIds.map(id => $(id).type==='color' ? Number($(id).dataset.colorId) : $(id).type==='checkbox' ? Number($(id).checked) : Number($(id).value)); }
 function restoreStyle() {
   let s = [0,-1,-1,0,0,0,0,0,0,1,0,1,0,1];
@@ -71,7 +72,8 @@ function imageURL(h, m) {
   const s = calendarSettings();
   const [font,color,minute_color,width,minute_width,hour_label_size,minute_label_size,ticks,hour_format,minute_format,theme,pivot] = styleSettings();
   const instant = solarInstant(h,m);
-  return `/face.png?h=${h}&m=${m}&edition=${edition}&mask=${s.mask}&position=${s.position}&date=${$('sampleDate').value || localDate()}&font=${font}&color=${color}&minute_color=${minute_color}&width=${width}&minute_width=${minute_width}&hour_label_size=${hour_label_size}&minute_label_size=${minute_label_size}&ticks=${ticks}&date_format=${s.format}&hour_format=${hour_format}&minute_format=${minute_format}&theme=${theme}&pivot=${pivot}&utc=${Math.floor(instant.getTime()/1000)}&lat=${globe.lat}&lon=${globe.lon}&marker=${globe.valid}&water_color=${globe.water}&land_color=${globe.land}`;
+  const water = globe.customColors ? globe.water : 0, land = globe.customColors ? globe.land : 7;
+  return `/face.png?h=${h}&m=${m}&edition=${edition}&mask=${s.mask}&position=${s.position}&date=${$('sampleDate').value || localDate()}&font=${font}&color=${color}&minute_color=${minute_color}&width=${width}&minute_width=${minute_width}&hour_label_size=${hour_label_size}&minute_label_size=${minute_label_size}&ticks=${ticks}&date_format=${s.format}&hour_format=${hour_format}&minute_format=${minute_format}&theme=${theme}&pivot=${pivot}&utc=${Math.floor(instant.getTime()/1000)}&lat=${globe.lat}&lon=${globe.lon}&marker=${globe.valid}&water_color=${water}&land_color=${land}&wireframe=${globe.wireframe}`;
 }
 function calendarLabel() {
   const d = new Date(`${$('sampleDate').value || localDate()}T12:00:00`), s = calendarSettings();
@@ -136,7 +138,7 @@ function setEdition() {
   $('buildDownload').textContent = edition ? 'Download Vector for Pebble ↗' : 'Download Origin for Pebble ↗';
   if (edition === 2) {
     $('editionIntro').textContent = 'Local time in your hands. Daylight moving across the world beneath them.';
-    $('editionNote').textContent = 'A north-up globe centered on your chosen location, with configurable land and water colors, a dotted night hemisphere, and two upright numbers. Sunlight is calculated from UTC and the season, even offline.';
+    $('editionNote').textContent = 'A north-up globe centered on your chosen location, with configurable land and water colors, optional dotted or Mac stipple globe textures, a dotted night hemisphere, and two upright numbers. Sunlight is calculated from UTC and the season, even offline.';
     $('buildDownload').href = '/meridian.pbw';
     $('buildDownload').download = 'meridian.pbw';
     $('buildDownload').textContent = 'Download Meridian for Pebble ↗';
@@ -185,7 +187,7 @@ $('live').addEventListener('click', () => {
   timer = setInterval(update, 1000); update();
 });
 $('face').addEventListener('error', () => { $('description').textContent = 'Preview unavailable. Restart execution/preview.py.'; });
-let globe = {lat:0,lon:0,valid:0,preset:0,water:0,land:7};
+let globe = {lat:0,lon:0,valid:0,preset:0,customColors:0,water:0,land:7,wireframe:1};
 let locationRequest=0;
 try {
   const saved = JSON.parse(localStorage.getItem('time-as-hand.globe.2'));
@@ -202,6 +204,9 @@ function saveGlobe(message) {
   $('locationPreset').value=String(globe.preset);
   $('waterColor').dataset.colorId=String(globe.water);$('waterColor').value=colorHex(globe.water,'waterColor');
   $('landColor').dataset.colorId=String(globe.land);$('landColor').value=colorHex(globe.land,'landColor');
+  $('globeCustomColors').checked=Boolean(globe.customColors);
+  $('waterColor').disabled=!globe.customColors;$('landColor').disabled=!globe.customColors;
+  $('globeWireframe').value=String(globe.wireframe);
   $('locationStatus').textContent=message || (globe.valid ? 'Chosen center saved in this browser. Coordinates rounded to 0.1°.' : 'World view. Location is optional.');
   try {localStorage.setItem('time-as-hand.globe.2',JSON.stringify(globe));} catch (_) {}
   updateCalendar();show(total);
@@ -219,9 +224,17 @@ $('locationPreset').addEventListener('change', () => {
 }));
 ['waterColor','landColor'].forEach(id => $(id).addEventListener('change', () => {
   pickPaletteColor(id);
-  globe={...globe,water:Number($('waterColor').dataset.colorId),land:Number($('landColor').dataset.colorId)};
+  globe={...globe,customColors:1,water:Number($('waterColor').dataset.colorId),land:Number($('landColor').dataset.colorId)};
   saveGlobe();
 }));
+$('globeCustomColors').addEventListener('change', () => {
+  globe={...globe,customColors:$('globeCustomColors').checked ? 1 : 0};
+  saveGlobe();
+});
+$('globeWireframe').addEventListener('change', () => {
+  globe={...globe,wireframe:Number($('globeWireframe').value)};
+  saveGlobe();
+});
 $('locate').addEventListener('click', () => {
   const request=++locationRequest;
   if (!navigator.geolocation) { $('locationStatus').textContent='Location unavailable. Choose a city or coordinates.';return; }

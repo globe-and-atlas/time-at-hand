@@ -51,6 +51,13 @@ def main():
     default_globe=frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1)
     colored_globe=frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1,water_color=4,land_color=5)
     assert colored_globe != default_globe and 4 in colored_globe and 5 in colored_globe, 'custom globe colors must affect water and land'
+    # Preview/native callers must explicitly choose custom colors; saved color
+    # values alone should not change the default globe.
+    assert frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1,water_color=0,land_color=7) == default_globe
+    no_grid=frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1,wireframe=0)
+    subtle_grid=frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1,wireframe=1)
+    coarse_grid=frame(lib,10,10,2,15,1,date(2026,6,21),utc=summer.timestamp(),lat=51.5,lon=-.1,marker=1,wireframe=2)
+    assert no_grid != subtle_grid != coarse_grid and sum(a!=b for a,b in zip(no_grid,coarse_grid)) > sum(a!=b for a,b in zip(no_grid,subtle_grid)), 'wireframe modes must be distinct and coarse must draw more grid'
     # Globe cannot touch date bands; labels are cleared by a glyph-shaped halo.
     class Number(ctypes.Structure):
         _fields_=[('x',ctypes.c_int),('y',ctypes.c_int),('width',ctypes.c_int),('height',ctypes.c_int),('scale',ctypes.c_int),('text',ctypes.c_char*3)]
@@ -93,7 +100,7 @@ def main():
     assert inconsistent==0,f'{inconsistent} pixels cleared beyond the derived halo (halo too large or not glyph-shaped)'
     for name,d,lat,lon in [('summer',summer,51.5,-.1),('winter',winter,51.5,-.1),('world',equinox,0,0)]:
         (ROOT/'.tmp'/f'hemisphere-{name}.png').write_bytes(png(frame(lib,3,30,2,15,1,d.date(),utc=d.timestamp(),lat=lat,lon=lon,marker=int(name!='world'))))
-    report={'status':'pass','time_states':720,'locations':7,'summer_declination':sun(summer)[0],'winter_declination':sun(winter)[0],'dst_repeated_hour':'different sunlight at same local time','custom_globe_colors':'pass','label_clearance':'glyph-shaped halo (radius = numeral scale); hands and ink never overpainted','date_bands':'preserved'}
+    report={'status':'pass','time_states':720,'locations':7,'summer_declination':sun(summer)[0],'winter_declination':sun(winter)[0],'dst_repeated_hour':'different sunlight at same local time','custom_globe_colors':'pass','wireframe_modes':'pass','label_clearance':'glyph-shaped halo (radius = numeral scale); hands and ink never overpainted','date_bands':'preserved'}
     (ROOT/'.tmp/hemisphere-verification.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
 

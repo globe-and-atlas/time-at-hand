@@ -152,3 +152,125 @@ Goal: push current watchface sources to GitHub and CloudPebble import branches.
 Status: main and four generated edition branches pushed.
 
 Checkpoint: committed current 0.1.2 state as 521d1dc and pushed main to origin. publish_edition_branches.py verified and force-pushed edition-two-hands, edition-meridian, edition-four-points and edition-clear. Import links recorded in .tmp/edition-branches.json.
+
+## 2026-09-25 — Meridian coarse wireframe
+Agent: OpenAI Codex
+Goal: add a coarse wireframe globe mode to Meridian in the gridcore spirit.
+Status: implemented, verified, rebuilt locally; not committed or pushed.
+
+Checkpoint: Meridian now supports GlobeWireframe Off/Subtle dots/Mac stipple in phone settings and preview. Subtle remains default. Host verifier asserts wireframe_modes=pass; style, clear-points and location checks pass. All five renamed PBWs rebuilt and inspected. Added assets/listing-images/meridian/wireframe.png.
+
+## 2026-09-25 — Meridian settings transfer fix
+Agent: OpenAI Codex
+Goal: fix Meridian phone settings not transferring to the watch.
+Status: implemented and rebuilt locally; not yet pushed/uploaded after this fix.
+
+Checkpoint: Root cause was native AppMessage inbox too small for Meridian's expanded full Clay payload. Increased app_message_open to1024/1024 and added verify_message_buffers.py. Focused host checks pass and all five renamed PBWs rebuilt/inspected. Next: push and upload new Meridian PBW to dashboard/watch.
+
+## 2026-09-25 — Meridian 0.1.5 version bump
+Agent: OpenAI Codex
+Goal: bump current release metadata to0.1.5 after Meridian wireframe and settings-transfer fixes.
+Status: implemented and rebuilt locally; not yet pushed/uploaded after bump.
+
+Checkpoint: watchface package version set to0.1.5; RELEASE_NOTES.md includes Meridian0.1.5 notes. Generated settings rebuilt. verify_message_buffers and verify_hemisphere pass. All five PBWs rebuilt and inspected; dist/meridian.pbw appinfo versionLabel is0.1.5.
+
+## 2026-09-25 — Meridian custom color toggle
+Agent: OpenAI Codex
+Goal: make Meridian land/water colors opt-in instead of always applying saved picker values.
+Status: implemented and rebuilt locally; not yet pushed/uploaded after this change.
+
+Checkpoint: Added GlobeCustomColors toggle to phone settings and preview. Native renderer now uses default water/land unless the toggle is enabled, while preserving saved picker values. verify_message_buffers asserts the native toggle gate and passes; focused renderer checks pass. All five PBWs rebuilt and inspected.
+
+## 2026-09-25 — Meridian Mac stipple globe texture
+Agent: OpenAI Codex
+Goal: replace Meridian low-poly wireframe exploration with a Mac Classic stipple texture.
+Status: implemented, verified, rebuilt locally; not yet pushed/uploaded after this change.
+
+Checkpoint: GlobeWireframe mode 2 is now Mac stipple: a coarse 8x8 Classic Mac-style point pattern on land, replacing the rejected low-poly faceted treatment. Phone settings, preview catalog, README, release notes, renderer knowledge and listing image wording were updated. Host checks pass: verify_message_buffers, verify_hemisphere, verify_styles, verify_clear_points and verify_location. All five PBWs rebuilt and inspected against preview download routes; assets/listing-images/meridian/wireframe.png regenerated.
+## 2026-09-25 — Meridian Mac stipple texture
+Agent: OpenAI Codex
+Goal: replace the rejected low-poly globe treatment with the selected Mac Classic-style stipple.
+Status: implemented, verified, rebuilt locally; not yet pushed/uploaded after this change.
+
+Checkpoint: The Meridian texture control now presents Off, Subtle dots and Mac stipple. The underlying AppMessage key remains GlobeWireframe for compatibility, but the phone/preview label is Globe texture. Mode 2 now applies a coarse 8x8 land stipple and no longer draws polygon/facet lines. Host checks pass: verify_message_buffers, verify_hemisphere, verify_styles, verify_clear_points and verify_location. All five PBWs rebuilt and inspected against preview download routes. assets/listing-images/meridian/wireframe.png now shows the Mac stipple render.
+## 2026-09-25 — Meridian 0.1.6 version bump
+Agent: OpenAI Codex
+Goal: mark the new Mac stipple Meridian build as 0.1.6.
+Status: implemented, rebuilt and verified locally; not yet pushed/uploaded after this change.
+
+Checkpoint: watchface package metadata changed from 0.1.5 to 0.1.6 and RELEASE_NOTES.md now has a Meridian 0.1.6 Mac stipple entry. All five PBWs rebuilt; embedded appinfo reports versionLabel 0.1.6 for Origin, Vector, Meridian, Cardinal and Clarity. verify_message_buffers and verify_hemisphere pass.
+## 2026-09-25 — Origin gravity ghost overlay
+Agent: OpenAI Codex
+Goal: implement the chosen option 3 floppy-hand concept: keep Origin readable and add a wrist-tilt ghost hand.
+Status: implemented, rebuilt and verified locally; not yet pushed/uploaded or physically tested.
+
+Checkpoint: Origin phone settings now expose Gravity ghost Off/Subtle/Floppy. Native watchface code subscribes to accelerometer samples only for TAH_EDITION 0, keeps the true renderer hand unchanged, and draws a smoothed pale ghost hand overlay that blends time direction with wrist tilt. All five PBWs rebuilt. verify_message_buffers, verify_styles, verify_clear_points, verify_hemisphere and verify_location pass. Bundle appinfo remains versionLabel 0.1.6 and includes GravityGhost app key. Physical watch behavior remains untested.
+## 2026-09-25 — Revert Origin gravity ghost
+Agent: OpenAI Codex
+Goal: remove the disliked Origin floppy/gravity ghost experiment.
+Status: reverted, rebuilt and verified locally; not yet pushed/uploaded after this change.
+
+Checkpoint: Removed GravityGhost app key, Origin phone setting, accelerometer subscription, native ghost overlay, and release/task docs for the experiment. Regenerated settings and rebuilt all five PBWs. verify_message_buffers, verify_styles, verify_clear_points, verify_hemisphere and verify_location pass. Rebuilt bundle appinfo confirms GravityGhost is absent from Origin, Vector, Meridian, Cardinal and Clarity.
+## 2026-09-25 — Status/date collision fix
+Agent: OpenAI Codex
+Goal: prevent battery/Bluetooth status indicators from overlapping bottom date text across the watchface suite.
+Status: implemented, rebuilt and verified locally; not yet pushed/uploaded after this change.
+
+Checkpoint: Native status overlay now detects visible bottom date settings and moves battery text, battery bar and Bluetooth disconnect marker to a top safe band below the top date area. Added verify_status_layout.py. verify_status_layout, verify_message_buffers, verify_styles, verify_clear_points and verify_hemisphere pass. All five PBWs rebuilt and retain versionLabel 0.1.6.
+## 2026-09-27 Listing image upload — blocked
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: populate dashboard thumbnail/screenshot/promotional image fields.
+Last Known State: existing assets located in assets/listing-images and assets/phone-previews. No browser or native UI connection available, even after reset; public dashboard requires sign-in. Nothing uploaded. Await connected signed-in browser and confirmation of target listing set (current four versus legacy Clarity). Inspect actual dashboard image requirements and current released visuals before selecting assets; concept contact sheets are not listing screenshots. No code or image changes made.
+
+
+## 2026-09-27 Promotional suite
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: create coordinated Origin, Vector, Meridian, Cardinal listing and promotional assets.
+Status: creating assets locally; authenticated dashboard upload remains separate.
+Execution: generate_promo_suite.py and verify_promo_suite.py; output assets/promo-suite and ZIP.
+Checkpoint: generated coordinated four-edition promotional suite; 20 native screenshot comparisons and first media/archive checks pass. Visual inspection found a square subtitle/bezel collision, corrected in generator; rebuilding. Meridian UTC now follows displayed Chicago local time. No listing uploads or watchface changes.
+
+## Last Known State — 2026-09-27 promotional assets
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: create attention-focused imagery for Origin, Vector, Meridian and Cardinal.
+Status: asset delivery complete; independent reviewer verify_promo_assets approved.
+Artifacts: assets/promo-suite/index.html, contact-sheet.png, suite-cover-1600x900.png and assets/pebble-promo-suite.zip. 54 PNG, eight GIF, eight MP4; README includes suggested usage/captions and upload boundaries.
+Validation: python3 execution/verify_promo_suite.py PASS, including 20 native PNG comparisons, 192 decoded native GIF frame comparisons, dimensions, hashes, timing/format, gallery links and ZIP. Representative layouts visually inspected. Independent reviewer approved representative stills and sampled animation frames.
+Limitations: no live browser playback observed; no upload performed. Dashboard image field dimensions/file caps need current authenticated confirmation. No changes to watchface source or PBWs in this task.
+Permanent procedure: knowledge/procedural/prepare_promo_assets.md. Prior session history retained above because it contains separate unresolved deployment work.
+Closing audit: delivered actual reusable assets, not speculative concepts. Attention is a design aim, not a measured outcome; static versus motion engagement can be tested after publishing.
+
+## Last Known State — asset upload requested
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: upload prepared assets for Origin, Vector, Meridian, Cardinal.
+Status: blocked by unavailable computer/browser connection. getState returned no surfaces; explicit Chrome creation also unavailable. User authorization persists; do not ask permission again.
+Next: reconnect signed-in Pebble dashboard, inspect current image field constraints, upload matching assets from assets/promo-suite, save and reload each listing to verify persistence. No remote changes were made.
+Upload retry after user reported connection: still blocked. Live browser inventory empty; direct IAB unavailable. Authorization remains valid; zero remote changes.
+
+## 2026-09-27 Dashboard connection restored
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: upload the four approved face asset sets.
+Status: signed-in Chrome dashboard accessible. Editor specifies 200x228 screenshots, 720x320 banner, recommended 80px small and 144px large icons. Generating missing 80px icons before upload. Existing visibility is Listed; preserve it and release files.
+Checkpoint: regenerated suite with 80px icons required/recommended by current dashboard (now 58 PNGs). Upload helper blocked by ChatGPT extension Allow access to file URLs; user asked to enable it. Native fallback interrupted by active-page changes, stopped. No remote changes. Origin editor ready for file selection after permission is enabled.
+Checkpoint: user confirmed file URL permission enabled. Reconnected same Chrome extension instance on refreshed browser ID 2; Origin files selected successfully. Submitted Origin Save Changes with four additions (native GIF/calendar/dark/custom), banner, 80px and 144px icons plus time-lapse disclosure. Awaiting save result.
+Checkpoint: Origin and Vector persisted five screenshot images (existing signature plus GIF/calendar/dark/custom), 720x320 banners, 80px/144px icons. Reopened each editor and verified server URLs, image dimensions and time-lapse disclosure; visibility stayed Listed. Meridian save returned to dashboard; verifying next.
+
+## Last Known State — 2026-09-27 dashboard uploads complete
+Agent: OpenAI Codex (GPT-6)
+Handoff-from: OpenAI Codex
+Handoff-type: continuation
+Goal: upload prepared Origin, Vector, Meridian, Cardinal listing imagery.
+Status: completed. Uploaded 28 files; reopened four editors and verified persisted images with native dimensions. Each listing has five screenshot slots, one GIF among them, a 720x320 banner, 80px and 144px icons. Description includes time-lapse disclosure. Meridian public presentation visually checked and screenshot saved to .tmp/upload-proof/meridian-public.png.
+Boundaries: no release/PBW changes; Listed visibility preserved. Social MP4s/cards remain local. No watch installation requested or performed in this task.
+Validation: dashboard reload and image natural dimensions/server paths passed for each named edition. Existing local asset suite verification passed after 80px icon addition (58 PNG/eight GIF/eight MP4). Procedure graduated to procedural/prepare_promo_assets.md; prior unrelated checkpoints retained.
+Closing audit: resolved the original upload task after browser connection and extension permission recovery; delivered actual saved listings rather than another asset-only handoff.

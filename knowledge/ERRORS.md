@@ -220,3 +220,64 @@ Color-picker device install waited for phone without connecting; interrupted. Up
 - `python3 execution/publish_edition_branches.py` failed while simulating a CloudPebble build at `pebble build`.
 - Cause: the branch verifier invokes the Pebble SDK and the sandbox blocks its shared settings write.
 - Next action: rerun the read-only branch verification with escalated SDK filesystem access; no branch source failure was observed yet.
+
+## 2026-09-25 — Meridian phone settings did not transfer
+
+Error: After saving settings in the Pebble phone app, Meridian did not update on the watch.
+
+Cause: Meridian's expanded settings payload is larger than the old native AppMessage inbox. Estimated generated setting payload sizes: Origin160 bytes, Vector/Cardinal/Clarity193 bytes, Meridian291 bytes. The app still used `app_message_open(256,64)`, so the full Meridian Clay payload could be rejected before settings reached `inbox()`.
+
+Fix: Increased native AppMessage buffers to `app_message_open(1024,1024)` and added `execution/verify_message_buffers.py` to assert the largest generated settings payload fits both buffers.
+
+Graduated-to: keep generated settings payload size and native AppMessage buffers verified whenever adding Clay settings.
+2026-09-27: Dashboard image-upload attempt blocked: CUA returned no browsers and native pipe startup failed, including after session reset. Public dashboard redirects to sign-in. No authenticated uploads attempted; no credentials accessed.
+
+## 2026-09-27 Asset documentation URL
+- Error: developer.repebble.com/guides/appstore-publishing/appstore-assets/ returned 404.
+- Cause: guide unavailable at that hostname/path. The developer.rebble.io equivalent was readable.
+- Fix: use the readable official archived guide; dashboard field acceptance remains unverified.
+
+## 2026-09-27 Promotional layout visual check
+- Error: square card subtitle touched the top of its display frame.
+- Cause: subtitle baseline and frame rim occupied the same vertical band.
+- Fix: move square display down 18px; inspect rebuilt square output.
+- Additional correction: derive Meridian screenshot UTC from displayed Chicago local time so calendar/custom examples remain temporally consistent.
+
+## 2026-09-27 Asset review browser unavailable
+- Error: independent verifier could not open IAB for live GIF playback; native browser connection unavailable.
+- Classification: infrastructure limitation, not an asset decode failure.
+- Response: inspect rendered frames and verify GIF frame contents, timing, MP4 metadata, and archive integrity; do not claim browser playback observed.
+- Further review limitation: Chrome file:// playback was rejected by browser URL policy. No workaround attempted; sampled local frames were used for visual review.
+
+## 2026-09-27 Authorized asset upload blocked
+- Error: cua.getState returned no apps or browsers and Native pipe startup failed. Explicit Chrome dashboard creation returned Browser is not available: chrome.
+- Classification: computer/browser connection unavailable; dashboard authorization was supplied by the user.
+- Result: no upload attempted, no remote listing changed. Reconnect browser/computer access before resuming the four approved listings.
+
+## 2026-09-27 Browser reconnect retry
+- User reported connection restored. Live getState still returned no apps/browsers with Sky Computer Use native pipe startup failed; direct IAB creation returned Browser is not available: iab.
+- No upload or listing mutation occurred. The computer-use connection remains unavailable to this session.
+
+## 2026-09-27 Full browser-session reset retry
+- Reset the computer-use JavaScript session, then requested a fresh surface inventory.
+- Same infrastructure failure: Sky Computer Use native pipe startup failed; zero apps and browsers returned.
+- No listing upload performed. A browser session reset alone did not resolve the connection failure.
+
+## 2026-09-27 Extension upload helper permission
+- Error: fileChooser.setFiles requires ChatGPT Chrome extension Allow access to file URLs.
+- Cause: upload helper lacks the extension file-URL permission.
+- Response: do not change security permissions automatically; inspect supported native picker alternative before requiring user action. No file submitted by failed helper.
+- Native picker fallback was interrupted twice as the active Chrome page changed. Stopped native interactions; requested the extension file-URL permission setting from the user. Origin editor remains unchanged and marked for handoff.
+
+## 2026-09-27 Upload permission refresh recovery
+- Initial call used a stale REPL binding after session change; rebound tab from known URL.
+- Upload permission error persisted on stale browser ID 1. Fresh inventory exposed the same Chrome extension instance as browser ID 2; rebinding that refreshed connection allowed setFiles successfully.
+- Native fallback was interrupted by active-tab changes; no unrelated page actions performed.
+
+## 2026-09-27 Vector save navigation timing
+- Locator wait reported deadline exceeded while waiting for dashboard heading after Save Changes.
+- Fresh DOM observation showed dashboard with new Vector icon; do not retry Save blindly. Reopen Vector editor to verify persisted assets.
+
+## 2026-09-27 Verification tab navigation interference
+- During Cardinal readback, the claimed tab had navigated to an unrelated Substack page. No mutations were attempted there; a description read timed out.
+- Response: create a dedicated verification tab, then reopen Cardinal editor. Cardinal save had already returned to dashboard with its new icon.

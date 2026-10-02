@@ -7,7 +7,9 @@
 <fieldset class="calendar" id="globeSettings"><legend>Hemisphere view</legend>
 <label for="locationPreset">Center the globe</label><select id="locationPreset"><option value="0">World view · no location set</option><option value="1">London</option><option value="2">Chicago</option><option value="3">Tokyo</option><option value="4">Sydney</option><option value="5">Custom coordinates</option></select>
 <div class="date-layout"><div><label for="latitude">Latitude</label><input id="latitude" type="number" min="-90" max="90" step="0.1" value="0"></div><div><label for="longitude">Longitude</label><input id="longitude" type="number" min="-180" max="180" step="0.1" value="0"></div></div>
+<label><input id="globeCustomColors" type="checkbox"> Use custom globe colors</label>
 <div class="date-layout"><div><label for="waterColor">Water color</label><input type="color" id="waterColor" value="#ffffff"></div><div><label for="landColor">Land color</label><input type="color" id="landColor" value="#555555"></div></div>
+<label for="globeWireframe">Globe texture</label><select id="globeWireframe"></select>
 <button type="button" id="locate">Use my location once</button><p class="note" id="locationStatus" aria-live="polite">World view. Location is optional.</p>
 <p class="note">Clock and preview date use this device’s time zone, including daylight saving. Changing the globe center does not change the clock. The small teal ring marks your chosen center.</p><p class="note" id="solarStatus"></p></fieldset>
 <fieldset class="calendar"><legend>Type &amp; hands</legend>

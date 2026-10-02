@@ -4,6 +4,26 @@ timestamp: "2026-09-23"
 ---
 # Time at Hand release notes
 
+## Meridian 0.1.6 · Mac stipple globe texture
+
+- Replaces the experimental low-poly globe treatment with a coarse Classic Mac-style land stipple.
+- Renames the Meridian control to Globe texture, with Off, Subtle dots, and Mac stipple options.
+- Keeps Subtle dots as the default Meridian texture.
+- Preserves custom land/water color controls, saved location, daylight/night overlay, UUID, and existing visual defaults.
+
+Upload this as version 0.1.6 to the existing Meridian dashboard listing.
+
+## Meridian 0.1.5 · globe textures and settings-transfer fix
+
+- Adds Meridian globe texture modes: Off, Subtle dots, and Mac stipple.
+- Keeps Subtle dotted as the default Meridian globe look.
+- Adds a Meridian-only custom globe color toggle, with water and land color pickers enabled only when custom colors are on.
+- Fixes Meridian phone settings not transferring to the watch after the settings payload grew.
+- Enlarges AppMessage buffers so the full Meridian settings payload can be delivered reliably.
+- Preserves saved location, daylight/night overlay, UUID, and existing visual defaults.
+
+Upload this as version 0.1.5 to the existing Meridian dashboard listing.
+
 ## 0.1.2 point release · shared dial and status settings
 
 - All five faces now share light/dark dial theme controls.

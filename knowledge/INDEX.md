@@ -39,3 +39,7 @@ Last updated 2026-09-25: renderer.md and run_prototype.md cover 0.1.2 shared dia
 2026-09-23 update: run_prototype.md and PUBLISH.md record five unlisted releases with screenshot previews; mobile thumbnail verification pending.
 
 | [procedural/publish_cloudpebble.md](procedural/publish_cloudpebble.md) | procedural | 2026-09-24 | CloudPebble edition branches: generate, verify, push; import gotchas |
+
+| [procedural/prepare_promo_assets.md](procedural/prepare_promo_assets.md) | procedural | 2026-09-27: four-face listing screenshots, thumbnails, promotional cards, GIF/MP4 generation and provenance checks |
+
+2026-09-27 update: procedural/prepare_promo_assets.md records completed four-listing uploads, native GIF acceptance, 80/144px icon requirements, reload validation, and refreshed extension connection recovery.

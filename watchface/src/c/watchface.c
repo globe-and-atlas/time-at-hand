@@ -16,6 +16,8 @@ static int year,month,day,weekday;
 static int date_mask,date_position;
 static int latitude,longitude,location_valid;
 static int globe_colors[2]={0,7};
+static int globe_custom_colors=0;
+static int globe_wireframe=1;
 /* 0/default font, automatic primary color, amber minute, automatic widths. */
 /* font, hour color, minute color, hand widths, label sizes, ticks */
 static int style[8]={0,-1,-1,0,0,0,0,0};
@@ -66,7 +68,7 @@ static void render_step(void *context) {
   if(face_globe_prepare(latitude,longitude,2)) {render_phase=2;render_row=37;}
  } else if(render_phase==2) {
   int end=render_row+2;if(end>192) end=192;
-  face_globe_colors(globe_colors[0],globe_colors[1]);
+  face_globe_style(globe_custom_colors ? globe_colors[0] : 0,globe_custom_colors ? globe_colors[1] : 7,globe_wireframe);
   face_globe_overlay_rows(hour,minute,utc_year,utc_doy,utc_minute,latitude,longitude,location_valid,pixels,render_row,end);
   render_row=end;if(end==192) render_phase=3;
  }
@@ -84,6 +86,7 @@ static void request_render(void) {
  render_ready=false;render_phase=0;
  render_timer=app_timer_register(1,render_step,NULL);
 }
+
 static void draw(Layer *layer,GContext *ctx) {
  (void)layer;
  graphics_context_set_fill_color(ctx,GColorWhite);
@@ -99,18 +102,22 @@ static void draw(Layer *layer,GContext *ctx) {
  graphics_context_set_stroke_color(ctx,status_color);
  graphics_context_set_fill_color(ctx,status_color);
  graphics_context_set_text_color(ctx,status_color);
+ int status_top=(date_mask && date_position==1);
+ int battery_text_y=status_top ? 20 : 205;
+ int battery_bar_y=status_top ? 27 : 213;
+ int bluetooth_y=status_top ? 20 : 204;
  if(display[5]==1) {
   static char battery_text[5];
   snprintf(battery_text,sizeof(battery_text),"%d%%",battery_percent);
-  graphics_draw_text(ctx,battery_text,fonts_get_system_font(FONT_KEY_GOTHIC_14),GRect(6,205,46,18),GTextOverflowModeTrailingEllipsis,GTextAlignmentLeft,NULL);
+  graphics_draw_text(ctx,battery_text,fonts_get_system_font(FONT_KEY_GOTHIC_14),GRect(6,battery_text_y,46,18),GTextOverflowModeTrailingEllipsis,GTextAlignmentLeft,NULL);
  } else if(display[5]==2 || (display[5]==3 && battery_percent<=20)) {
-  graphics_draw_rect(ctx,GRect(7,213,24,6));
-  graphics_fill_rect(ctx,GRect(31,215,2,2),0,GCornerNone);
+  graphics_draw_rect(ctx,GRect(7,battery_bar_y,24,6));
+  graphics_fill_rect(ctx,GRect(31,battery_bar_y+2,2,2),0,GCornerNone);
   int width=(battery_percent*20+99)/100;
-  if(width>0) graphics_fill_rect(ctx,GRect(9,215,width,2),0,GCornerNone);
+  if(width>0) graphics_fill_rect(ctx,GRect(9,battery_bar_y+2,width,2),0,GCornerNone);
  }
  if(display[6] && !phone_connected) {
-  graphics_draw_text(ctx,"x",fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD),GRect(FACE_W-19,204,15,18),GTextOverflowModeTrailingEllipsis,GTextAlignmentCenter,NULL);
+  graphics_draw_text(ctx,"x",fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD),GRect(FACE_W-19,bluetooth_y,15,18),GTextOverflowModeTrailingEllipsis,GTextAlignmentCenter,NULL);
  }
 }
 static void tick(struct tm *t,TimeUnits changed) {
@@ -162,6 +169,14 @@ static void inbox(DictionaryIterator *iter,void *context) {
    style[1+i]=10+r*16+g*4+b;persist_write_int(111+i,style[1+i]);
   }
  }
+ Tuple *wire=dict_find(iter,MESSAGE_KEY_GlobeWireframe);
+ if(wire && (wire->type==TUPLE_INT || wire->type==TUPLE_UINT) && wire->value->int32>=0 && wire->value->int32<=2) {
+  globe_wireframe=wire->value->int32;persist_write_int(142,globe_wireframe);
+ }
+ Tuple *custom=dict_find(iter,MESSAGE_KEY_GlobeCustomColors);
+ if(custom && (custom->type==TUPLE_INT || custom->type==TUPLE_UINT)) {
+  globe_custom_colors=custom->value->int32 ? 1 : 0;persist_write_int(143,globe_custom_colors);
+ }
  const uint32_t globe_rgb_keys[]={MESSAGE_KEY_WaterColorRGB,MESSAGE_KEY_LandColorRGB};
  for(int i=0;i<2;++i) {
   Tuple *t=dict_find(iter,globe_rgb_keys[i]);
@@ -202,12 +217,15 @@ int main(void) {
  for(int i=0;i<8;++i) if(persist_exists(110+i)) style[i]=persist_read_int(110+i);
  for(int i=0;i<7;++i) if(persist_exists(130+i)) display[i]=persist_read_int(130+i);
  for(int i=0;i<2;++i) if(persist_exists(140+i)) globe_colors[i]=persist_read_int(140+i);
+ if(persist_exists(142)) globe_wireframe=persist_read_int(142);
+ if(persist_exists(143)) globe_custom_colors=persist_read_int(143)!=0;
   time_t now=time(NULL);struct tm *t=localtime(&now);read_time(t);
  window=window_create();window_set_window_handlers(window,(WindowHandlers){.load=load,.unload=unload});
  window_stack_push(window,true);tick_timer_service_subscribe(MINUTE_UNIT,tick);
  battery_state_service_subscribe(battery_callback);battery_callback(battery_state_service_peek());
  connection_service_subscribe((ConnectionHandlers){.pebble_app_connection_handler=connection_callback});
  connection_callback(connection_service_peek_pebble_app_connection());
- app_message_register_inbox_received(inbox);app_message_open(256,64);
- app_event_loop();if(render_timer) app_timer_cancel(render_timer);app_message_deregister_callbacks();tick_timer_service_unsubscribe();battery_state_service_unsubscribe();connection_service_unsubscribe();window_destroy(window);gbitmap_destroy(bitmap);
+app_message_register_inbox_received(inbox);app_message_open(1024,1024);
+ app_event_loop();if(render_timer) app_timer_cancel(render_timer);app_message_deregister_callbacks();tick_timer_service_unsubscribe();battery_state_service_unsubscribe();connection_service_unsubscribe();
+ window_destroy(window);gbitmap_destroy(bitmap);
 }

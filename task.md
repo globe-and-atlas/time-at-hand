@@ -121,3 +121,41 @@ Delivery: preview and both native bundles verified. PUBLISH.md and assets/store/
 - [x] Preserve existing default globe colors.
 - [x] Persist globe color choices on the watch.
 - [x] Rebuild all PBWs and verify custom globe colors.
+
+## Meridian globe texture controls — verified
+- [x] Add Off, Subtle dots, and Mac stipple modes.
+- [x] Replace the rejected low-poly facets with a coarse 8x8 Mac Classic stipple texture.
+- [x] Preserve Subtle dotted as the default Meridian globe mode.
+- [x] Expose texture mode in phone settings and preview.
+- [x] Rebuild all PBWs and verify texture mode differences.
+
+## 2026-09-27 Promotional suite — validation contract
+- Target directives: none found for promotional asset production.
+- Execution: execution/generate_promo_suite.py; execution/verify_promo_suite.py.
+- Artifacts: assets/promo-suite/; assets/pebble-promo-suite.zip.
+- Safety: no secrets accessed; no watchface behavior changes; no remote publication.
+- [x] Origin has five unframed 200x228 PNG examples.
+- [x] Vector has five unframed 200x228 PNG examples.
+- [x] Meridian has five unframed 200x228 PNG examples.
+- [x] Cardinal has five unframed 200x228 PNG examples.
+- [x] Each named edition has square thumbnails, a banner, social cards, a native GIF, a promotional GIF, and an MP4.
+- [x] The suite includes a contact sheet and a local gallery.
+- [x] Animation instructions explicitly disclose accelerated time.
+- [x] Rendered face pixels originate from the current C renderer.
+- [x] Asset verification passes.
+- [x] Fresh independent review approves the artifacts.
+
+Result: 54 PNG, eight GIF, eight MP4. Independent artifact review approved; live browser playback and authenticated dashboard upload remain unobserved.
+
+## 2026-09-27 Dashboard image upload
+- Target directive: none found for image uploads; use documented browser file chooser.
+- Execution: generate_promo_suite.py; verify_promo_suite.py.
+- Artifacts: existing promo suite plus 80px icons; saved dashboard images for Origin, Vector, Meridian, Cardinal.
+- Safety: user authorized image uploads; preserve release files and visibility; no credentials accessed.
+- [x] Origin saved images verified after reload.
+- [x] Vector saved images verified after reload.
+- [x] Meridian saved images verified after reload.
+- [x] Cardinal saved images verified after reload.
+- [x] 80px icons pass asset verification.
+
+Result: uploaded 28 assets across the four listings. Each retains its original signature screenshot plus native GIF and three PNG variants, one banner, and two icons. Added time-lapse disclosure. Meridian public listing visually verified; evidence .tmp/upload-proof/meridian-public.png. Existing visibility and release files preserved.
