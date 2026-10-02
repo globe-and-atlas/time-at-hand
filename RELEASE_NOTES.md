@@ -4,6 +4,12 @@ timestamp: "2026-09-23"
 ---
 # Time at Hand release notes
 
+## 0.1.8 · Vector, Meridian and Cardinal build fix
+
+- 0.1.7 of Vector, Meridian and Cardinal was built as Origin by mistake (the local build script defaulted
+  to edition 0 over each edition branch's edition.h). 0.1.8 restores each edition's own face, with the
+  0.1.7 settings: 24-hour hour numbers and custom numeral color.
+
 ## 0.1.7 · 24-hour numbers and numeral color (all editions)
 
 - New Hour numbers setting: 12-hour (1 to 12, the default), 24-hour (0 to 23), or follow the watch setting.
