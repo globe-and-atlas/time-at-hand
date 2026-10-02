@@ -1,7 +1,7 @@
 {
   "name": "time-at-hand",
   "author": "Daniel Bally",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "keywords": [
     "pebble-app"
   ],
@@ -56,7 +56,10 @@
       "GlobeCustomColors",
       "WaterColorRGB",
       "LandColorRGB",
-      "GlobeWireframe"
+      "GlobeWireframe",
+      "ClockFormat",
+      "NumeralCustomColor",
+      "NumeralColorRGB"
     ],
     "resources": {
       "media": []

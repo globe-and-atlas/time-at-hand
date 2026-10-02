@@ -14,6 +14,17 @@ static int hour_radius=48;
 static int active_font=0,primary_color=2,secondary_color=2,primary_width=1,secondary_width=1;
 static int hour_label_scale=3,minute_label_scale=2,show_ticks=0;
 static int date_order=0,hour_leading_zero=0,minute_leading_zero=1,show_center_pivot=1;
+/* Clock style: 24-hour hour labels (0-23) and the numeral colour (1 = automatic black, inverted on
+ * the dark dial; 10..73 = a fixed palette colour). Defaults keep the 12-hour black numerals. */
+static int hour_24=0,numeral_color=1;
+void face_clock_style(int h24,int color) {
+ hour_24=h24 ? 1 : 0;
+ numeral_color=color>=10 && color<FACE_PALETTE_SIZE ? color : 1;
+}
+static unsigned display_hour(int h) {
+ unsigned u=(unsigned)h%24u; /* unsigned 0..23 keeps the label buffers provably wide enough */
+ return hour_24 ? u : (u%12u ? u%12u : 12u);
+}
 static int stroke_ink(float across,int width) {
  /* Negative values preserve the original optical weights. Explicit pixel
   * widths use a half-open span so even widths remain distinct on axis. */
@@ -32,14 +43,14 @@ int face_special(int h, int m) { return m == 0 && h % 3 == 0; }
 /* Half-degree units clockwise from top. */
 int face_angle(int h, int m) { return (h % 12) * 60 + m; }
 void face_label(int h, int m, char *out) {
- int hour=h%12; if (!hour) hour=12;
+ unsigned hour=display_hour(h);
  if (face_special(h,m)) {
-  if(hour_leading_zero && hour<10) snprintf(out,6,"0%d",hour);
-  else snprintf(out,6,"%d",hour);
+  if(hour_leading_zero && hour<10) snprintf(out,6,"0%u",hour);
+  else snprintf(out,6,"%u",hour);
  } else {
   char hh[3],mm[3];
-  if(hour_leading_zero && hour<10) snprintf(hh,sizeof(hh),"0%d",hour);
-  else snprintf(hh,sizeof(hh),"%d",hour);
+  if(hour_leading_zero && hour<10) snprintf(hh,sizeof(hh),"0%u",hour);
+  else snprintf(hh,sizeof(hh),"%u",hour);
   if(minute_leading_zero || m>=10) snprintf(mm,sizeof(mm),"%02d",m);
   else snprintf(mm,sizeof(mm),"%d",m);
   snprintf(out,6,"%s:%s",hh,mm);
@@ -74,7 +85,7 @@ static void render_original(int h,int m,uint8_t *pixels) {
   int width=((int)strlen(label)*6-1)*scale;
   int left=clamp_label_start(nearest(100+73*dx)-width/2,width), top=nearest(114+78*dy)-7*scale/2;
   for(int y=0;y<FACE_H;++y) for(int x=0;x<FACE_W;++x)
-   if(ink(label,x-left,y-top,scale)) pixels[y*FACE_W+x]=1;
+   if(ink(label,x-left,y-top,scale)) pixels[y*FACE_W+x]=numeral_color;
   return;
  }
  int scale=hour_label_scale;
@@ -87,7 +98,7 @@ static void render_original(int h,int m,uint8_t *pixels) {
   if(radial>=84 && radial<=88 && lateral>=-2 && lateral<=2) c=primary_color;
   float tx=radial-46,ty=lateral;
   if(flip) {tx=-tx;ty=-ty;}
-  if(ink(label,nearest(tx+width/2.0f),nearest(ty+8*scale),scale)) c=1;
+  if(ink(label,nearest(tx+width/2.0f),nearest(ty+8*scale),scale)) c=numeral_color;
   if(show_center_pivot && xx*xx+yy*yy<=9) c=1;
   pixels[y*FACE_W+x]=c;
  }
@@ -99,9 +110,9 @@ static void split_layout_radius_scaled(int h,int m,FaceNumber *labels,int radius
  int steps[2]={face_angle(h,m),face_minute_angle(m)};
  /* Distinct tracks keep labels separate even when hands align at noon. */
  int radii[2]={radius,82};
- int hour=h%12 ? h%12 : 12;
- if(hour_leading_zero && hour<10) snprintf(labels[0].text,3,"0%d",hour);
- else snprintf(labels[0].text,3,"%d",hour);
+ unsigned hour=display_hour(h);
+ if(hour_leading_zero && hour<10) snprintf(labels[0].text,3,"0%u",hour);
+ else snprintf(labels[0].text,3,"%u",hour);
  if(minute_leading_zero || m>=10) snprintf(labels[1].text,3,"%02d",m);
  else snprintf(labels[1].text,3,"%d",m);
  for(int i=0;i<2;++i) {
@@ -143,7 +154,7 @@ static void render_split(int h,int m,uint8_t *pixels) {
    if(x>=n->x-2 && x<n->x+n->width+2 && y>=n->y-2 && y<n->y+n->height+2) c=0;
   }
   for(int i=0;i<2;++i)
-   if(ink(labels[i].text,x-labels[i].x,y-labels[i].y,labels[i].scale)) c=1;
+   if(ink(labels[i].text,x-labels[i].x,y-labels[i].y,labels[i].scale)) c=numeral_color;
   if(show_center_pivot && xx*xx+yy*yy<=9) c=1;
   pixels[y*FACE_W+x]=c;
  }

@@ -4,6 +4,12 @@ timestamp: "2026-09-23"
 ---
 # Time at Hand release notes
 
+## 0.1.7 · 24-hour numbers and numeral color (all editions)
+
+- New Hour numbers setting: 12-hour (1 to 12, the default), 24-hour (0 to 23), or follow the watch setting.
+- New Custom numeral color: turn it on and pick any of the 64 Pebble colors for the time numerals. Off keeps the automatic black numerals, which turn white on the dark dial.
+- Hands, ticks, pivot and date keep their own colors.
+
 ## Meridian 0.1.6 · Mac stipple globe texture
 
 - Replaces the experimental low-poly globe treatment with a coarse Classic Mac-style land stipple.

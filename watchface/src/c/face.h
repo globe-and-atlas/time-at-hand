@@ -14,6 +14,8 @@ void face_globe_overlay(int h,int m,int utc_year,int doy,int utc_minute,
                         int latitude,int longitude,int marker,uint8_t *pixels);
 void face_globe_colors(int water_color,int land_color);
 void face_globe_style(int water_color,int land_color,int wireframe);
+/* h24: label hours 0-23. color: 1 = automatic black numerals, 10..73 = palette colour. */
+void face_clock_style(int h24,int color);
 int face_special(int hour, int minute);
 int face_angle(int hour, int minute);
 void face_label(int hour, int minute, char *out);

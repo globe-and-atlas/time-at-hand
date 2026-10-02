@@ -132,8 +132,11 @@ def main():
         required = {'TimeFont', 'HandColorRGB', 'HandWidth', 'MinuteColorRGB', 'MinuteWidth',
                     'HourLabelSize', 'MinuteLabelSize', 'ShowTicks', 'ShowWeekday', 'ShowDay',
                     'ShowMonth', 'ShowYear', 'DatePosition', 'DateFormat', 'DialTheme',
-                    'ShowPivot', 'BatteryMode', 'BluetoothMode', 'HourFormat', 'MinuteFormat'}
+                    'ShowPivot', 'BatteryMode', 'BluetoothMode', 'HourFormat', 'MinuteFormat',
+                    'ClockFormat', 'NumeralCustomColor', 'NumeralColorRGB'}
         assert set(fields) == required
+        assert fields['ClockFormat']['defaultValue'] == '1'  # the dial stays 12-hour by default
+        assert fields['NumeralCustomColor']['defaultValue'] is False
         assert fields['HandColorRGB']['defaultValue'] == '000000'
         assert fields['MinuteColorRGB']['defaultValue'] == minute_rgb
         assert len(fields['TimeFont']['options']) == 12

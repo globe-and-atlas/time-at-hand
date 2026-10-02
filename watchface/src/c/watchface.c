@@ -18,6 +18,8 @@ static int latitude,longitude,location_valid;
 static int globe_colors[2]={0,7};
 static int globe_custom_colors=0;
 static int globe_wireframe=1;
+/* clock: 0 follow the watch, 1 12-hour (the dial's default), 2 24-hour; numerals: palette index, 1 = automatic */
+static int clock_format=1,numeral_custom=0,numeral_index=1;
 /* 0/default font, automatic primary color, amber minute, automatic widths. */
 /* font, hour color, minute color, hand widths, label sizes, ticks */
 static int style[8]={0,-1,-1,0,0,0,0,0};
@@ -42,6 +44,7 @@ static void render_step(void *context) {
  (void)context;render_timer=NULL;
  if(render_phase==0) {
  render_started=milliseconds();
+ face_clock_style(clock_format==2 || (clock_format==0 && clock_is_24h_style()),numeral_custom ? numeral_index : 1);
  face_render_full(hour,minute,TAH_EDITION,year,month,day,weekday,date_mask,date_position,
                   style[0],style[1],style[2],style[3],style[4],style[5],style[6],style[7],
                   display[0],display[1],display[2],TAH_EDITION==2 ? 0 : display[3],display[4],pixels);
@@ -186,6 +189,20 @@ static void inbox(DictionaryIterator *iter,void *context) {
    globe_colors[i]=10+r*16+g*4+b;persist_write_int(140+i,globe_colors[i]);
   }
  }
+ Tuple *clock=dict_find(iter,MESSAGE_KEY_ClockFormat);
+ if(clock && (clock->type==TUPLE_INT || clock->type==TUPLE_UINT) && clock->value->int32>=0 && clock->value->int32<=2) {
+  clock_format=clock->value->int32;persist_write_int(150,clock_format);
+ }
+ Tuple *ncustom=dict_find(iter,MESSAGE_KEY_NumeralCustomColor);
+ if(ncustom && (ncustom->type==TUPLE_INT || ncustom->type==TUPLE_UINT)) {
+  numeral_custom=ncustom->value->int32 ? 1 : 0;persist_write_int(151,numeral_custom);
+ }
+ Tuple *ncolor=dict_find(iter,MESSAGE_KEY_NumeralColorRGB);
+ if(ncolor && (ncolor->type==TUPLE_INT || ncolor->type==TUPLE_UINT) && ncolor->value->int32>=0 && ncolor->value->int32<=0xffffff) {
+  uint32_t rgb=ncolor->value->uint32;
+  int r=(((rgb>>16)&255)+42)/85,g=(((rgb>>8)&255)+42)/85,b=((rgb&255)+42)/85;
+  numeral_index=10+r*16+g*4+b;persist_write_int(152,numeral_index);
+ }
  Tuple *lat=dict_find(iter,MESSAGE_KEY_Latitude),*lon=dict_find(iter,MESSAGE_KEY_Longitude),*valid=dict_find(iter,MESSAGE_KEY_LocationValid);
  if(lat && lon && valid && (lat->type==TUPLE_INT || lat->type==TUPLE_UINT) && (lon->type==TUPLE_INT || lon->type==TUPLE_UINT) && (valid->type==TUPLE_INT || valid->type==TUPLE_UINT)
     && lat->value->int32>=-9000 && lat->value->int32<=9000 && lon->value->int32>=-18000 && lon->value->int32<=18000) {
@@ -219,6 +236,9 @@ int main(void) {
  for(int i=0;i<2;++i) if(persist_exists(140+i)) globe_colors[i]=persist_read_int(140+i);
  if(persist_exists(142)) globe_wireframe=persist_read_int(142);
  if(persist_exists(143)) globe_custom_colors=persist_read_int(143)!=0;
+ if(persist_exists(150)) clock_format=persist_read_int(150)%3;
+ if(persist_exists(151)) numeral_custom=persist_read_int(151)!=0;
+ if(persist_exists(152)) numeral_index=persist_read_int(152);
   time_t now=time(NULL);struct tm *t=localtime(&now);read_time(t);
  window=window_create();window_set_window_handlers(window,(WindowHandlers){.load=load,.unload=unload});
  window_stack_push(window,true);tick_timer_service_subscribe(MINUTE_UNIT,tick);

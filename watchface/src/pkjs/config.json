@@ -5,7 +5,7 @@
   },
   {
     "type": "text",
-    "defaultValue": "Each edition remembers its own choices. Time numerals stay black; the date uses a consistent small pixel font."
+    "defaultValue": "Each edition remembers its own choices. Time numerals are black (white on the dark dial) unless you choose a custom numeral color; the date uses a consistent small pixel font."
   },
   {
     "type": "section",
@@ -228,6 +228,40 @@
         "messageKey": "MinuteFormat",
         "label": "Leading zero on minute",
         "defaultValue": true
+      },
+      {
+        "type": "select",
+        "messageKey": "ClockFormat",
+        "label": "Hour numbers",
+        "defaultValue": "1",
+        "serializeValueAs": "integer",
+        "options": [
+          {
+            "value": "1",
+            "label": "12-hour (1 to 12)"
+          },
+          {
+            "value": "2",
+            "label": "24-hour (0 to 23)"
+          },
+          {
+            "value": "0",
+            "label": "Follow the watch setting"
+          }
+        ]
+      },
+      {
+        "type": "toggle",
+        "messageKey": "NumeralCustomColor",
+        "label": "Custom numeral color",
+        "defaultValue": false
+      },
+      {
+        "type": "color",
+        "messageKey": "NumeralColorRGB",
+        "label": "Numeral color",
+        "defaultValue": "000000",
+        "layout": "COLOR"
       }
     ]
   },
