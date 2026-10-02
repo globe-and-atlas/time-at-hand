@@ -10,8 +10,8 @@
     "@rebble/clay": "1.1.0"
   },
   "pebble": {
-    "displayName": "Origin",
-    "uuid": "8d9227ba-dc65-4c72-a54e-71e917d6194a",
+    "displayName": "Clarity",
+    "uuid": "9f13e2a2-8cce-4163-a5e0-0f5455679749",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "capabilities": [
