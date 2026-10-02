@@ -281,3 +281,9 @@ Graduated-to: keep generated settings payload size and native AppMessage buffers
 ## 2026-09-27 Verification tab navigation interference
 - During Cardinal readback, the claimed tab had navigated to an unrelated Substack page. No mutations were attempted there; a description read timed out.
 - Response: create a dedicated verification tab, then reopen Cardinal editor. Cardinal save had already returned to dashboard with its new icon.
+
+## 2026-10-01: Vector, Meridian and Cardinal 0.1.7 shipped Origin's face
+- **Error:** `pebble publish` run from each edition branch (worktree) uploaded a binary built as Origin. The manifest UUID and name were right, but the face code was wrong. Meridian's 13 KB binary should have been 30 KB with the globe.
+- **Cause:** `watchface/wscript` added `-DTAH_EDITION=0` whenever the environment didn't set it. That overrode each branch's `edition.h`. CloudPebble wasn't affected, because it uses its own wscript.
+- **Fix:** 0.1.8. The wscript now defines TAH_EDITION only when it's set explicitly. Each edition was republished only after its worktree build byte-matched `dist/<edition>.pbw`, and the downloaded store binaries were checked against `dist/` afterwards (all 4 match).
+- **Graduated rule:** before and after publishing an edition, compare `emery/pebble-app.bin` with `comparable_binary()` against `dist/`. See PUBLISH.md.

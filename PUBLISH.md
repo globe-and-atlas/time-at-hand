@@ -63,3 +63,9 @@ The CLI help described above is misleading: installed5.0.40 publish.py hardcodes
 ## Unlisted releases — 2026-09-23
 
 Dashboard confirmed Origin,Vector,Meridian,Cardinal,Clarity as Unlisted with published0.1.0 releases and matching preview images. Exact links are recorded in assets/phone-previews/listings.json. Local UUIDs preserved. No source repository or website links submitted. Clarity public-link page shows its screenshot. Phone cache refresh remains unobserved.
+
+## 2026-10-01: CLI publishing per edition (0.1.7/0.1.8)
+- Origin publishes from `watchface/`. Each other edition publishes from a worktree of its `edition-*` branch (`git worktree add <dir> edition-<slug>`, then copy `watchface/node_modules`, then `pebble publish --non-interactive --no-gif-all-platforms --release-notes ...` from `<dir>/watchface`).
+- `pebble publish` makes the release live right away. There is no CLI draft.
+- **Gate:** first run `python3 execution/build_editions.py`. Build in the worktree with TAH_EDITION unset, and publish only if `comparable_binary()` of its `emery/pebble-app.bin` equals `dist/<edition>.pbw`. After publishing, download each listing's `latest_release.pbw_file` (from `https://appstore-api.repebble.com/api/v1/apps/dev/<developer_id>`) and compare again.
+- Store app IDs: Origin 21d5882443784d998674e10f, Vector bcec521af0e0444eaf8471ce, Meridian ec1162d2415448789ea1ba78, Cardinal 9a7040247c9343898b3674c7. Clarity has no listing.
