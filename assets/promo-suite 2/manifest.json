@@ -1,0 +1,587 @@
+{
+  "editions": [
+    "origin",
+    "vector",
+    "meridian",
+    "cardinal"
+  ],
+  "screenshots": [
+    {
+      "path": "origin/store/01-signature.png",
+      "edition": 0,
+      "config": {},
+      "sha256": "1fd920b3911888c1094818dbbd73d6faf1709bbf9a7ee31d69024f540075214d"
+    },
+    {
+      "path": "origin/store/02-calendar.png",
+      "edition": 0,
+      "config": {
+        "mask": 3,
+        "position": 1,
+        "h": 3,
+        "m": 30
+      },
+      "sha256": "90aad6851597442ba298d331c5e143295ade36015fe064037271f14d5529a18d"
+    },
+    {
+      "path": "origin/store/03-night.png",
+      "edition": 0,
+      "config": {
+        "h": 8,
+        "m": 45,
+        "theme": 1,
+        "color": 2,
+        "minute_color": 2
+      },
+      "sha256": "27c1a008ebde5420cf922a51ced0d9d5cf3d7bf8d61c2e5c127940c8c68173db"
+    },
+    {
+      "path": "origin/store/04-custom.png",
+      "edition": 0,
+      "config": {
+        "h": 1,
+        "m": 50,
+        "color": 6,
+        "minute_color": 8,
+        "width": 5,
+        "minute_width": 3,
+        "font": 3
+      },
+      "sha256": "27e657f3e34d62aa859e9bedb58a25e0edb64de1d4249ea044df9df4b285c799"
+    },
+    {
+      "path": "origin/store/05-detail.png",
+      "edition": 0,
+      "config": {
+        "h": 3,
+        "m": 0
+      },
+      "sha256": "7e928c0425388de1ee57f6c9c93c767ac7cf1dcd31b0a716bac0091f6dc424f2"
+    },
+    {
+      "path": "vector/store/01-signature.png",
+      "edition": 1,
+      "config": {},
+      "sha256": "3bd222442c4f69740fe9f2963e601cf91d5cf17fea070006a53c25936e0c5061"
+    },
+    {
+      "path": "vector/store/02-calendar.png",
+      "edition": 1,
+      "config": {
+        "mask": 3,
+        "position": 1,
+        "h": 3,
+        "m": 30
+      },
+      "sha256": "f3e87ca183a2059f31ad3544e3eac811a68b75ea09ac1c17392bec24b53c6289"
+    },
+    {
+      "path": "vector/store/03-night.png",
+      "edition": 1,
+      "config": {
+        "h": 8,
+        "m": 45,
+        "theme": 1,
+        "color": 2,
+        "minute_color": 2
+      },
+      "sha256": "9f69ee9093c45744ee99c107288bbb3b2d5af50de732ae8ee2344e74bc0780a1"
+    },
+    {
+      "path": "vector/store/04-custom.png",
+      "edition": 1,
+      "config": {
+        "h": 1,
+        "m": 50,
+        "color": 6,
+        "minute_color": 8,
+        "width": 5,
+        "minute_width": 3,
+        "font": 3
+      },
+      "sha256": "7212a44863585e618a532388a35aadf3de4c743451ee8a6d85eb055272cbc416"
+    },
+    {
+      "path": "vector/store/05-detail.png",
+      "edition": 1,
+      "config": {
+        "h": 10,
+        "m": 10,
+        "ticks": 1,
+        "hour_label_size": 3,
+        "minute_label_size": 2
+      },
+      "sha256": "671f5db9c325f4748b737cab5938d0d34e755a43f41384912f9d1bb27dccf185"
+    },
+    {
+      "path": "meridian/store/01-signature.png",
+      "edition": 2,
+      "config": {},
+      "sha256": "476c427e22d5a1cc67d62170e9b3bb4f56201dcf163a083dca4960429f8329d2"
+    },
+    {
+      "path": "meridian/store/02-calendar.png",
+      "edition": 2,
+      "config": {
+        "mask": 3,
+        "position": 1,
+        "h": 3,
+        "m": 30
+      },
+      "sha256": "1bb326d00b187eb2026576b080754a9edd4520f5d813e076a288cda65aabb571"
+    },
+    {
+      "path": "meridian/store/03-night.png",
+      "edition": 2,
+      "config": {
+        "h": 8,
+        "m": 45,
+        "theme": 1,
+        "color": 2,
+        "minute_color": 2
+      },
+      "sha256": "279884b0a2e6e272d7e087facc68f03c9eb562d0e151ca4b8efac68f53484421"
+    },
+    {
+      "path": "meridian/store/04-custom.png",
+      "edition": 2,
+      "config": {
+        "h": 1,
+        "m": 50,
+        "color": 6,
+        "minute_color": 8,
+        "width": 5,
+        "minute_width": 3,
+        "font": 3
+      },
+      "sha256": "a701f6cb852b1b5f77df4d83b6927306ebee9541829a933ae90c4d9a8082bb78"
+    },
+    {
+      "path": "meridian/store/05-detail.png",
+      "edition": 2,
+      "config": {
+        "h": 10,
+        "m": 10,
+        "wireframe": 2
+      },
+      "sha256": "891a5730c340bd855d47912bc854d152cac6d5beeba9080220b54837f3ae0302"
+    },
+    {
+      "path": "cardinal/store/01-signature.png",
+      "edition": 3,
+      "config": {},
+      "sha256": "e44fdac4408dde489f17fda17ee9015e5611dfe671b497a9f47ebc6a0c85944d"
+    },
+    {
+      "path": "cardinal/store/02-calendar.png",
+      "edition": 3,
+      "config": {
+        "mask": 3,
+        "position": 1,
+        "h": 3,
+        "m": 30
+      },
+      "sha256": "827f7880a3c77c89f065c90b3b818572eccea9dc948a796ce20f1bda927a8f1c"
+    },
+    {
+      "path": "cardinal/store/03-night.png",
+      "edition": 3,
+      "config": {
+        "h": 8,
+        "m": 45,
+        "theme": 1,
+        "color": 2,
+        "minute_color": 2
+      },
+      "sha256": "9bde608edaf78d1d12e6f1fd591d521f727d0927fafa3de60589512dce5daf19"
+    },
+    {
+      "path": "cardinal/store/04-custom.png",
+      "edition": 3,
+      "config": {
+        "h": 1,
+        "m": 50,
+        "color": 6,
+        "minute_color": 8,
+        "width": 5,
+        "minute_width": 3,
+        "font": 3
+      },
+      "sha256": "6534e2debb20f9586475a5d9395696ac318dd17f16e3dc0f1faf36ab605025ab"
+    },
+    {
+      "path": "cardinal/store/05-detail.png",
+      "edition": 3,
+      "config": {
+        "h": 10,
+        "m": 10,
+        "ticks": 1,
+        "hour_label_size": 3,
+        "minute_label_size": 2
+      },
+      "sha256": "a47a2b997999a0eab4599b50f848dfa396246da79c89cfec99e3b1a0713abe37"
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3965,
+      "sha256": "a944a43d75376a70a89dddbd8552f07c3ac256cd716964f512a19a23fe3e8030"
+    },
+    {
+      "path": "cardinal/promotion/cover-1200x630.png",
+      "bytes": 24155,
+      "sha256": "a2816147929cf8aa5ed23ee0965f51cf50d212d47d992d7ff4829c1f8fe64650"
+    },
+    {
+      "path": "cardinal/promotion/portrait-1080x1350.png",
+      "bytes": 35532,
+      "sha256": "00d5fd4b638f74392690c7b72bb5bee9ad5ffc28c5899eab6375a93e3375035e"
+    },
+    {
+      "path": "cardinal/promotion/square-1080.png",
+      "bytes": 27665,
+      "sha256": "6ea124e9fc8a48fe1d72224f60b7ca7bebf685b37eace94daa8a9868a4257859"
+    },
+    {
+      "path": "cardinal/promotion/story-1080x1920.png",
+      "bytes": 39370,
+      "sha256": "a467656bc6806267655bade698001115696d8ef61ab689da2109508c697ab43f"
+    },
+    {
+      "path": "cardinal/promotion/timelapse-600.gif",
+      "bytes": 794383,
+      "sha256": "9c392f0b1f2143fcc8d0d7867c1d91d5adc766ace23ebf382b90e1891bdc199a"
+    },
+    {
+      "path": "cardinal/promotion/timelapse-square.mp4",
+      "bytes": 127038,
+      "sha256": "d657ee738b35993ddbe3fa500441e321470c8ab37ce50160dd09f0845ee4fc42"
+    },
+    {
+      "path": "cardinal/promotion/timelapse-vertical.mp4",
+      "bytes": 163291,
+      "sha256": "4fc9f511859716e81f4e05a586cd66b5fd67d9f930e060d0c7dc8336181dd0a3"
+    },
+    {
+      "path": "cardinal/store/01-signature.png",
+      "bytes": 1058,
+      "sha256": "7051b7d61ce8ebe19d81cd3555630d2f687de632cff874bfe8a7f3a95faa0fd7"
+    },
+    {
+      "path": "cardinal/store/02-calendar.png",
+      "bytes": 979,
+      "sha256": "84fff90a113ce8bf9f8bf4c1baa85c6888b90f588ffa7ca516423e746cfbfc24"
+    },
+    {
+      "path": "cardinal/store/03-night.png",
+      "bytes": 495,
+      "sha256": "ccbff7ea1564ed06e7f534d8c36909b05387bebe5e12bdfef41942fcca2dba90"
+    },
+    {
+      "path": "cardinal/store/04-custom.png",
+      "bytes": 1086,
+      "sha256": "9481e60f2b46e02f5c25069f55c7bd4ca0cc963988f54fc734303a1e10efeafd"
+    },
+    {
+      "path": "cardinal/store/05-detail.png",
+      "bytes": 1066,
+      "sha256": "0e5fc1ad4d30a4969f43941997750db5fdfbb051aeaebc4ec753544f77b889b1"
+    },
+    {
+      "path": "cardinal/store/banner-720x320.png",
+      "bytes": 12767,
+      "sha256": "ef8950013b56ed2f1698febb69eed42e16d0802f89297e14e0a925811f607b83"
+    },
+    {
+      "path": "cardinal/store/thumbnail-144.png",
+      "bytes": 744,
+      "sha256": "71e8a9c97b092a8d403eb539c825b5a31c1d7a44a8e34dcd3c3b99f161ec512a"
+    },
+    {
+      "path": "cardinal/store/thumbnail-48.png",
+      "bytes": 254,
+      "sha256": "9a52c0c4f14db7e9a5c7d1708deb1e26d920853ab6b4474bfa8a49e4de7a1506"
+    },
+    {
+      "path": "cardinal/store/thumbnail-512.png",
+      "bytes": 2398,
+      "sha256": "ade72ac042a1f968e3ae93a2e49788a9a33d7b160586a8a0567b2c5824e7eca9"
+    },
+    {
+      "path": "cardinal/store/timelapse-200x228.gif",
+      "bytes": 30073,
+      "sha256": "3575b378a60fa01974b128bf02cb8769f394b4529bca37fb0032134ff5733826"
+    },
+    {
+      "path": "contact-sheet.png",
+      "bytes": 72255,
+      "sha256": "7838c9d3d65d603fda5e84f6eb8f97c0a281566bffa30991799728e1a36bfa50"
+    },
+    {
+      "path": "index.html",
+      "bytes": 8089,
+      "sha256": "8e7e5cec183f88b547ae50f0e958dd8cea8d0ab8a206010cfe1c6f720ccc5add"
+    },
+    {
+      "path": "meridian/promotion/cover-1200x630.png",
+      "bytes": 30375,
+      "sha256": "83ae4a098a2cff9ed74a4462d449141adbd2d1627dd93e2f31a646050ff49f5c"
+    },
+    {
+      "path": "meridian/promotion/portrait-1080x1350.png",
+      "bytes": 43288,
+      "sha256": "96665ec70e2cdb5dbae29f82e07b6d6ef7b7f8af3d238fa67a71cfaf8f0b2857"
+    },
+    {
+      "path": "meridian/promotion/square-1080.png",
+      "bytes": 34301,
+      "sha256": "1de00c9aa1f41f62d85ce2dcd8639c38a4ad2ff58575f7e5d26e2e97c0eb56d2"
+    },
+    {
+      "path": "meridian/promotion/story-1080x1920.png",
+      "bytes": 47089,
+      "sha256": "74fea6741c7598646677a802bf426bbc7d82f04bda87fc0ba8e19dc5272b3da3"
+    },
+    {
+      "path": "meridian/promotion/timelapse-600.gif",
+      "bytes": 1092853,
+      "sha256": "0cb43b38c72cebb1d93c4089bb9290c4f2e313316a3219fcac3ae66bba3210d6"
+    },
+    {
+      "path": "meridian/promotion/timelapse-square.mp4",
+      "bytes": 439913,
+      "sha256": "8b2f0160d57391362fa49f54ff910ffcb75c671f91cf02fffff35cbf9d06d1f1"
+    },
+    {
+      "path": "meridian/promotion/timelapse-vertical.mp4",
+      "bytes": 469597,
+      "sha256": "a4096c4ab56e5089ee116c215c3190f31b4a28f1635f0a3bc2b03ed1d605d700"
+    },
+    {
+      "path": "meridian/store/01-signature.png",
+      "bytes": 4572,
+      "sha256": "f37c0cb99694a39b998e2e1883b8b2376d52804c17b67479721cef47f44f1290"
+    },
+    {
+      "path": "meridian/store/02-calendar.png",
+      "bytes": 4155,
+      "sha256": "addc1dd2a27ea2305c28ea7c8fc2cc37b3029554836831137d2d120a02ccb874"
+    },
+    {
+      "path": "meridian/store/03-night.png",
+      "bytes": 4102,
+      "sha256": "0b8f4a4ab02dcdac64dafe86dfb5e48faea7609aaeab7611162dafe7c8e48baa"
+    },
+    {
+      "path": "meridian/store/04-custom.png",
+      "bytes": 3809,
+      "sha256": "297682b0e2b11ab4cb2650e06490a672b4c40440ff7d59eac88b3e3276789516"
+    },
+    {
+      "path": "meridian/store/05-detail.png",
+      "bytes": 4075,
+      "sha256": "7a006ff4f3872ee6d23affeb2141198575026920506107591eddeaa0b1ac4035"
+    },
+    {
+      "path": "meridian/store/banner-720x320.png",
+      "bytes": 18044,
+      "sha256": "cadf4286c259eb67117cb33991e98b17558c8792171be5a644295e55abdaf662"
+    },
+    {
+      "path": "meridian/store/thumbnail-144.png",
+      "bytes": 2334,
+      "sha256": "c6178083074e1985ab0cf13a8212fe70943260da9ad5254ce10aff029df9c284"
+    },
+    {
+      "path": "meridian/store/thumbnail-48.png",
+      "bytes": 586,
+      "sha256": "b9abcaa23d9c98d575f8af69db12398e0faaad4840c9e2e872879a6a864254c4"
+    },
+    {
+      "path": "meridian/store/thumbnail-512.png",
+      "bytes": 6782,
+      "sha256": "97f05bb0b19e1d0eab73d350bb88e8390e8ab7fc1ec5cfb55f219205cf6ef366"
+    },
+    {
+      "path": "meridian/store/timelapse-200x228.gif",
+      "bytes": 135128,
+      "sha256": "5d413a6970a971081ba0bfa1d6b72aab8fd121ea519fbee9f2cab5a0870b4044"
+    },
+    {
+      "path": "origin/promotion/cover-1200x630.png",
+      "bytes": 22151,
+      "sha256": "cbc7e52895126ca5e303abf4c95c7fc9439f48a8eaa1d759a10b94bcebfe7ae6"
+    },
+    {
+      "path": "origin/promotion/portrait-1080x1350.png",
+      "bytes": 33780,
+      "sha256": "165dcb6fab80997f18105d140caada2a7616390604120b1bb2aaae831c97ced8"
+    },
+    {
+      "path": "origin/promotion/square-1080.png",
+      "bytes": 25558,
+      "sha256": "74cddcef97525e26d83fdf44fcf7eb5a951eac089f6145703cfeda59f0d9fb39"
+    },
+    {
+      "path": "origin/promotion/story-1080x1920.png",
+      "bytes": 37519,
+      "sha256": "78f8778a2e67ecb39af1d054adb6a36baaf43a83cef12240a656396f704adfaf"
+    },
+    {
+      "path": "origin/promotion/timelapse-600.gif",
+      "bytes": 766586,
+      "sha256": "21d8567ea0721e009e9fd3d0a0f7c9e5624976c2520c99ca2a29f8c60e9a60c8"
+    },
+    {
+      "path": "origin/promotion/timelapse-square.mp4",
+      "bytes": 198298,
+      "sha256": "59aeaa0e3af2f205d04607378692e659a0076d357cd892a49bbe108dc381460a"
+    },
+    {
+      "path": "origin/promotion/timelapse-vertical.mp4",
+      "bytes": 231814,
+      "sha256": "1c497294ff0abc9e2a938986a9404b71d1271fbff320155a55d9999649857060"
+    },
+    {
+      "path": "origin/store/01-signature.png",
+      "bytes": 1387,
+      "sha256": "8d0b90a1f58a537885d73da1840c4f64f3442895b8605607cea674312a6987a7"
+    },
+    {
+      "path": "origin/store/02-calendar.png",
+      "bytes": 1226,
+      "sha256": "d1d8d40722162530dd2ab7a7e6803cc86ea83b9d46f5031801e74b358f6eec1f"
+    },
+    {
+      "path": "origin/store/03-night.png",
+      "bytes": 624,
+      "sha256": "e07de01fa1b3145ae6cc13951222b579f9ef4e01652604f5d9864e4d40544ce6"
+    },
+    {
+      "path": "origin/store/04-custom.png",
+      "bytes": 1260,
+      "sha256": "837a513535b0b3e42a37140f78e09cfbcda72f8c757626957b48b0818388c66d"
+    },
+    {
+      "path": "origin/store/05-detail.png",
+      "bytes": 700,
+      "sha256": "bafdb9fd4d1674a1ee2970e665c90ab1d9967528f3d9ce4be60313c86c7500a5"
+    },
+    {
+      "path": "origin/store/banner-720x320.png",
+      "bytes": 11749,
+      "sha256": "4b41b983853895ddf8d2533d75bc6f2076e8391c30cffa15502594b1890e4f9e"
+    },
+    {
+      "path": "origin/store/thumbnail-144.png",
+      "bytes": 836,
+      "sha256": "46be86665ff29d95706e4b5770cac497d5b1b4921c83dbe09e808e60efbde37d"
+    },
+    {
+      "path": "origin/store/thumbnail-48.png",
+      "bytes": 272,
+      "sha256": "e21ac385267efb5502650615c326a8b2f7581e01db76f507d0006f572f8bd0a5"
+    },
+    {
+      "path": "origin/store/thumbnail-512.png",
+      "bytes": 2903,
+      "sha256": "c3076e5458bd68f86ee754d14d6b2df0ce993aafa8872b620835d2631e1c0c7a"
+    },
+    {
+      "path": "origin/store/timelapse-200x228.gif",
+      "bytes": 32625,
+      "sha256": "822f53423ef6e74cae56c15732485b32dcbec506481987c7a32e31abf626beb6"
+    },
+    {
+      "path": "suite-cover-1600x900.png",
+      "bytes": 45882,
+      "sha256": "b223e8e31974454e17410c69af45fe80fc1f6f78b374a6757b25bd6c4fbed5ec"
+    },
+    {
+      "path": "vector/promotion/cover-1200x630.png",
+      "bytes": 24666,
+      "sha256": "1870dfdc30c3708146b4020d213b4deb79335323d14c09ce7281b35dc2a42b6f"
+    },
+    {
+      "path": "vector/promotion/portrait-1080x1350.png",
+      "bytes": 35742,
+      "sha256": "8d5d11b8ffd0ae13aa0fe28bde8c54a96218e342602dbea1491955b164bcdbe8"
+    },
+    {
+      "path": "vector/promotion/square-1080.png",
+      "bytes": 27999,
+      "sha256": "95f8fc45d9d683851983735e99bdbda337028d1a0abbc51fd048209486bc80d2"
+    },
+    {
+      "path": "vector/promotion/story-1080x1920.png",
+      "bytes": 39574,
+      "sha256": "461792d1e7ad479d23332bebfbc9941e563417e4b1e01895e8eb961026700743"
+    },
+    {
+      "path": "vector/promotion/timelapse-600.gif",
+      "bytes": 787742,
+      "sha256": "81ba99a17ca0425b1514e0a91a3cffe198f0c7028b18141dc1bc74011110ac12"
+    },
+    {
+      "path": "vector/promotion/timelapse-square.mp4",
+      "bytes": 129124,
+      "sha256": "780e2f002d505e4edad9933105867386b2ff7bd22b908a8853cba31d01a9b96d"
+    },
+    {
+      "path": "vector/promotion/timelapse-vertical.mp4",
+      "bytes": 172415,
+      "sha256": "368bba58d18d94f646561c7a98d80a426e09fe60821d538e4c2eea3d084226c0"
+    },
+    {
+      "path": "vector/store/01-signature.png",
+      "bytes": 1035,
+      "sha256": "4faecf10e024db4455d584dc21d8de6455c41f2cebcb44caab11f4afcfae37f6"
+    },
+    {
+      "path": "vector/store/02-calendar.png",
+      "bytes": 969,
+      "sha256": "53bfceaac7a6ecd2b4b149393cfb2b388169ac80310d3853a8047ff0a70f9686"
+    },
+    {
+      "path": "vector/store/03-night.png",
+      "bytes": 449,
+      "sha256": "b2f95d60a0bdc5515ff575854d55415d88aac8a65df7e2adcc108620118ddef8"
+    },
+    {
+      "path": "vector/store/04-custom.png",
+      "bytes": 1040,
+      "sha256": "ad37a8951aa9ea8f0e98de448b998604b9a2717f71d18fc6c77dc2cfc6492582"
+    },
+    {
+      "path": "vector/store/05-detail.png",
+      "bytes": 1087,
+      "sha256": "257d50722241dfb4d118e2a53e78c0bf5662951c8851b20354c6164ebf331187"
+    },
+    {
+      "path": "vector/store/banner-720x320.png",
+      "bytes": 13042,
+      "sha256": "64a9a057d0c469986fd8c9dbf71b34e2f59045ce7471f4cdde8768f4f0b5ffab"
+    },
+    {
+      "path": "vector/store/thumbnail-144.png",
+      "bytes": 722,
+      "sha256": "1e341c8d70563719ca69a5aeefdba84c4177770071478433db9b7e04097bba35"
+    },
+    {
+      "path": "vector/store/thumbnail-48.png",
+      "bytes": 263,
+      "sha256": "29ee308f2b768396f80f30ee9ae3e7e5dfb0b915876a85fc6cd165d7268581ca"
+    },
+    {
+      "path": "vector/store/thumbnail-512.png",
+      "bytes": 2364,
+      "sha256": "34ba3e6efe22d5d7bc15fa41bd6eff7e8912ff1a2600eb96fd4609d13adb68a5"
+    },
+    {
+      "path": "vector/store/timelapse-200x228.gif",
+      "bytes": 30225,
+      "sha256": "dfe9a9f1a5d2d95d182c15698549b8317c0eb565bd00d3e75fb32abd2c5a822b"
+    }
+  ]
+}

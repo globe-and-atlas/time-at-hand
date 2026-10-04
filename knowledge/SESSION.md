@@ -41,6 +41,12 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-09-24 21:44 — commit: Record customizable settings verification | knowledge/ERRORS.md,knowledge/SESSION.md
 - 2026-09-24 21:47 — commit: Document 0.1.1 hand geometry controls | knowledge/INDEX.md,knowledge/domain/renderer.md,knowledge/procedural/run_prototype.md
 - 2026-09-25 07:55 — commit: Add Meridian globe colors and 0.1.2 release updates | PUBLISH.md,README.md,RELEASE_NOTES.md,assets/listing-images/cardinal/calendar.png,assets/listing-images/cardinal/dark.png
+- 2026-10-01 20:55 — commit: Meridian 0.1.3-0.1.6 as published: globe colours, textures, settings transfer fix | README.md,RELEASE_NOTES.md,assets/listing-images/ga-gridcore-concepts-contact-sheet.png,assets/listing-images/ga-gridcore-concepts/01-datum.png,assets/listing-images/ga-gridcore-concepts/02-traverse.png
+- 2026-10-01 21:04 — commit: 0.1.7: 24-hour hour numbers and custom numeral color for every edition | RELEASE_NOTES.md,execution/generate_settings.py,execution/verify_clear_points.py,execution/verify_clock_style.py,watchface/package.json
+- 2026-10-01 21:04 — commit: 0.1.7: package-lock version | watchface/package-lock.json
+- 2026-10-01 21:20 — commit: 0.1.7 verifier follow-ups: Origin label fit, visible custom default, split-edition tests | README.md,execution/generate_settings.py,execution/verify_clock_style.py,watchface/src/c/face.c,watchface/src/pkjs/config.json
+- 2026-10-01 21:27 — commit: 0.1.8: edition builds no longer default to Origin | RELEASE_NOTES.md,watchface/package-lock.json,watchface/package.json,watchface/wscript
+- 2026-10-01 21:29 — commit: Record the 0.1.7 edition mix-up and the per-edition publish gate | PUBLISH.md,knowledge/ERRORS.md
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
@@ -274,3 +280,5 @@ Status: completed. Uploaded 28 files; reopened four editors and verified persist
 Boundaries: no release/PBW changes; Listed visibility preserved. Social MP4s/cards remain local. No watch installation requested or performed in this task.
 Validation: dashboard reload and image natural dimensions/server paths passed for each named edition. Existing local asset suite verification passed after 80px icon addition (58 PNG/eight GIF/eight MP4). Procedure graduated to procedural/prepare_promo_assets.md; prior unrelated checkpoints retained.
 Closing audit: resolved the original upload task after browser connection and extension permission recovery; delivered actual saved listings rather than another asset-only handoff.
+
+- 2026-10-01 — Claude Code CLI (Opus 5.5): 0.1.7 = 24-hour hour numbers + custom numeral color (all editions; verifier APPROVE). Vector/Meridian/Cardinal 0.1.7 shipped Origin face (wscript default) → fixed in 0.1.8, all 4 store binaries verified against dist/. See ERRORS.md.
