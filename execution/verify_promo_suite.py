@@ -16,6 +16,7 @@ from preview import load_renderer
 def main():
     manifest=json.loads((OUT/'manifest.json').read_text())
     assert manifest['editions']==['origin','vector','meridian','cardinal']
+    assert {(17*60+n*5)%60 for n in range(48)}==set(range(0,60,5))
     lib=load_renderer()
     for shot in manifest['screenshots']:
         path=OUT/shot['path']
@@ -50,8 +51,8 @@ def main():
                     if path.name=='timelapse-200x228.gif':
                         assert im.size==(200,228),path
                         spec=next(s for s in SPECS if s['slug']==path.parent.parent.name)
-                        minutes=600+n*(30 if spec['id']==2 else 15)
-                        instant=datetime(2026,9,23,15,0,tzinfo=timezone.utc)+timedelta(minutes=n*30)
+                        minutes=(17*60+n*5) if spec['id']==2 else (600+n*15)
+                        instant=datetime(2026,9,23,22 if spec['id']==2 else 15,0,tzinfo=timezone.utc)+timedelta(minutes=n*(5 if spec['id']==2 else 30))
                         opts={'utc':instant.timestamp(), **meridian_style(n)} if spec['id']==2 else {}
                         expected=face_image(lib,spec,h=(minutes//60)%24,m=minutes%60,**opts)
                         assert im.convert('RGB').tobytes()==expected.tobytes(),(path,n)

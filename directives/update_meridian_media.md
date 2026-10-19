@@ -53,3 +53,29 @@ Safety: keep other edition media and Meridian's PBW unchanged; do not commit cre
 - Meridian remains Listed with release 0.1.8.
 - Other face listing media remains unchanged.
 - A fresh verifier approves the final local media.
+
+## 2026-10-19 — Minute-hand motion in the animated preview
+
+Goal: stop Meridian's preview minute hand alternating between :00 and :30.
+
+Execution: update `execution/generate_promo_suite.py`; verify with `execution/verify_promo_suite.py`; replace the first Emery screenshot on RePebble.
+
+Outputs: `assets/promo-suite/meridian/store/timelapse-200x228.gif`, matching social animation files, and the public Meridian preview.
+
+Safety: preserve static screenshots, other face media, the current Meridian PBW, and Listed visibility. Keep credentials and `.tmp/` outside Git.
+
+### Validation Contract
+
+- Meridian's GIF samples the minute hand at twelve distinct minute values.
+- Adjacent Meridian GIF frames advance local watch time by five minutes.
+- Meridian's GIF duration is twelve seconds.
+- Meridian's GIF includes a grayscale Earth segment.
+- Meridian's GIF includes four colored Earth segments.
+- Each Meridian GIF frame matches the native C renderer for its stated time.
+- The public search card uses the newly uploaded GIF.
+- The public detail page uses the newly uploaded GIF.
+- The four published static screenshots retain their current image content.
+- Meridian remains Listed.
+- Meridian's published PBW version remains 0.1.8.
+- Other face listing media retains its current URLs.
+- A fresh verifier approves the final local media.

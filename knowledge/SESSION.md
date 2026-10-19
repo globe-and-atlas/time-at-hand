@@ -312,3 +312,13 @@ Closing audit: resolved the original upload task after browser connection and ex
 - Status: complete. Meridian's five current Emery screenshots include the first-position GIF, grayscale default still, and three colored stills with contrasting minute hands. The GIF cycles grayscale and four colored palettes. The editor, public search card, and public detail page serve the new GIF; public detail serves all four new stills. Listed visibility and PBW release 0.1.8 remain unchanged.
 - Validation: `python3 execution/verify_promo_suite.py` PASS; `git diff --check` PASS; independent fresh verifier PASS. See `knowledge/procedural/prepare_promo_assets.md` for commands and upload procedure.
 - Closing audit: the listing now shows the existing default as clearly as the configurable colors and demonstrates hand color choices. The time-lapse and sample-style cycling are disclosed in copy; physical wrist testing was outside this media update.
+
+## Last Known State — 2026-10-19 Meridian minute-hand preview motion
+
+- Agent: OpenAI Codex (GPT-6.1-sol)
+- Handoff-from: OpenAI Codex
+- Handoff-type: continuation
+- Goal: remove the :00/:30 minute-hand flip from Meridian's animated RePebble preview.
+- Status: complete. Meridian's 48-frame first-slot GIF advances five local watch minutes per frame from 17:00 through 20:55, so the minute hand uses all twelve five-minute positions instead of alternating between :00 and :30. Grayscale and four colored styles remain. RePebble's public search card and detail page serve the new GIF. The four static screenshots were reuploaded with identical content to keep the GIF first; Listed visibility and PBW 0.1.8 remain.
+- Validation: `python3 execution/verify_promo_suite.py` PASS; `git diff --check` PASS; fresh read-only verifier PASS; dashboard reopen and public URL comparison PASS. See `knowledge/procedural/prepare_promo_assets.md`.
+- Closing audit: the user's distracting two-position flip is removed while the preview still demonstrates the selectable globe and hand styles. The 12-second loop resets its sample evening at the boundary; it is disclosed as an accelerated preview, not live watch behavior.

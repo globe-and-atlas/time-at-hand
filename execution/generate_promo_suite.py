@@ -183,8 +183,8 @@ def main():
         native_frames = []
         for i in range(48):
             # Minute-stepped acceleration; never fabricate continuous hand physics.
-            minutes = 600 + i*(30 if spec['id']==2 else 15)
-            instant = datetime(2026,9,23,15,0,tzinfo=timezone.utc) + timedelta(minutes=i*30)
+            minutes = (17*60 + i*5) if spec['id']==2 else (600 + i*15)
+            instant = datetime(2026,9,23,22 if spec['id']==2 else 15,0,tzinfo=timezone.utc) + timedelta(minutes=i*(5 if spec['id']==2 else 30))
             opts = dict(utc=instant.timestamp(), **meridian_style(i)) if spec['id']==2 else {}
             native_frames.append(face_image(lib, spec, h=(minutes//60)%24, m=minutes%60, **opts))
         native_frames[0].save(store/'timelapse-200x228.gif', save_all=True, append_images=native_frames[1:], duration=250, loop=0, disposal=2)
@@ -270,7 +270,7 @@ Append to animated posts: "Accelerated time-lapse; watch updates by the minute."
 
 The images are generated from the current local C renderer at native 200x228 Emery resolution, not captured from hardware. Calendar/date and style variants are explicitly selected examples, not new defaults. Host previews omit the separate battery/Bluetooth status overlay. No untested battery claims, weather, live satellite imagery, continuous sweeping or gravity behavior are advertised.
 
-Each animation contains 48 frames at 250 ms per frame. Origin/Vector/Cardinal advance 15 watch minutes per frame over a 12-hour loop. Meridian advances 30 watch minutes per frame over a 24-hour loop; local Chicago time and UTC are paired for September 23, 2026 (UTC-5), with a fixed location-centered globe and changing solar shadow. Repeating the Meridian clip resets the date rather than demonstrating continuous multi-day evolution. The native GIF has no marketing text overlay, so disclose the time-lapse in listing copy.
+Each animation contains 48 frames at 250 ms per frame. Origin/Vector/Cardinal advance 15 watch minutes per frame over a 12-hour loop. Meridian advances five watch minutes per frame from 17:00 to 20:55 Chicago local time over a four-hour evening time-lapse; UTC and local time are paired for September 23, 2026 (UTC-5), with a fixed location-centered globe and changing solar shadow. Repeating the Meridian clip resets the clock to 17:00 rather than demonstrating continuous multi-day evolution. The native GIF has no marketing text overlay, so disclose the time-lapse in listing copy.
 
 Meridian's GIF cycles four colored Earth palettes and one default grayscale segment in ten-frame blocks (eight frames in the final block). It also demonstrates independent minute-hand colors and widths. The watch keeps the chosen globe and hand settings until the wearer changes them; the preview switches styles to show options, not an automatic schedule.
 

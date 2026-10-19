@@ -194,3 +194,25 @@ Result: 2026-10-19 dashboard and public listing show the new five Emery screensh
 - [x] A fresh verifier approves the media.
 
 Result: RePebble saved five new Emery screenshots with the GIF first, then the grayscale default and three colored examples. The search card and public detail page now serve the new GIF; the detail page shows the grayscale still and colored stills. Listing stays Listed on release 0.1.8.
+
+## 2026-10-19 Meridian minute-hand preview motion
+
+- Target directive: `directives/update_meridian_media.md`.
+- Execution: `execution/generate_promo_suite.py`; `execution/verify_promo_suite.py`.
+- Artifacts: Meridian GIF and matching promotional animations.
+- Safety: preserve static screenshots, PBW, listing visibility, other face media, `.env`, and `.tmp/`.
+- [x] Meridian GIF contains twelve minute-hand positions.
+- [x] Meridian GIF advances local clock time five minutes per frame.
+- [x] Meridian GIF lasts twelve seconds.
+- [x] Meridian GIF retains the grayscale segment.
+- [x] Meridian GIF retains four colored segments.
+- [x] Meridian GIF frames match the native renderer.
+- [x] Public search card uses the new GIF.
+- [x] Public detail page uses the new GIF.
+- [x] Four static listing screenshot images retain their current content.
+- [x] Meridian remains Listed.
+- [x] Meridian PBW remains 0.1.8.
+- [x] Other face listing media remains unchanged.
+- [x] Fresh verifier approves the final media.
+
+Result: Meridian's first-slot public GIF now uses five-minute steps over a four-hour evening sequence. The search card and detail page serve the newly saved GIF. The four static images were reuploaded unchanged to preserve first-slot ordering. The release remains Listed at 0.1.8.

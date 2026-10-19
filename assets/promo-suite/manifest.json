@@ -240,8 +240,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 4391,
-      "sha256": "5292bb3abdaa23f773198da8e0c3239834994c1623424a23ff8fa0d1df9b670d"
+      "bytes": 4450,
+      "sha256": "e369cac1d832bf853264fc8e8497041aafbb5200615c923b939e9e89d9554e56"
     },
     {
       "path": "cardinal/promotion/cover-1200x630.png",
@@ -365,18 +365,18 @@
     },
     {
       "path": "meridian/promotion/timelapse-600.gif",
-      "bytes": 1104918,
-      "sha256": "fb7e591b29580871c24436182785c3c14f73853c292ceaf966e7c191dc7d1cef"
+      "bytes": 1106543,
+      "sha256": "aa7824926f04c50ed930c80667d1e30c0944448d829c50a76f64f4d73b08da8e"
     },
     {
       "path": "meridian/promotion/timelapse-square.mp4",
-      "bytes": 862384,
-      "sha256": "713011963d66b0658fddcc74038ea023cafb73772fc209f9d4cbcc6eaf2bea82"
+      "bytes": 785251,
+      "sha256": "fca9962a3f46c64547d9d49cfe665ecbb9f0abf164dce20e7c47ef6ed6a0b429"
     },
     {
       "path": "meridian/promotion/timelapse-vertical.mp4",
-      "bytes": 895281,
-      "sha256": "d1e9076dcef151518bea284a5917e41aa2fcbf66e26f6905fdf10448fd4053ba"
+      "bytes": 821357,
+      "sha256": "1da498cbae59222b8d44371e7299e112868717026e6b4de41ee1cbbc7a03f387"
     },
     {
       "path": "meridian/store/01-signature.png",
@@ -430,8 +430,8 @@
     },
     {
       "path": "meridian/store/timelapse-200x228.gif",
-      "bytes": 139854,
-      "sha256": "c0f6872539a696d2f1bbe0bb6b7d13b526a2e746578bed6bd4eecef2ce3e9555"
+      "bytes": 138561,
+      "sha256": "5abff03f9e35043c17017c1ef35f72f7a3b4d425d4e9876864479f38ff9818f3"
     },
     {
       "path": "origin/promotion/cover-1200x630.png",
