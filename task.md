@@ -175,3 +175,22 @@ Result: uploaded 28 assets across the four listings. Each retains its original s
 - [x] Fresh verifier approves the local media.
 
 Result: 2026-10-19 dashboard and public listing show the new five Emery screenshot URLs, with the colored GIF first. The public search card points to that GIF and visibly showed colored Earth frames. The banner and icons were also updated in the dashboard; the public banner cache may lag.
+
+## 2026-10-19 Meridian grayscale and minute-hand media
+
+- Target directive: `directives/update_meridian_media.md`.
+- Execution: `execution/generate_promo_suite.py`; `execution/verify_promo_suite.py`.
+- Artifacts: updated `assets/promo-suite/meridian/` and RePebble Meridian media.
+- Safety: preserve the PBW, listing visibility, other faces, `.env`, and `.tmp/`.
+- [x] One published static screenshot shows the default grayscale Earth.
+- [x] Three published static screenshots show colored Earth.
+- [x] Two published static screenshots show a contrasting minute hand.
+- [x] The first-slot GIF shows grayscale Earth.
+- [x] The first-slot GIF shows three colored Earth palettes.
+- [x] The first-slot GIF shows a contrasting minute hand.
+- [x] The public search card loads the updated GIF.
+- [x] Native renderer media checks pass.
+- [x] Other face listing media remains unchanged.
+- [x] A fresh verifier approves the media.
+
+Result: RePebble saved five new Emery screenshots with the GIF first, then the grayscale default and three colored examples. The search card and public detail page now serve the new GIF; the detail page shows the grayscale still and colored stills. Listing stays Listed on release 0.1.8.

@@ -116,11 +116,8 @@
     {
       "path": "meridian/store/01-signature.png",
       "edition": 2,
-      "config": {
-        "water_color": 16,
-        "land_color": 34
-      },
-      "sha256": "5320d4e53c93d4cbd09397fddd759a555bb998b917eaf5ab0e81b51f4a05b7f0"
+      "config": {},
+      "sha256": "476c427e22d5a1cc67d62170e9b3bb4f56201dcf163a083dca4960429f8329d2"
     },
     {
       "path": "meridian/store/02-calendar.png",
@@ -131,23 +128,27 @@
         "h": 3,
         "m": 30,
         "water_color": 20,
-        "land_color": 66
+        "land_color": 66,
+        "color": 1,
+        "minute_color": 6,
+        "minute_width": 3
       },
-      "sha256": "2f912baccbfcee7ad2799e881d645260b4926c026d040f45a466fd26428ab656"
+      "sha256": "74480b4592696bec311efad1c2552509d953faab1cf4b5d5d22bf39e39588f54"
     },
     {
       "path": "meridian/store/03-night.png",
       "edition": 2,
       "config": {
         "h": 8,
-        "m": 45,
+        "m": 15,
         "theme": 1,
         "color": 2,
-        "minute_color": 2,
+        "minute_color": 73,
         "water_color": 4,
-        "land_color": 35
+        "land_color": 35,
+        "minute_width": 3
       },
-      "sha256": "8d8886c2feb62db11b06dd491d1d4cbf9f6cd873fc11db8c4364c48c6f468cec"
+      "sha256": "a7d29beff61f3085043f97109841529d3e1319ced830ae071edb1ce24b63e576"
     },
     {
       "path": "meridian/store/04-custom.png",
@@ -156,14 +157,14 @@
         "h": 1,
         "m": 50,
         "color": 6,
-        "minute_color": 8,
+        "minute_color": 73,
         "width": 5,
         "minute_width": 3,
         "font": 3,
         "water_color": 16,
-        "land_color": 51
+        "land_color": 34
       },
-      "sha256": "e0a54ba2f98ca6f8b05dcba3fe0bc36a3643c52b130e42bd812e96622c91230e"
+      "sha256": "22e07bb1d6b659202f3aecdb2bf21c99a9670f98e0dec9d3c95727e8fb05fc09"
     },
     {
       "path": "meridian/store/05-detail.png",
@@ -173,9 +174,12 @@
         "m": 10,
         "wireframe": 2,
         "water_color": 16,
-        "land_color": 51
+        "land_color": 51,
+        "color": 2,
+        "minute_color": 6,
+        "minute_width": 3
       },
-      "sha256": "fccf144e710dc66021e9f42ef5caf0343dd24d70dbd79d000a501843217a461c"
+      "sha256": "5bfb3dfa57a0895e4503752ac49d4cfbf7791563f7723a4cb249afb91128297e"
     },
     {
       "path": "cardinal/store/01-signature.png",
@@ -236,8 +240,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 4269,
-      "sha256": "c04c113eb0d2ee018f33470818b9dfd9da68dc14d5326a90830d20e2aa6f2d08"
+      "bytes": 4391,
+      "sha256": "5292bb3abdaa23f773198da8e0c3239834994c1623424a23ff8fa0d1df9b670d"
     },
     {
       "path": "cardinal/promotion/cover-1200x630.png",
@@ -331,8 +335,8 @@
     },
     {
       "path": "contact-sheet.png",
-      "bytes": 73222,
-      "sha256": "6479460cc19f558d60a3a56c3519555516d47afddfaad276a84ea2f2975f7dd7"
+      "bytes": 73120,
+      "sha256": "b0a2feddfb0374e318b4052ff82c53975e0af04b141a3be66118d2bd1302a7e3"
     },
     {
       "path": "index.html",
@@ -341,93 +345,93 @@
     },
     {
       "path": "meridian/promotion/cover-1200x630.png",
-      "bytes": 30734,
-      "sha256": "a5e659dbce54359bcea44f7ed9735f1c97b1609d688fe1064cc46e19cb67e3a0"
+      "bytes": 30718,
+      "sha256": "22f9c0f147a06c1641556651aae47712a80703137268d679ab1fb714cd02c176"
     },
     {
       "path": "meridian/promotion/portrait-1080x1350.png",
-      "bytes": 43689,
-      "sha256": "e13b64f5187d9846ed5bbbc870727437a592a98164ff8d4c7a95ac2bdf4c69dc"
+      "bytes": 43681,
+      "sha256": "b6b9f2ec7710cb0e7aece779e8d73117882dbcfa919fe433b2af02891277de49"
     },
     {
       "path": "meridian/promotion/square-1080.png",
-      "bytes": 34702,
-      "sha256": "a4f72e2c8ac10b6fb304f88e7034bec99a96a5835854d30bb144575310a198f0"
+      "bytes": 34689,
+      "sha256": "14bf6b4a6f8f268ed21ab9da6ab971c61ba04399e5ff39ebe2efdec51bf8f715"
     },
     {
       "path": "meridian/promotion/story-1080x1920.png",
-      "bytes": 47491,
-      "sha256": "a4bb88e3ad44114df22e7791c65c6b20f1dd2bed6e009e1c3a11aea9e75351cd"
+      "bytes": 47481,
+      "sha256": "3b80dbb23e3b67f6f5e1c4417f313f04ea80018d5d542127290aea31a4a5acd5"
     },
     {
       "path": "meridian/promotion/timelapse-600.gif",
-      "bytes": 1104494,
-      "sha256": "3df2b306b2a7ecb51560f94753d10d18a58dc558cf14ec4f00f39f9a58607621"
+      "bytes": 1104918,
+      "sha256": "fb7e591b29580871c24436182785c3c14f73853c292ceaf966e7c191dc7d1cef"
     },
     {
       "path": "meridian/promotion/timelapse-square.mp4",
-      "bytes": 818228,
-      "sha256": "795e8c64bacd6c6041e989374252204721b0dfc530d860955eef16690fd7fcc5"
+      "bytes": 862384,
+      "sha256": "713011963d66b0658fddcc74038ea023cafb73772fc209f9d4cbcc6eaf2bea82"
     },
     {
       "path": "meridian/promotion/timelapse-vertical.mp4",
-      "bytes": 859713,
-      "sha256": "36220a13d28880b0f3623e0fe3e13a2c25d6ec037db26b769479662b7ce9c8cc"
+      "bytes": 895281,
+      "sha256": "d1e9076dcef151518bea284a5917e41aa2fcbf66e26f6905fdf10448fd4053ba"
     },
     {
       "path": "meridian/store/01-signature.png",
-      "bytes": 4722,
-      "sha256": "666ae1ab6a253724a7354b957baa0a1e04b066d13fab2377fcaf96a600064d7c"
+      "bytes": 4572,
+      "sha256": "f37c0cb99694a39b998e2e1883b8b2376d52804c17b67479721cef47f44f1290"
     },
     {
       "path": "meridian/store/02-calendar.png",
-      "bytes": 5139,
-      "sha256": "c765e283167f38ee2e1c7572d296bc17cf3e4b7a18d6b2366a31135890cb161f"
+      "bytes": 5316,
+      "sha256": "a86ee395c004179ebdb6290f65fd6e19107f5bba8c4658d2d7a1e66586ad7a1b"
     },
     {
       "path": "meridian/store/03-night.png",
-      "bytes": 4587,
-      "sha256": "21f58c1833605d54143f1f219e977c4a2da860481b8e9fbebceb3c7d1b4193df"
+      "bytes": 4608,
+      "sha256": "fdb797b959fa59dbec3a74794ccef5be88572e7d3afee09de608bb6b11cf606b"
     },
     {
       "path": "meridian/store/04-custom.png",
-      "bytes": 3885,
-      "sha256": "ee3a331b9ebf6ca26f1adeaf6e28d2045cc1e34ef58668605be66941693b5a38"
+      "bytes": 3886,
+      "sha256": "0b50ae1fdc8b994062810e772ee742751021c1f769b65200cd5f7b698e83af6a"
     },
     {
       "path": "meridian/store/05-detail.png",
-      "bytes": 4396,
-      "sha256": "55c9f1f6402eaa08d7cb054dcf0ba82eb83f6ec085a7db478c43716a09b35164"
+      "bytes": 4361,
+      "sha256": "28cdde284d981d5a3d6a816e16a46157f8366b0c03b94fa593b10c88da045901"
     },
     {
       "path": "meridian/store/banner-720x320.png",
-      "bytes": 18240,
-      "sha256": "46df537fe906dddaf45b5d0cf733aa0c39c08cecab1aafa111dbc6a41f622f63"
+      "bytes": 18253,
+      "sha256": "51be4cd0a72dbd4761403281224aafd78c5f4c40300e46a1fea2f85b3333ce2e"
     },
     {
       "path": "meridian/store/thumbnail-144.png",
-      "bytes": 2451,
-      "sha256": "5182098140a5ec088e6aa36f03dbf835c84baf66a8b04613600958fc983db99a"
+      "bytes": 2441,
+      "sha256": "62fb063da6e373a0efe601abb18069b041fdede00d9d70879782e98025f1b5da"
     },
     {
       "path": "meridian/store/thumbnail-48.png",
-      "bytes": 644,
-      "sha256": "c7c31cbeb4b8c755a5052f82d5f22df2ab93197ff119fb691c4c052cc478ddd8"
+      "bytes": 654,
+      "sha256": "3461858072cbc04728b957ac39ea205092f42db34679cc0394ef78ec61abe461"
     },
     {
       "path": "meridian/store/thumbnail-512.png",
-      "bytes": 7029,
-      "sha256": "95143d0f0c8993cf2796b50cbd840d0ebdb2d68421aa7ccb6f865c336ec68f46"
+      "bytes": 6992,
+      "sha256": "0f8e5f84fb4bc5d0143397e34aa560a7a96773f01dcfe4cdaac0e66880433f20"
     },
     {
       "path": "meridian/store/thumbnail-80.png",
-      "bytes": 1150,
-      "sha256": "11466603d475f59b58261c4b06c0c69ef2e074dd40c2218207b617eb4ff720b9"
+      "bytes": 1147,
+      "sha256": "c6aefe81c026baf37623ec57b2a30934b438decd3a3dc7e1dbcfe9b0e2ce7b53"
     },
     {
       "path": "meridian/store/timelapse-200x228.gif",
-      "bytes": 139625,
-      "sha256": "cbfb013e4960c4963f2b311db4e2df4e48334b7e35dc4df7a332caed3554cca4"
+      "bytes": 139854,
+      "sha256": "c0f6872539a696d2f1bbe0bb6b7d13b526a2e746578bed6bd4eecef2ce3e9555"
     },
     {
       "path": "origin/promotion/cover-1200x630.png",
@@ -521,8 +525,8 @@
     },
     {
       "path": "suite-cover-1600x900.png",
-      "bytes": 46161,
-      "sha256": "d6649d48047d0a50be86e5c1f1cdc8713ee4f4c0f7cdc028818b6e44eef205dc"
+      "bytes": 46153,
+      "sha256": "35e0fe5d3c740e06423821ef72cccd5352829816386f15c112b12f18827fe754"
     },
     {
       "path": "vector/promotion/cover-1200x630.png",

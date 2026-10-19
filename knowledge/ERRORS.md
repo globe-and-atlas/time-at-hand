@@ -311,3 +311,9 @@ Graduated-to: keep generated settings payload size and native AppMessage buffers
 - Cause: page reload invalidated the index.
 - Fix: request a fresh accessibility state before targeting the screenshot container.
 - Graduated-to: browser verification procedure.
+
+## 2026-10-19 — Meridian grayscale procedure patch context mismatch
+- Error: procedure append patch did not match the final sentence exactly.
+- Cause: guessed the context instead of copying the observed line.
+- Fix: use the exact file tail as patch context.
+- Graduated-to: procedure edit workflow.

@@ -42,3 +42,11 @@ For a media-only dashboard update, open Meridian's Edit Listing form, remove the
 The 2026-10-19 upload also replaced the 720×320 banner and 80/144px icons. The public search card loaded the new GIF URL before the detail page did; a later detail-page reload showed the new screenshot URLs. Asset propagation is independent of version changes: release 0.1.8 stayed in place.
 
 For visual proof after a public-page reload, request a fresh accessibility tree before using a screenshot container index for scrolling; indices from before the reload are stale. The public detail-page screenshot row showed the colored GIF and PNGs on 2026-10-19 (`.tmp/meridian-live-colored.png`).
+
+## 2026-10-19 — Meridian grayscale and minute-hand examples
+
+Meridian's store set now starts with a 48-frame, 200×228 GIF: blue/green, teal/sand, the original black-and-white globe, indigo/sage, and blue/tan. The static order after the GIF is grayscale signature, teal/sand calendar with a purple minute hand, indigo/sage night with a white minute hand, and blue/tan detail with a purple minute hand. Minute width is 3px in colored examples so it reads at native resolution. The grayscale still uses the watch's default palette and hands. The Meridian night media time is 10:15 so the two hands separate visually.
+
+Regenerate with `python3 execution/generate_promo_suite.py` and validate with `python3 execution/verify_promo_suite.py`. `meridian_style(frame_index)` supplies the GIF palette; store stills use the same style table. The verifier compares native C renderer pixels, decoded GIF frames, sizes, hashes, gallery links, and ZIP contents. Keep the preview disclosure in listing copy: the animation accelerates time and cycles through sample settings; the watch updates once per minute with the wearer's chosen settings.
+
+The authenticated Meridian edit form was saved with five new Emery screenshots, banner, and 80/144px icons. Reopening the editor showed five new screenshot URLs with `.gif` first. The public search card and detail page later loaded that new GIF URL; the detail page served the same four static image URLs. Listed visibility and PBW release 0.1.8 stayed unchanged. Live page proof: `.tmp/meridian-gray-live.png`. This was media and listing-copy work, with no watchface C or PBW edit.

@@ -301,3 +301,13 @@ Closing audit: resolved the original upload task after browser connection and ex
 - Artifacts: `assets/promo-suite/meridian/`, `assets/pebble-promo-suite.zip`, `directives/update_meridian_media.md`.
 - Validation: `python3 execution/verify_promo_suite.py` PASS; fresh verifier approved; dashboard editor reopened with five new Emery screenshot URLs; public search/detail URLs matched the new GIF and stills. Listed visibility and release 0.1.8 remained.
 - Closing audit: users can now see the globe color controls in the live preview before installing. The four palette transitions represent setting choices, disclosed in listing copy; they are not an automatic watch behavior.
+
+## Last Known State — 2026-10-19 Meridian grayscale and minute-hand media
+
+- Agent: OpenAI Codex (GPT-6.1-sol)
+- Handoff-from: OpenAI Codex
+- Handoff-type: continuation
+- Goal: add default grayscale Earth and independent minute-hand color examples to Meridian's RePebble media.
+- Status: complete. Meridian's five current Emery screenshots include the first-position GIF, grayscale default still, and three colored stills with contrasting minute hands. The GIF cycles grayscale and four colored palettes. The editor, public search card, and public detail page serve the new GIF; public detail serves all four new stills. Listed visibility and PBW release 0.1.8 remain unchanged.
+- Validation: `python3 execution/verify_promo_suite.py` PASS; `git diff --check` PASS; independent fresh verifier PASS. See `knowledge/procedural/prepare_promo_assets.md` for commands and upload procedure.
+- Closing audit: the listing now shows the existing default as clearly as the configurable colors and demonstrates hand color choices. The time-lapse and sample-style cycling are disclosed in copy; physical wrist testing was outside this media update.

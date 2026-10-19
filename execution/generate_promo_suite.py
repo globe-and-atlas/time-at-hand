@@ -28,12 +28,17 @@ SPECS = [
     dict(id=2, slug='meridian', name='Meridian', accent='#335f8a', hook='Wear the day. And night.', sub='A small globe. A changing line of light.'),
     dict(id=3, slug='cardinal', name='Cardinal', accent='#885231', hook='Find your bearings.', sub='Four points. Just enough structure.'),
 ]
-MERIDIAN_PALETTES = ((16, 34), (20, 66), (4, 35), (16, 51))
+MERIDIAN_STYLES = (
+    dict(water_color=16, land_color=34, minute_color=73, minute_width=3),
+    dict(water_color=20, land_color=66, color=1, minute_color=6, minute_width=3),
+    dict(),  # Existing black-and-white default globe and hands.
+    dict(water_color=4, land_color=35, color=2, minute_color=73, minute_width=3),
+    dict(water_color=16, land_color=51, color=2, minute_color=6, minute_width=3),
+)
 
 
-def meridian_palette(frame_index: int) -> dict[str, int]:
-    water, land = MERIDIAN_PALETTES[(frame_index // 12) % len(MERIDIAN_PALETTES)]
-    return {'water_color': water, 'land_color': land}
+def meridian_style(frame_index: int) -> dict[str, int]:
+    return MERIDIAN_STYLES[min(frame_index // 10, len(MERIDIAN_STYLES) - 1)].copy()
 
 
 def font(size: int, mono: bool = False):
@@ -157,15 +162,17 @@ def main():
              dict(h=10, m=10, ticks=1, hour_label_size=3, minute_label_size=2)),
         ]
         if spec['id'] == 2:
-            # These are selectable land/water settings, not a new watch default.
+            # Published: grayscale signature plus calendar, night and detail color options.
+            style_indices = (2, 1, 3, 0, 4)
             for index, (_, config) in enumerate(configs):
-                config.update(meridian_palette(min(index, 3) * 12))
+                config.update(MERIDIAN_STYLES[style_indices[index]])
+            configs[2][1]['m'] = 15  # Separate the two hands in the night example.
         for name, config in configs:
             image = face_image(lib, spec, **config)
             save(image, store/f'{name}.png')
             records.append(dict(path=f"{spec['slug']}/store/{name}.png", edition=spec['id'], config=config,
                                 sha256=hashlib.sha256(image.tobytes()).hexdigest()))
-        hero = face_image(lib, spec, **(meridian_palette(0) if spec['id'] == 2 else {}))
+        hero = face_image(lib, spec, **(MERIDIAN_STYLES[0] if spec['id'] == 2 else {}))
         heroes.append(hero)
         for size in (48, 80, 144, 512):
             save(thumbnail(hero, size), store/f'thumbnail-{size}.png')
@@ -178,7 +185,7 @@ def main():
             # Minute-stepped acceleration; never fabricate continuous hand physics.
             minutes = 600 + i*(30 if spec['id']==2 else 15)
             instant = datetime(2026,9,23,15,0,tzinfo=timezone.utc) + timedelta(minutes=i*30)
-            opts = dict(utc=instant.timestamp(), **meridian_palette(i)) if spec['id']==2 else {}
+            opts = dict(utc=instant.timestamp(), **meridian_style(i)) if spec['id']==2 else {}
             native_frames.append(face_image(lib, spec, h=(minutes//60)%24, m=minutes%60, **opts))
         native_frames[0].save(store/'timelapse-200x228.gif', save_all=True, append_images=native_frames[1:], duration=250, loop=0, disposal=2)
         gif_frames = [layout(spec, f, (600,600), True) for f in native_frames]
@@ -231,7 +238,7 @@ Open index.html for a playable gallery. Start with contact-sheet.png to choose t
 
 | Asset | Use |
 |---|---|
-| store/01-signature.png | Lead screenshot; Meridian shows a selectable blue/green Earth palette; other faces show their defaults |
+| store/01-signature.png | Lead screenshot; Meridian and the other faces show their defaults, including Meridian's black-and-white Earth |
 | store/02-calendar.png | Calendar example |
 | store/03-night.png | Dark theme example |
 | store/04-custom.png | Color, line width and font example |
@@ -265,7 +272,7 @@ The images are generated from the current local C renderer at native 200x228 Eme
 
 Each animation contains 48 frames at 250 ms per frame. Origin/Vector/Cardinal advance 15 watch minutes per frame over a 12-hour loop. Meridian advances 30 watch minutes per frame over a 24-hour loop; local Chicago time and UTC are paired for September 23, 2026 (UTC-5), with a fixed location-centered globe and changing solar shadow. Repeating the Meridian clip resets the date rather than demonstrating continuous multi-day evolution. The native GIF has no marketing text overlay, so disclose the time-lapse in listing copy.
 
-Meridian's GIF cycles four user-selectable Earth palettes in twelve-frame blocks. The watch keeps the chosen land and water colors until the wearer changes them; the preview switches palettes to show options, not an automatic color schedule.
+Meridian's GIF cycles four colored Earth palettes and one default grayscale segment in ten-frame blocks (eight frames in the final block). It also demonstrates independent minute-hand colors and widths. The watch keeps the chosen globe and hand settings until the wearer changes them; the preview switches styles to show options, not an automatic schedule.
 
 Official guide: https://developer.rebble.io/guides/appstore-publishing/preparing-a-submission/ allows up to five screenshots per platform in PNG/GIF/animated GIF. https://developer.rebble.io/guides/appstore-publishing/appstore-assets/ says listing screenshots must be unframed. Current authenticated dashboard dimensions/file limits were not accessible; 720x320 banners and square thumbnail sizes are prepared candidates, not verified current field requirements. No uploads, release changes or publication are included. MP4s are for external promotion, not assumed dashboard inputs.
 
