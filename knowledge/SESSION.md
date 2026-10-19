@@ -56,6 +56,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-10-19 09:55 — commit: Refresh Meridian globe color preview media | assets/pebble-promo-suite.zip,assets/promo-suite/README.md,assets/promo-suite/contact-sheet.png,assets/promo-suite/manifest.json,assets/promo-suite/meridian/promotion/cover-1200x630.png
 - 2026-10-19 09:56 — commit: Record Meridian listing verification | knowledge/ERRORS.md,knowledge/SESSION.md,knowledge/procedural/prepare_promo_assets.md
 - 2026-10-19 10:10 — commit: Show Meridian grayscale and minute hand color options | assets/pebble-promo-suite.zip,assets/promo-suite/README.md,assets/promo-suite/contact-sheet.png,assets/promo-suite/manifest.json,assets/promo-suite/meridian/promotion/cover-1200x630.png
+- 2026-10-19 11:35 — commit: Smooth Meridian preview minute hand motion | assets/pebble-promo-suite.zip,assets/promo-suite/README.md,assets/promo-suite/manifest.json,assets/promo-suite/meridian/promotion/timelapse-600.gif,assets/promo-suite/meridian/promotion/timelapse-square.mp4
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
