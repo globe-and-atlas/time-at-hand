@@ -53,6 +53,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-10-01 21:27 — commit: 0.1.8: edition builds no longer default to Origin | RELEASE_NOTES.md,watchface/package-lock.json,watchface/package.json,watchface/wscript
 - 2026-10-01 21:29 — commit: Record the 0.1.7 edition mix-up and the per-edition publish gate | PUBLISH.md,knowledge/ERRORS.md
 - 2026-10-04 08:22 — commit: feat: add promotional suite assets and marketing materials | assets/pebble-promo-suite.zip,assets/promo-suite 2/README.md,assets/promo-suite 2/cardinal/promotion/cover-1200x630.png,assets/promo-suite 2/cardinal/promotion/portrait-1080x1350.png,assets/promo-suite 2/cardinal/promotion/square-1080.png
+- 2026-10-19 09:55 — commit: Refresh Meridian globe color preview media | assets/pebble-promo-suite.zip,assets/promo-suite/README.md,assets/promo-suite/contact-sheet.png,assets/promo-suite/manifest.json,assets/promo-suite/meridian/promotion/cover-1200x630.png
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex

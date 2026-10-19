@@ -305,3 +305,9 @@ Graduated-to: keep generated settings payload size and native AppMessage buffers
 - Cause: omitted the leading sentence on the procedure's last line.
 - Fix: apply separate file-specific patches using exact observed context.
 - Graduated-to: patch procedure.
+
+## 2026-10-19 — Meridian screenshot scroll stale target
+- Error: CUA scroll used an accessibility index from before the latest public-page reload.
+- Cause: page reload invalidated the index.
+- Fix: request a fresh accessibility state before targeting the screenshot container.
+- Graduated-to: browser verification procedure.
