@@ -159,3 +159,19 @@ Result: 54 PNG, eight GIF, eight MP4. Independent artifact review approved; live
 - [x] 80px icons pass asset verification.
 
 Result: uploaded 28 assets across the four listings. Each retains its original signature screenshot plus native GIF and three PNG variants, one banner, and two icons. Added time-lapse disclosure. Meridian public listing visually verified; evidence .tmp/upload-proof/meridian-public.png. Existing visibility and release files preserved.
+
+## 2026-10-19 Meridian Earth media
+
+- Target directive: `directives/update_meridian_media.md`.
+- Execution: `execution/generate_promo_suite.py`; `execution/verify_promo_suite.py`.
+- Local artifacts: Meridian 200×228 store screenshots and first-position animated GIF.
+- External artifact: updated Meridian RePebble listing media.
+- Safety: keep `.env`, tokens, and `.tmp/` out of Git.
+- [x] Four published static screenshots show colored Earth.
+- [x] The animated GIF shows at least three Earth color palettes.
+- [x] The animated GIF remains the first Emery screenshot.
+- [x] The public search card animates the colored Earth GIF.
+- [x] Other watchface listing media stays unchanged.
+- [x] Fresh verifier approves the local media.
+
+Result: 2026-10-19 dashboard and public listing show the new five Emery screenshot URLs, with the colored GIF first. The public search card points to that GIF and visibly showed colored Earth frames. The banner and icons were also updated in the dashboard; the public banner cache may lag.

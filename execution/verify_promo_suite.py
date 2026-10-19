@@ -9,7 +9,7 @@ import re
 import subprocess
 import zipfile
 from PIL import Image
-from generate_promo_suite import OUT, ROOT, SPECS, face_image
+from generate_promo_suite import OUT, ROOT, SPECS, face_image, meridian_palette
 from preview import load_renderer
 
 
@@ -52,7 +52,7 @@ def main():
                         spec=next(s for s in SPECS if s['slug']==path.parent.parent.name)
                         minutes=600+n*(30 if spec['id']==2 else 15)
                         instant=datetime(2026,9,23,15,0,tzinfo=timezone.utc)+timedelta(minutes=n*30)
-                        opts={'utc':instant.timestamp()} if spec['id']==2 else {}
+                        opts={'utc':instant.timestamp(), **meridian_palette(n)} if spec['id']==2 else {}
                         expected=face_image(lib,spec,h=(minutes//60)%24,m=minutes%60,**opts)
                         assert im.convert('RGB').tobytes()==expected.tobytes(),(path,n)
                     else: assert im.size==(600,600),path

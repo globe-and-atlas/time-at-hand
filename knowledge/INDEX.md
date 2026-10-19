@@ -16,6 +16,7 @@ Add domain or procedural files as real knowledge emerges.
 | [domain/deps.md](domain/deps.md) | domain | 2026-09-23: installed CLI/SDK and verification dependencies |
 | [domain/renderer.md](domain/renderer.md) | domain | 2026-09-23: exact behavior and native/preview rendering |
 | [procedural/run_prototype.md](procedural/run_prototype.md) | procedural | 2026-09-23: preview, native build, installation and verification |
+| [procedural/prepare_promo_assets.md](procedural/prepare_promo_assets.md) | procedural | 2026-10-19: Meridian colored Earth media, dashboard replacement, native GIF assets and search preview ordering |
 | [domain/hemisphere.md](domain/hemisphere.md) | domain | 2026-09-23: third edition, solar/local time separation, location, offline data |
 
 Last updated 2026-09-24: renderer.md covers editions/calendar/fonts and 0.1.1 hand geometry controls; deps.md covers Clay1.1.0 and SDK keys; run_prototype.md covers current build/native lifecycle, settings release and publication workflow; ../PUBLISH.md contains current store guide.

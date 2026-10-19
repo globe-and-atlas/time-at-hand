@@ -287,3 +287,21 @@ Graduated-to: keep generated settings payload size and native AppMessage buffers
 - **Cause:** `watchface/wscript` added `-DTAH_EDITION=0` whenever the environment didn't set it. That overrode each branch's `edition.h`. CloudPebble wasn't affected, because it uses its own wscript.
 - **Fix:** 0.1.8. The wscript now defines TAH_EDITION only when it's set explicitly. Each edition was republished only after its worktree build byte-matched `dist/<edition>.pbw`, and the downloaded store binaries were checked against `dist/` afterwards (all 4 match).
 - **Graduated rule:** before and after publishing an edition, compare `emery/pebble-app.bin` with `comparable_binary()` against `dist/`. See PUBLISH.md.
+
+## 2026-10-19 — Meridian media contract patch failed
+
+- Error: combined directive/task patch referenced a `# Task` heading absent from task.md.
+- Cause: assumed header without reading the file top.
+- Fix: inspect task.md and apply separate file-specific patches.
+- Graduated-to: update_media directive setup.
+## 2026-10-19 — Meridian upload chooser timeout
+- Error: Waiting for the browser file chooser without clicking the input timed out after 10 seconds.
+- Cause: `waitForEvent('filechooser')` must run concurrently with the file-input click.
+- Fix: Start the chooser promise, click the screenshot input, then await the promise and set files.
+- Graduated-to: browser upload procedure in this session.
+
+## 2026-10-19 — Meridian checkpoint patch context mismatch
+- Error: combined task/session/procedure patch did not match a line in the existing procedure.
+- Cause: omitted the leading sentence on the procedure's last line.
+- Fix: apply separate file-specific patches using exact observed context.
+- Graduated-to: patch procedure.

@@ -29,3 +29,14 @@ Origin, Vector, Meridian and Cardinal saved successfully. Each retained its exis
 Descriptions retain original copy plus: Preview animation is an accelerated time-lapse; the watch updates once per minute. Reopened all four editors after save and verified five screenshot server URLs, 720x320 banner, 80px and 144px icons. Meridian's public page displayed the new banner and five screenshots. Proof: .tmp/upload-proof/meridian-public.png. Listed visibility was preserved; no PBW/release edits.
 
 After enabling extension file-URL access, the old browser binding still reported permission errors. A fresh inventory showed the same Chrome extension instance with a new browser connection ID; binding that refreshed connection fixed uploads. Keep a dedicated verification tab when the user is navigating elsewhere. A save wait timeout did not mean failure: fresh dashboard state showed the new icon; reopening the editor confirmed persistence.
+## 2026-10-17 — Search preview ordering
+
+Repebble search cards use the first screenshot for the selected platform. Cardinal, Meridian, Vector, and Origin have their 200×228 time-lapse GIF first in the Emery screenshot list as of 2026-10-17. The four static screenshots remain after it. Verify the public search card `img` URL ends in `.gif` after editing.
+
+## 2026-10-19 — Meridian colored Earth media
+
+Set Meridian land/water colors in `MERIDIAN_PALETTES` in `execution/generate_promo_suite.py`; store stills use four palettes and the 48-frame native GIF changes palette every 12 frames. Run `python3 execution/generate_promo_suite.py` followed by `python3 execution/verify_promo_suite.py`. Four sampled GIF frames (0, 12, 24, 36) show distinct palettes at 200×228. Keep listing copy explicit that palette changes are preview examples and watch colors remain chosen until the wearer changes them.
+
+For a media-only dashboard update, open Meridian's Edit Listing form, remove the five current Emery screenshot entries in the form, then use the multiple-file screenshot input for the new GIF followed by four PNGs. Start `waitForEvent('filechooser')` before clicking the input and await it after the click. Save once; a return to the dashboard is not enough by itself. Reopen the editor and check five persisted screenshot URLs, `.gif` first, plus description, visibility, and release version. The public app/search views can lag behind the saved dashboard state; check them separately.
+
+The 2026-10-19 upload also replaced the 720×320 banner and 80/144px icons. The public search card loaded the new GIF URL before the detail page did; a later detail-page reload showed the new screenshot URLs. Asset propagation is independent of version changes: release 0.1.8 stayed in place.

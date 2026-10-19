@@ -3,6 +3,11 @@ generated_by: "OpenAI Codex (GPT-6)"
 timestamp: "2026-09-23"
 ---
 # Last Known State
+## 2026-10-17 — Repebble animated search previews
+- Agent: OpenAI Codex (GPT-6.1-sol); Handoff-from: OpenAI Codex; Handoff-type: continuation.
+- Goal: Put the existing Cardinal, Meridian, Vector, and Origin GIFs first in their Emery screenshots.
+- Status: Complete. All four public search cards load `.gif` URLs; each local GIF contains 48 frames. Screenshot counts stayed at five per listing.
+
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
 Handoff-type: continuation
@@ -47,6 +52,7 @@ Closing audit: the chosen visual concept is now a working third prototype. Artic
 - 2026-10-01 21:20 — commit: 0.1.7 verifier follow-ups: Origin label fit, visible custom default, split-edition tests | README.md,execution/generate_settings.py,execution/verify_clock_style.py,watchface/src/c/face.c,watchface/src/pkjs/config.json
 - 2026-10-01 21:27 — commit: 0.1.8: edition builds no longer default to Origin | RELEASE_NOTES.md,watchface/package-lock.json,watchface/package.json,watchface/wscript
 - 2026-10-01 21:29 — commit: Record the 0.1.7 edition mix-up and the per-edition publish gate | PUBLISH.md,knowledge/ERRORS.md
+- 2026-10-04 08:22 — commit: feat: add promotional suite assets and marketing materials | assets/pebble-promo-suite.zip,assets/promo-suite 2/README.md,assets/promo-suite 2/cardinal/promotion/cover-1200x630.png,assets/promo-suite 2/cardinal/promotion/portrait-1080x1350.png,assets/promo-suite 2/cardinal/promotion/square-1080.png
 ## Active Dev Connect session
 Agent: OpenAI Codex
 Handoff-from: OpenAI Codex
@@ -282,3 +288,14 @@ Validation: dashboard reload and image natural dimensions/server paths passed fo
 Closing audit: resolved the original upload task after browser connection and extension permission recovery; delivered actual saved listings rather than another asset-only handoff.
 
 - 2026-10-01 — Claude Code CLI (Opus 5.5): 0.1.7 = 24-hour hour numbers + custom numeral color (all editions; verifier APPROVE). Vector/Meridian/Cardinal 0.1.7 shipped Origin face (wscript default) → fixed in 0.1.8, all 4 store binaries verified against dist/. See ERRORS.md.
+
+## Last Known State — 2026-10-19 Meridian Earth media
+
+- Agent: OpenAI Codex (GPT-6.1-sol)
+- Handoff-from: OpenAI Codex
+- Handoff-type: continuation
+- Goal: show Meridian's configurable Earth colors in RePebble screenshots and animated preview.
+- Status: local media verified and saved to RePebble. Public search card and detail page loaded the new first-position GIF and four colored stills; the public banner may retain its earlier cached image briefly.
+- Artifacts: `assets/promo-suite/meridian/`, `assets/pebble-promo-suite.zip`, `directives/update_meridian_media.md`.
+- Validation: `python3 execution/verify_promo_suite.py` PASS; fresh verifier approved; dashboard editor reopened with five new Emery screenshot URLs; public search/detail URLs matched the new GIF and stills. Listed visibility and release 0.1.8 remained.
+- Closing audit: users can now see the globe color controls in the live preview before installing. The four palette transitions represent setting choices, disclosed in listing copy; they are not an automatic watch behavior.
